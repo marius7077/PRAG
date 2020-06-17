@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // Ceci est une application Spring
 // Un deuxième commentaire
-// troisième commentaire
 @SpringBootApplication
 public class Application {
 
