@@ -2,7 +2,7 @@ package com.descartes.qlf.model;
 
 public class Produit {
 
-    private int id;
+    private String id;
     private String nom;
     private String description;
     private String prix;
@@ -13,7 +13,7 @@ public class Produit {
     public Produit() {
     }
 
-    public Produit(int id, String nom, String description, String prix, String urlPhoto, CategorieProduit categorie, Producteur producteur) {
+    public Produit(String id, String nom, String description, String prix, String urlPhoto, CategorieProduit categorie, Producteur producteur) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -23,11 +23,11 @@ public class Produit {
         this.producteur = producteur;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

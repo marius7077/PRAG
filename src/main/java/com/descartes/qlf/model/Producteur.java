@@ -2,19 +2,19 @@ package com.descartes.qlf.model;
 
 public class Producteur {
 
-    private int id;
+    private String id;
     private String nom;
     private String prenom;
     private String email;
     private String motDePasse;
-    private String adresse;
-    private int telephone;
-    private int rib;
+    private Adresse adresse;
+    private String telephone;
+    private String rib;
 
     public Producteur() {
     }
 
-    public Producteur(int id, String nom, String prenom, String email, String motDePasse, String adresse, int telephone, int rib) {
+    public Producteur(String id, String nom, String prenom, String email, String motDePasse, Adresse adresse, String telephone, String rib) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -25,11 +25,11 @@ public class Producteur {
         this.rib = rib;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -65,27 +65,27 @@ public class Producteur {
         this.motDePasse = motDePasse;
     }
 
-    public String getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
-    public int getRib() {
+    public String getRib() {
         return rib;
     }
 
-    public void setRib(int rib) {
+    public void setRib(String rib) {
         this.rib = rib;
     }
 }

@@ -2,18 +2,18 @@ package com.descartes.qlf.model;
 
 public class Consommateur {
 
-    private int id;
+    private String id;
     private String nom;
     private String prenom;
     private String email;
     private String motDePasse;
-    private String adresse;
-    private int telephone;
+    private Adresse adresse;
+    private String telephone;
 
     public Consommateur() {
     }
 
-    public Consommateur(int id, String nom, String prenom, String email, String motDePasse, String adresse, int telephone) {
+    public Consommateur(String id, String nom, String prenom, String email, String motDePasse, Adresse adresse, String telephone) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -23,11 +23,11 @@ public class Consommateur {
         this.telephone = telephone;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -63,19 +63,19 @@ public class Consommateur {
         this.motDePasse = motDePasse;
     }
 
-    public String getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 }

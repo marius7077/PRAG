@@ -2,22 +2,22 @@ package com.descartes.qlf.model;
 
 public class Certificat {
 
-    private int idProducteur;
+    private String idProducteur;
     private String label;
 
     public Certificat() {
     }
 
-    public Certificat(int idProducteur, String label) {
+    public Certificat(String idProducteur, String label) {
         this.idProducteur = idProducteur;
         this.label = label;
     }
 
-    public int getIdProducteur() {
+    public String getIdProducteur() {
         return idProducteur;
     }
 
-    public void setIdProducteur(int idProducteur) {
+    public void setIdProducteur(String idProducteur) {
         this.idProducteur = idProducteur;
     }
 
