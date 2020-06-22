@@ -1,20 +1,25 @@
 package com.descartes.qlf.model;
 
-public class Producteur {
+import javax.persistence.*;
+import java.io.Serializable;
 
-    private int id;
+@Entity
+@Table(name = "producteur")
+public class Producteur implements Serializable {
+
+    private long id;
     private String nom;
     private String prenom;
     private String email;
     private String motDePasse;
-    private String adresse;
-    private int telephone;
-    private int rib;
+    private Adresse adresse;
+    private String telephone;
+    private String rib;
 
     public Producteur() {
     }
 
-    public Producteur(int id, String nom, String prenom, String email, String motDePasse, String adresse, int telephone, int rib) {
+    public Producteur(long id, String nom, String prenom, String email, String motDePasse, Adresse adresse, String telephone, String rib) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -25,11 +30,14 @@ public class Producteur {
         this.rib = rib;
     }
 
-    public int getId() {
+    @Id
+    @GeneratedValue
+    @Column(name = "id", unique = true, nullable = false)
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -65,27 +73,29 @@ public class Producteur {
         this.motDePasse = motDePasse;
     }
 
-    public String getAdresse() {
+    @OneToOne
+    @JoinColumn(name = "adresse_id", nullable = false)
+    public Adresse getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
-    public int getRib() {
+    public String getRib() {
         return rib;
     }
 
-    public void setRib(int rib) {
+    public void setRib(String rib) {
         this.rib = rib;
     }
 }

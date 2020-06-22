@@ -1,8 +1,12 @@
 package com.descartes.qlf.model;
 
-public class Produit {
+import javax.persistence.*;
+import java.io.Serializable;
 
-    private int id;
+@Entity
+public class Produit implements Serializable {
+
+    private long id;
     private String nom;
     private String description;
     private String prix;
@@ -13,7 +17,7 @@ public class Produit {
     public Produit() {
     }
 
-    public Produit(int id, String nom, String description, String prix, String urlPhoto, CategorieProduit categorie, Producteur producteur) {
+    public Produit(long id, String nom, String description, String prix, String urlPhoto, CategorieProduit categorie, Producteur producteur) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -23,11 +27,14 @@ public class Produit {
         this.producteur = producteur;
     }
 
-    public int getId() {
+    @Id
+    @GeneratedValue
+    @Column(unique = true, nullable = false)
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -63,6 +70,8 @@ public class Produit {
         this.urlPhoto = urlPhoto;
     }
 
+    @OneToOne
+    @JoinColumn(name = "categorieProduit_id", nullable = false)
     public CategorieProduit getCategorie() {
         return categorie;
     }
@@ -71,6 +80,8 @@ public class Produit {
         this.categorie = categorie;
     }
 
+    @OneToOne
+    @JoinColumn(name = "producteur_id", nullable = false)
     public Producteur getProducteur() {
         return producteur;
     }

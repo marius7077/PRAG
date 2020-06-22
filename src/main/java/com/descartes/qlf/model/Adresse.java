@@ -3,23 +3,21 @@ package com.descartes.qlf.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 @Entity
 @Table(name = "adresse")
 public class Adresse implements Serializable {
 
-    private int id;
+    private long id;
     private String rue;
     private String num;
-    private int codePostal;
+    private String codePostal;
     private String ville;
     private String pays;
 
     public Adresse() {
     }
 
-    public Adresse(int id, String rue, String num, int codePostal, String ville, String pays) {
+    public Adresse(long id, String rue, String num, String codePostal, String ville, String pays) {
         this.id = id;
         this.rue = rue;
         this.num = num;
@@ -29,17 +27,16 @@ public class Adresse implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue
     @Column(name = "id", unique = true, nullable = false)
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    @Column(name = "rue")
     public String getRue() {
         return rue;
     }
@@ -48,7 +45,6 @@ public class Adresse implements Serializable {
         this.rue = rue;
     }
 
-    @Column(name = "num")
     public String getNum() {
         return num;
     }
@@ -57,16 +53,14 @@ public class Adresse implements Serializable {
         this.num = num;
     }
 
-    @Column(name = "codePostal")
-    public int getCodePostal() {
+    public String getCodePostal() {
         return codePostal;
     }
 
-    public void setCodePostal(int codePostal) {
+    public void setCodePostal(String codePostal) {
         this.codePostal = codePostal;
     }
 
-    @Column(name = "ville")
     public String getVille() {
         return ville;
     }
@@ -75,7 +69,6 @@ public class Adresse implements Serializable {
         this.ville = ville;
     }
 
-    @Column(name = "pays")
     public String getPays() {
         return pays;
     }
