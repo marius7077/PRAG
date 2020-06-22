@@ -31,8 +31,7 @@ public class Producteur implements Serializable {
     }
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
         return id;
     }

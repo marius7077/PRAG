@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "produit")
 public class Produit implements Serializable {
 
     private long id;
@@ -28,8 +29,7 @@ public class Produit implements Serializable {
     }
 
     @Id
-    @GeneratedValue
-    @Column(unique = true, nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
         return id;
     }

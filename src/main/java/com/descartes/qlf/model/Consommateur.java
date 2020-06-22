@@ -29,8 +29,7 @@ public class Consommateur implements Serializable {
     }
 
     @Id
-    @GeneratedValue
-    @Column(unique = true, nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
