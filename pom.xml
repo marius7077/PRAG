@@ -19,12 +19,13 @@
     <properties>
         <java.version>11</java.version>
         <sonar.exclusions>
-            **/view/**,
             **/Application.java
         </sonar.exclusions>
     </properties>
 
     <dependencies>
+
+        <!-- Spring dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -51,9 +52,29 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- Heroku dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <!-- Spring plugins -->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
