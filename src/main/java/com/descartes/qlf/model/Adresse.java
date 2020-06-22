@@ -1,8 +1,15 @@
 package com.descartes.qlf.model;
 
+import javax.persistence.*;
+import java.io.Serializable;
 
-public class Adresse {
+import static javax.persistence.GenerationType.IDENTITY;
 
+@Entity
+@Table(name = "adresse")
+public class Adresse implements Serializable {
+
+    private int id;
     private String rue;
     private String num;
     private int codePostal;
@@ -12,7 +19,8 @@ public class Adresse {
     public Adresse() {
     }
 
-    public Adresse(String rue, String num, int codePostal, String ville, String pays) {
+    public Adresse(int id, String rue, String num, int codePostal, String ville, String pays) {
+        this.id = id;
         this.rue = rue;
         this.num = num;
         this.codePostal = codePostal;
@@ -20,6 +28,18 @@ public class Adresse {
         this.pays = pays;
     }
 
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Column(name = "rue")
     public String getRue() {
         return rue;
     }
@@ -28,6 +48,7 @@ public class Adresse {
         this.rue = rue;
     }
 
+    @Column(name = "num")
     public String getNum() {
         return num;
     }
@@ -36,6 +57,7 @@ public class Adresse {
         this.num = num;
     }
 
+    @Column(name = "codePostal")
     public int getCodePostal() {
         return codePostal;
     }
@@ -44,6 +66,7 @@ public class Adresse {
         this.codePostal = codePostal;
     }
 
+    @Column(name = "ville")
     public String getVille() {
         return ville;
     }
@@ -52,6 +75,7 @@ public class Adresse {
         this.ville = ville;
     }
 
+    @Column(name = "pays")
     public String getPays() {
         return pays;
     }
