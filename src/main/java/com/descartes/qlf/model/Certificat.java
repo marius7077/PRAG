@@ -1,16 +1,33 @@
 package com.descartes.qlf.model;
 
-public class Certificat {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "certificat")
+public class Certificat implements Serializable {
+
+    private long id;
     private String idProducteur;
     private String label;
 
     public Certificat() {
     }
 
-    public Certificat(String idProducteur, String label) {
+    public Certificat(long id, String idProducteur, String label) {
+        this.id = id;
         this.idProducteur = idProducteur;
         this.label = label;
+    }
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getIdProducteur() {
