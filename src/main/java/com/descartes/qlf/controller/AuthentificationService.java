@@ -1,11 +1,11 @@
 package com.descartes.qlf.controller;
 
-public class AuthentificationService() {
-    String username, String password;
+public class AuthentificationService {
+    String username, password;
 
-    public AuthentificationService(java.lang.String username, java.lang.String string) {
+    public AuthentificationService(String username, String string) {
         this.username = username;
-        String = string;
+   //     String = string;
     }
     
 }
