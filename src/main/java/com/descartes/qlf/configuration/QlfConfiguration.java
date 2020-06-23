@@ -11,21 +11,29 @@ import javax.sql.DataSource;
 @Configuration
 public class QlfConfiguration {
 
-  /*@Value("${spring.datasource.url}")
-  private String dbUrl;
+  @Value("${spring.datasource.hikari.jdbc-url}")
+  private String url;
 
-  @Value("${spring.datasource.username}")
+  @Value("${spring.datasource.hikari.username}")
   private String username;
 
-  @Value("${spring.datasource.password}")
+  @Value("${spring.datasource.hikari.password}")
   private String password;
+
+  @Value("${spring.datasource.hikari.driver-class-name}")
+  private String driver;
+
+  @Value("${spring.datasource.hikari.maximum-pool-size}")
+  private int poolSize;
 
   @Bean
   public DataSource dataSource() {
     HikariConfig config = new HikariConfig();
-    config.setJdbcUrl(dbUrl);
+    config.setJdbcUrl(url);
     config.setUsername(username);
     config.setPassword(password);
+    config.setDriverClassName(driver);
+    config.setMaximumPoolSize(poolSize);
     return new HikariDataSource(config);
-  }*/
+  }
 }

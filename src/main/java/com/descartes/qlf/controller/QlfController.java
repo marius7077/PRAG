@@ -37,7 +37,8 @@ public class QlfController {
           Model model) {
     model.addAttribute("txtLogin", login);
     model.addAttribute("txtPassword", password);
-    String result = AuthentificationService.AuthValidation(login,password);
+    String result;
+    result = AuthentificationService.AuthValidation(login,password);
     model.addAttribute("txtResult", result);
     System.out.println("controllerlogin," + result);
     return "greeting";
