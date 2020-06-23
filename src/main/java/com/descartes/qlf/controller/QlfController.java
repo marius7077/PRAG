@@ -1,9 +1,9 @@
 package com.descartes.qlf.controller;
 
 import com.descartes.qlf.model.Adresse;
-import com.descartes.qlf.model.Producteur;
+import com.descartes.qlf.model.User;
 import com.descartes.qlf.service.AdresseService;
-import com.descartes.qlf.service.ProducteurService;
+import com.descartes.qlf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class QlfController {
   private DataSource dataSource;
 
   @Autowired
-  private ProducteurService producteurService;
+  private UserService userService;
 
   @Autowired
   private AdresseService adresseService;
@@ -47,26 +47,22 @@ public class QlfController {
           Model model) {
     model.addAttribute("txtLogin", login);
     model.addAttribute("txtPassword", password);
-    Producteur producteur = producteurService.findByEmail(login);
-    if (producteur == null) {
-      System.out.println("Producteur not found");
+    User user = userService.findByEmail(login);
+    if (user == null) {
+      System.out.println("User not found");
     } else {
-      System.out.println("Producteur have been found");
-      String Dbbpassword = producteur.getMotDePasse();
+      System.out.println("User have been found");
+      String Dbbpassword = user.getMotDePasse();
       if (!password.equals(Dbbpassword)) {
         System.out.println("Wrong password");
       } else {
         System.out.println("Right credential !");
       }
     }
-    /*Producteur producteur = producteurService.findByPassword(password)
-    if (producteur !=) {
-      System.out.println("producteur trouvé");
-    }*/
     return "greeting";
   }
 
-  @RequestMapping(value = "producteurRegistration", method = RequestMethod.POST)
+  @RequestMapping(value = "userRegistration", method = RequestMethod.POST)
   public String register(
           @RequestParam(name = "txtNom", required = true, defaultValue = "World") String nom,
           @RequestParam(name = "txtPrenom", required = true, defaultValue = "World") String prenom,
@@ -94,8 +90,8 @@ public class QlfController {
 
     Adresse adresse = new Adresse(rue, num, codePostal, ville, pays);
     adresseService.save(adresse);
-    producteurService.save(new Producteur(nom, prenom, email, motDePasse, adresse, tel, rib));
-    return "producteurRegistration";
+    userService.save(new User(nom, prenom, email, motDePasse, adresse, tel, rib));
+    return "userRegistration";
 
   }
 
