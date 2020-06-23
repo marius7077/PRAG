@@ -1,16 +1,33 @@
 package com.descartes.qlf.model;
 
-public class CategorieProduit {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "categorieProduit")
+public class CategorieProduit implements Serializable {
+
+    private long id;
     private int categorie;
-    private String nomCategorie;
+    private String nom;
 
     public CategorieProduit() {
     }
 
-    public CategorieProduit(int categorie, String nomCategorie) {
+    public CategorieProduit(long id, int categorie, String nom) {
+        this.id = id;
         this.categorie = categorie;
-        this.nomCategorie = nomCategorie;
+        this.nom = nom;
+    }
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getCategorie() {
@@ -21,12 +38,12 @@ public class CategorieProduit {
         this.categorie = categorie;
     }
 
-    public String getNomCategorie() {
-        return nomCategorie;
+    public String getNom() {
+        return nom;
     }
 
-    public void setNomCategorie(String nomCategorie) {
-        this.nomCategorie = nomCategorie;
+    public void setNom(String nomCategorie) {
+        this.nom = nom;
     }
 
 

@@ -1,8 +1,13 @@
 package com.descartes.qlf.model;
 
-public class Consommateur {
+import javax.persistence.*;
+import java.io.Serializable;
 
-    private String id;
+@Entity
+@Table(name = "consommateur")
+public class Consommateur implements Serializable {
+
+    private long id;
     private String nom;
     private String prenom;
     private String email;
@@ -13,7 +18,7 @@ public class Consommateur {
     public Consommateur() {
     }
 
-    public Consommateur(String id, String nom, String prenom, String email, String motDePasse, Adresse adresse, String telephone) {
+    public Consommateur(long id, String nom, String prenom, String email, String motDePasse, Adresse adresse, String telephone) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -23,11 +28,13 @@ public class Consommateur {
         this.telephone = telephone;
     }
 
-    public String getId() {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -63,6 +70,8 @@ public class Consommateur {
         this.motDePasse = motDePasse;
     }
 
+    @OneToOne
+    @JoinColumn(name = "adresse_id", nullable = false)
     public Adresse getAdresse() {
         return adresse;
     }

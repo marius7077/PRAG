@@ -1,8 +1,13 @@
 package com.descartes.qlf.model;
 
+import javax.persistence.*;
+import java.io.Serializable;
 
-public class Adresse {
+@Entity
+@Table(name = "adresse")
+public class Adresse implements Serializable {
 
+    private long id;
     private String rue;
     private String num;
     private String codePostal;
@@ -12,12 +17,23 @@ public class Adresse {
     public Adresse() {
     }
 
-    public Adresse(String rue, String num, String codePostal, String ville, String pays) {
+    public Adresse(long id, String rue, String num, String codePostal, String ville, String pays) {
+        this.id = id;
         this.rue = rue;
         this.num = num;
         this.codePostal = codePostal;
         this.ville = ville;
         this.pays = pays;
+    }
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getRue() {
