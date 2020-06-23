@@ -1,6 +1,7 @@
 package com.descartes.qlf.controller;
 
-public class AuthentificationService {
+public class
+AuthentificationService {
 
     public AuthentificationService(){
     }

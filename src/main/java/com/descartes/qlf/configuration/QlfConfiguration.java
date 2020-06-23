@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 @Configuration
 public class QlfConfiguration {
 
-  @Value("${spring.datasource.url}")
+  /*@Value("${spring.datasource.url}")
   private String dbUrl;
 
   @Value("${spring.datasource.username}")
@@ -27,5 +27,5 @@ public class QlfConfiguration {
     config.setUsername(username);
     config.setPassword(password);
     return new HikariDataSource(config);
-  }
+  }*/
 }
