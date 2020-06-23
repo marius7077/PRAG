@@ -13,4 +13,14 @@ public class CustomerService {
   public void save(Customer customer) {
     customerRepository.save(customer);
   }
+
+  public Customer connect(String email, String password) {
+    Customer customer = customerRepository.findByEmail(email);
+    if (customer.getPassword().equals(password)) {
+      return customer;
+    }
+    else {
+      return null;
+    }
+  }
 }

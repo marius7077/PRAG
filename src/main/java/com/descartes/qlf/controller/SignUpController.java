@@ -44,4 +44,20 @@ public class SignUpController {
     }
     return "signup";
   }
+
+  @GetMapping("/login")
+  public String logIn() {
+    return "login";
+  }
+
+  @PostMapping("/loginconfirm")
+  public String logIn(
+          @RequestParam(name = "email", required = true) String email,
+          @RequestParam(name = "password", required = true) String password,
+          Model model) {
+    Customer customer = customerService.connect(email, password);
+    model.addAttribute("firstName", customer.getFirstName());
+    model.addAttribute("lastName", customer.getLastName());
+    return "greeting";
+  }
 }
