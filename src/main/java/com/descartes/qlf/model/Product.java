@@ -4,38 +4,39 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "produit")
-public class Produit implements Serializable {
-
-  private long id;
-  private String nom;
-  private String description;
-  private String prix;
-  private String urlPhoto;
-  private CategorieProduit categorie;
-  private Customer customer;
-
-  public Produit() {}
-
-  public Produit(
-      long id,
-      String nom,
-      String description,
-      String prix,
-      String urlPhoto,
-      CategorieProduit categorie,
-      Customer customer) {
-    this.id = id;
-    this.nom = nom;
-    this.description = description;
-    this.prix = prix;
-    this.urlPhoto = urlPhoto;
-    this.categorie = categorie;
-    this.customer = customer;
-  }
+@Table(name = "product")
+public class Product implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
+  private String name;
+  private String description;
+  private String price;
+  private String urlPhoto;
+  private ProductCategory category;
+  private Customer customer;
+
+  public Product() {}
+
+  public Product(
+      long id,
+      String name,
+      String description,
+      String price,
+      String urlPhoto,
+      ProductCategory category,
+      Customer customer) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.urlPhoto = urlPhoto;
+    this.category = category;
+    this.customer = customer;
+  }
+
   public long getId() {
     return id;
   }
@@ -44,12 +45,12 @@ public class Produit implements Serializable {
     this.id = id;
   }
 
-  public String getNom() {
-    return nom;
+  public String getName() {
+    return name;
   }
 
-  public void setNom(String nom) {
-    this.nom = nom;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getDescription() {
@@ -60,12 +61,12 @@ public class Produit implements Serializable {
     this.description = description;
   }
 
-  public String getPrix() {
-    return prix;
+  public String getPrice() {
+    return price;
   }
 
-  public void setPrix(String prix) {
-    this.prix = prix;
+  public void setPrice(String price) {
+    this.price = price;
   }
 
   public String getUrlPhoto() {
@@ -77,17 +78,17 @@ public class Produit implements Serializable {
   }
 
   @OneToOne
-  @JoinColumn(name = "categorieProduit_id", nullable = false)
-  public CategorieProduit getCategorie() {
-    return categorie;
+  @JoinColumn(name = "product_category_id", nullable = false)
+  public ProductCategory getCategory() {
+    return category;
   }
 
-  public void setCategorie(CategorieProduit categorie) {
-    this.categorie = categorie;
+  public void setCategory(ProductCategory category) {
+    this.category = category;
   }
 
   @OneToOne
-  @JoinColumn(name = "producteur_id", nullable = false)
+  @JoinColumn(name = "customer_id", nullable = false)
   public Customer getCustomer() {
     return customer;
   }

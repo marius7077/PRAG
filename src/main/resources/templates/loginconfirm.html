@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crud</title>
+    <title>Confirmation de connexion</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 
-<h1>Crud</h1>
+<h1>Confirmation de connexion</h1>
 
+<p th:text="'Bonjour ' + ${firstName} + ' ' + ${lastName} + ', vous êtes bien connecté'"></p>
 <p>Index <a href="/index">ici</a></p>
 </body>
 </html>

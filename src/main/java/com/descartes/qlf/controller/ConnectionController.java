@@ -3,7 +3,6 @@ package com.descartes.qlf.controller;
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@Configuration
-public class SignUpController {
+public class ConnectionController {
 
   @Autowired private CustomerService customerService;
 
@@ -36,13 +34,31 @@ public class SignUpController {
     if (type.equals("producer")) {
       customerService.save(
           new Customer(
-              firstName, lastName, email, password, address, postalCode, city, phoneNumber, "producer"));
+              firstName,
+              lastName,
+              email,
+              password,
+              address,
+              postalCode,
+              city,
+              phoneNumber,
+              "producer"));
     } else {
       customerService.save(
           new Customer(
-              firstName, lastName, email, password, address, postalCode, city, phoneNumber, "consumer"));
+              firstName,
+              lastName,
+              email,
+              password,
+              address,
+              postalCode,
+              city,
+              phoneNumber,
+              "consumer"));
     }
-    return "signup";
+    model.addAttribute("firstName", firstName);
+    model.addAttribute("lastName", lastName);
+    return "signupconfirm";
   }
 
   @GetMapping("/login")
@@ -52,12 +68,12 @@ public class SignUpController {
 
   @PostMapping("/loginconfirm")
   public String logIn(
-          @RequestParam(name = "email", required = true) String email,
-          @RequestParam(name = "password", required = true) String password,
-          Model model) {
+      @RequestParam(name = "email", required = true) String email,
+      @RequestParam(name = "password", required = true) String password,
+      Model model) {
     Customer customer = customerService.connect(email, password);
     model.addAttribute("firstName", customer.getFirstName());
     model.addAttribute("lastName", customer.getLastName());
-    return "greeting";
+    return "loginconfirm";
   }
 }

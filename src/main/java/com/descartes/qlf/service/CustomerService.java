@@ -18,8 +18,7 @@ public class CustomerService {
     Customer customer = customerRepository.findByEmail(email);
     if (customer.getPassword().equals(password)) {
       return customer;
-    }
-    else {
+    } else {
       return null;
     }
   }
