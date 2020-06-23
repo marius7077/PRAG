@@ -15,4 +15,7 @@ public class ProducteurService {
     public void save(Producteur producteur){
         producteurRepository.save(producteur);
     }
+    public Producteur findByEmail(String email){
+        return producteurRepository.findByEmail(email);
+    }
 }

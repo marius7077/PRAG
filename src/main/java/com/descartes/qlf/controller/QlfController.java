@@ -47,7 +47,22 @@ public class QlfController {
           Model model) {
     model.addAttribute("txtLogin", login);
     model.addAttribute("txtPassword", password);
-    System.out.println("controllerlogin," + login);
+    Producteur producteur = producteurService.findByEmail(login);
+    if (producteur == null) {
+      System.out.println("Producteur not found");
+    } else {
+      System.out.println("Producteur have been found");
+      String Dbbpassword = producteur.getMotDePasse();
+      if (!password.equals(Dbbpassword)) {
+        System.out.println("Wrong password");
+      } else {
+        System.out.println("Right credential !");
+      }
+    }
+    /*Producteur producteur = producteurService.findByPassword(password)
+    if (producteur !=) {
+      System.out.println("producteur trouvé");
+    }*/
     return "greeting";
   }
 
