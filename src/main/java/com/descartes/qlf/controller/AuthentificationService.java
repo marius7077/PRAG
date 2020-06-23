@@ -1,11 +1,17 @@
 package com.descartes.qlf.controller;
 
-public class AuthentificationService() {
-    String username, String password;
+public class AuthentificationService {
 
-    public AuthentificationService(java.lang.String username, java.lang.String string) {
-        this.username = username;
-        String = string;
+    public AuthentificationService(){
     }
-    
+    public static String AuthValidation(String username, String password)
+    {
+        if (username.equals("bon")&&password.equals("1234"))
+        {
+            return "okay";
+        }
+        else{
+            return "pas okay";
+        }
+    }
 }
