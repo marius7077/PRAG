@@ -30,6 +30,16 @@ public class Producteur implements Serializable {
         this.rib = rib;
     }
 
+    public Producteur(String nom, String prenom, String email, String motDePasse, Adresse adresse, String telephone, String rib) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.motDePasse = motDePasse;
+        this.adresse = adresse;
+        this.telephone = telephone;
+        this.rib = rib;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {

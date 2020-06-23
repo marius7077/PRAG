@@ -26,6 +26,14 @@ public class Adresse implements Serializable {
         this.pays = pays;
     }
 
+    public Adresse(String rue, String num, String codePostal, String ville, String pays) {
+        this.rue = rue;
+        this.num = num;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.pays = pays;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
