@@ -11,14 +11,12 @@ public class ProductCategory implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private int category;
   private String name;
 
   public ProductCategory() {}
 
-  public ProductCategory(long id, int category, String name) {
+  public ProductCategory(long id, String name) {
     this.id = id;
-    this.category = category;
     this.name = name;
   }
 
@@ -30,14 +28,6 @@ public class ProductCategory implements Serializable {
 
   public void setId(long id) {
     this.id = id;
-  }
-
-  public int getCategory() {
-    return category;
-  }
-
-  public void setCategory(int category) {
-    this.category = category;
   }
 
   public String getName() {
