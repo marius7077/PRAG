@@ -53,5 +53,17 @@ public class ProductController {
         productService.save(product);
         return "addproduct";
     }
+    @GetMapping("/removeproduct")
+    public String removeProduct() {
+        return "removeproduct";
+    }
 
+    @PostMapping("/removeproductconfirm")
+    public String removeProduct(
+            @RequestParam(name = "id", required = true) Long id,
+             Model model) {
+        model.addAttribute("id", id);
+        productService.removeById(id);
+        return "removeproduct";
+    }
 }
