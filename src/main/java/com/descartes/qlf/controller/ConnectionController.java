@@ -31,34 +31,40 @@ public class ConnectionController {
       @RequestParam(name = "phoneNumber", required = true) String phoneNumber,
       @RequestParam(name = "type", required = true) String type,
       Model model) {
-    if (type.equals("producer")) {
-      customerService.save(
-          new Customer(
-              firstName,
-              lastName,
-              email,
-              password,
-              address,
-              postalCode,
-              city,
-              phoneNumber,
-              "producer"));
-    } else {
-      customerService.save(
-          new Customer(
-              firstName,
-              lastName,
-              email,
-              password,
-              address,
-              postalCode,
-              city,
-              phoneNumber,
-              "consumer"));
+    model.addAttribute("Erreur", "");
+    if (customerService.testEmail(email)) {
+      if (type.equals("producer")) {
+        customerService.save(
+            new Customer(
+                firstName,
+                lastName,
+                email,
+                password,
+                address,
+                postalCode,
+                city,
+                phoneNumber,
+                "producer"));
+      } else {
+        customerService.save(
+            new Customer(
+                firstName,
+                lastName,
+                email,
+                password,
+                address,
+                postalCode,
+                city,
+                phoneNumber,
+                "consumer"));
+      }
+      model.addAttribute("firstName", firstName);
+      model.addAttribute("lastName", lastName);
+      return "signupconfirm";
+    }else {
+      model.addAttribute("Erreur", "L'adresse email est déjà utilisée");
+      return "signup";
     }
-    model.addAttribute("firstName", firstName);
-    model.addAttribute("lastName", lastName);
-    return "signupconfirm";
   }
 
   @GetMapping("/login")
@@ -71,9 +77,17 @@ public class ConnectionController {
       @RequestParam(name = "email", required = true) String email,
       @RequestParam(name = "password", required = true) String password,
       Model model) {
+    model.addAttribute("Erreur", "");
     Customer customer = customerService.connect(email, password);
-    model.addAttribute("firstName", customer.getFirstName());
-    model.addAttribute("lastName", customer.getLastName());
-    return "loginconfirm";
+    if(customer != null){
+      model.addAttribute("firstName", customer.getFirstName());
+      model.addAttribute("lastName", customer.getLastName());
+      return "loginconfirm";
+    }else{
+      model.addAttribute("Erreur", "L'adresse email et le mot de passe ne correspondent pas !");
+      return "login";
+    }
+
+
   }
 }

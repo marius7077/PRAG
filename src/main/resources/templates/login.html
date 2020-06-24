@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Connexion</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 
+<p th:text="${Erreur}"></p>
+
 <h1>Connexion</h1>
 
 <form method="post" action="/loginconfirm">
     <label for='email'>Email :</label>
-    <input id='email' name='email' type='text'/> <br/>
+    <input id='email' name='email' type='email' required='true'/> <br/>
 
     <label for='password'>Mot de passe :</label>
-    <input id='password' name='password' type='text'/> <br/>
+    <input id='password' name='password' type='password' required='true'/> <br/>
 
     <br/>
     <input name='btnConnect' type='submit'/> <br/>
