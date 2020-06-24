@@ -15,7 +15,13 @@ public class Product implements Serializable {
   private String description;
   private String price;
   private String urlPhoto;
+
+  @OneToOne
+  @JoinColumn(name = "category", nullable = false)
   private ProductCategory category;
+
+  @OneToOne
+  @JoinColumn(name = "customer", nullable = false)
   private Customer customer;
 
   public Product() {}
@@ -86,8 +92,6 @@ public class Product implements Serializable {
     this.urlPhoto = urlPhoto;
   }
 
-  @OneToOne
-  @JoinColumn(name = "product_category_id", nullable = false)
   public ProductCategory getCategory() {
     return category;
   }
@@ -96,8 +100,6 @@ public class Product implements Serializable {
     this.category = category;
   }
 
-  @OneToOne
-  @JoinColumn(name = "customer_id", nullable = false)
   public Customer getCustomer() {
     return customer;
   }
