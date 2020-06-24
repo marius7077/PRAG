@@ -1,14 +1,15 @@
 package com.descartes.qlf.controller;
 
-import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.model.Product;
 import com.descartes.qlf.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
 
+@Controller
 public class ProductController {
 
     @Autowired
@@ -19,7 +20,7 @@ public class ProductController {
         return "addproduct";
     }
 
-    @PostMapping("/addproductconfirm")
+    /*@PostMapping("/addproductconfirm")
     public String signUp(
             @RequestParam(name = "name", required = true) String name,
             @RequestParam(name = "productCategory", required = true) String productCategory,
@@ -33,9 +34,26 @@ public class ProductController {
         model.addAttribute("price", price);
         model.addAttribute("urlPhoto", urlPhoto);
 
-        productService.save(new Product(name, description, price, urlPhoto, ));
+        productService.save(new Product(name, description, price, urlPhoto));
 
         return "profil";
+    }*/
+    @GetMapping("/profil")
+    public String profil() {
+        return "profil";
+    }
+
+    @GetMapping("/viewproduct")
+    public String ViewProduct() {
+        return "viewproduct";
+    }
+
+    @PostMapping("/displayproduct")
+    public String ViewProduct(
+            Model model) {
+        List<Product> displayAll = productService.displayAll();
+        model.addAttribute("displayAll", displayAll);
+        return "displayproduct";
     }
 
 }
