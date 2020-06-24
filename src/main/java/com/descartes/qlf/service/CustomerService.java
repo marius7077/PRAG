@@ -29,7 +29,7 @@ public class CustomerService {
   }
 
   public static int distance(String city1, String postalCode1, String city2, String postalCode2) {
-    List<String> cityList = Arrays.asList(city1, city2);
+    List<String> cityList = Arrays.asList(city1.replace(" ","-"), city2.replace(" ","-"));
     List<String> postalCodeList = Arrays.asList(postalCode1, postalCode2);
     List<Double> longitudeList = new ArrayList<>();
     List<Double> latitudeList = new ArrayList<>();
