@@ -5,6 +5,8 @@ import com.descartes.qlf.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
 
@@ -13,6 +15,12 @@ public class CustomerService {
   public void save(Customer customer) {
     customerRepository.save(customer);
   }
+
+  public List<Customer> getAllCustomers() {
+    return (List<Customer>) customerRepository.findAll();
+  }
+
+
 
   public Customer connect(String email, String password) {
     Customer customer = customerRepository.findByEmail(email);
