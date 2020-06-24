@@ -27,12 +27,6 @@ public class CustomerService {
 
   public Customer getById(Long id) {
     Optional<Customer> customer = customerRepository.findById(id);
-    if (customer.isPresent()) {
-      return customer.get();
-    } else {
-      return null;
-    }
+    return customer.orElse(null);
   }
-
-
 }

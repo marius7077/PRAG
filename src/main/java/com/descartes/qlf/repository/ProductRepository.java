@@ -1,6 +1,5 @@
 package com.descartes.qlf.repository;
 
-import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.model.Product;
 import org.springframework.data.repository.CrudRepository;
 

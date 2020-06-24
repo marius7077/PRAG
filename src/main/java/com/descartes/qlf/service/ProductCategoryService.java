@@ -14,7 +14,6 @@ public class ProductCategoryService {
   @Autowired private ProductCategoryRepository productCategoryRepository;
 
   public ProductCategory getByName(String name) {
-    ProductCategory productCategory = productCategoryRepository.findByName(name);
-      return productCategory;
+    return productCategoryRepository.findByName(name);
   }
 }

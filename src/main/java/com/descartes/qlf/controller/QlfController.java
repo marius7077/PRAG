@@ -15,6 +15,11 @@ public class QlfController {
 
   @Autowired private DataSource dataSource;
 
+  @GetMapping("/")
+  public String home() {
+    return "index";
+  }
+
   @GetMapping("/index")
   public String index() {
     return "index";

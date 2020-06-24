@@ -15,39 +15,31 @@ public class Product implements Serializable {
   private String description;
   private String price;
   private String urlPhoto;
-  private byte[] picture;
 
-  @OneToOne
-  @JoinColumn(name = "category", nullable = false)
+  @OneToOne(targetEntity = ProductCategory.class)
   private ProductCategory category;
 
-  @OneToOne
-  @JoinColumn(name = "customer", nullable = false)
+  @OneToOne(targetEntity = Customer.class)
   private Customer customer;
 
   public Product() {}
 
   public Product(
-          String name,
-          String description,
-          String price,
-          String urlPhoto,
-          byte[] picture, ProductCategory category,
-          Customer customer) {
+      String name,
+      String description,
+      String price,
+      String urlPhoto,
+      ProductCategory category,
+      Customer customer) {
     this.name = name;
     this.description = description;
     this.price = price;
     this.urlPhoto = urlPhoto;
-    this.picture = picture;
     this.category = category;
     this.customer = customer;
   }
 
-  public Product(
-          String name,
-          String description,
-          String price,
-          String urlPhoto) {
+  public Product(String name, String description, String price, String urlPhoto) {
     this.name = name;
     this.description = description;
     this.price = price;
@@ -109,8 +101,4 @@ public class Product implements Serializable {
   public void setCustomer(Customer customer) {
     this.customer = customer;
   }
-
-  public byte[] getPicture() { return picture; }
-
-  public void setPicture(byte[] picture) { this.picture = picture; }
 }
