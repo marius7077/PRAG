@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Ajouter un produit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<h1>Ajouter un produit</h1>
+
+<form method="post" action="/addproductconfirm">
+    <label for='name'>Nom :</label>
+    <input id='name' name='name' type='text'/> <br/>
+
+    <label for="productCategory">Catégorie de produit:</label>
+    <select name="productCategory" id="productCategory">
+        <option value="fruitLegume">Fruit et légume</option>
+        <option value="viande">Viande</option>
+        <option value="laitier">Produits laitier</option>
+    </select>
+
+    <label for='description'>Description :</label>
+    <input id='description' name='description' type='text'/> <br/>
+
+    <label for='price'>Price :</label>
+    <input id='price' name='price' type='text'/> <br/>
+
+    <label for='urlPhoto'>Url de photo :</label>
+    <input id='urlPhoto' name='urlPhoto' type='text'/> <br/>
+
+    <br/>
+    <input name='btnConnect' type='submit'/> <br/>
+    <p>Index <a href="/index">ici</a></p>
+</form>
+</body>
+</html>
