@@ -57,10 +57,10 @@ public class ProductController {
     }
 
     @GetMapping("/viewproducts")
-    public String viewproducts() {
+    public String viewproducts(Model model) {
         List<Product> listProducts = new ArrayList<>();
         listProducts = productService.getAllProduct();
-        System.out.println(listProducts.size());
+        model.addAttribute("listProducts", listProducts.toArray());
         return "viewproducts";
     }
 

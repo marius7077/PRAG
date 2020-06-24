@@ -5,8 +5,19 @@
     <title>ViewProduct</title>
 </head>
 <body>
-<!--<p th:text="'Voici les produits ' + ${displayAll} + '"></p>-->
-<p>Index <a href="/index">ici</a></p>
+    <someHtmlTag th:each="Product : ${listProducts}">
+        <ul>
+            <li>
+                name : <td th:utext="${Product.name}"></td>
+                description : <td th:utext="${Product.description}"></td>
+                price :  <td th:utext="${Product.price}"></td>
+                urlPhoto : <td th:utext="${Product.urlPhoto}"></td>
+                category :  <td th:utext="${Product.category.name}"></td>
+                customer : <td th:utext="${Product.customer.firstName}"></td>
+
+            </li>
+        </ul>
+    </someHtmlTag><p>Index <a href="/index">ici</a></p>
 </form>
 </body>
 </html>
