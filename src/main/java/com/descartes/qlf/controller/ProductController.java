@@ -43,16 +43,10 @@ public class ProductController {
         return "profil";
     }
 
-    @GetMapping("/viewproduct")
-    public String ViewProduct() {
-        return "viewproduct";
-    }
-
-    @PostMapping("/displayproduct")
-    public String ViewProduct(
-            Model model) {
-        List<Product> displayAll = productService.displayAll();
-        model.addAttribute("displayAll", displayAll);
+    @PostMapping("/viewproduct")
+    public String products(Model model) {
+        model.addAttribute("displayAll", productService.getAllProduct());
+        System.out.println(productService.getAllProduct());
         return "displayproduct";
     }
 
