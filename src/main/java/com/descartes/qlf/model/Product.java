@@ -7,8 +7,6 @@ import java.io.Serializable;
 @Table(name = "product")
 public class Product implements Serializable {
 
-  private static final long serialVersionUID = 1L;
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
@@ -17,24 +15,41 @@ public class Product implements Serializable {
   private String description;
   private String price;
   private String urlPhoto;
+
+  @OneToOne(targetEntity = ProductCategory.class)
+//    @JoinColumn(name = "product_category_id", nullable = false)
   private ProductCategory category;
+
+  @OneToOne(targetEntity = Customer.class)
+//    @JoinColumn(name = "customer_id", nullable = false)
   private Customer customer;
 
   public Product() {}
 
   public Product(
-      String name,
-      String description,
-      String price,
-      String urlPhoto,
-      ProductCategory category,
-      Customer customer) {
+          String name,
+          String description,
+          String price,
+          String urlPhoto,
+          ProductCategory category,
+          Customer customer) {
     this.name = name;
     this.description = description;
     this.price = price;
     this.urlPhoto = urlPhoto;
     this.category = category;
     this.customer = customer;
+  }
+
+  public Product(
+          String name,
+          String description,
+          String price,
+          String urlPhoto) {
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.urlPhoto = urlPhoto;
   }
 
   public long getId() {
@@ -77,8 +92,6 @@ public class Product implements Serializable {
     this.urlPhoto = urlPhoto;
   }
 
-  @OneToOne
-  @JoinColumn(name = "product_category_id", nullable = false)
   public ProductCategory getCategory() {
     return category;
   }
@@ -87,8 +100,6 @@ public class Product implements Serializable {
     this.category = category;
   }
 
-  @OneToOne
-  @JoinColumn(name = "customer_id", nullable = false)
   public Customer getCustomer() {
     return customer;
   }

@@ -20,6 +20,11 @@ public class QlfController {
     return "index";
   }
 
+  @GetMapping("/profil")
+  public String profil() {
+    return "profil";
+  }
+
   @GetMapping("/queryparam")
   public String greeting(
       @RequestParam(name = "name", required = false, defaultValue = "Empty Name") String name,

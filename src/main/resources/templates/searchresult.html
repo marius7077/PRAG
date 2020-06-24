@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultat de recherche</title>
+</head>
+<body>
+<h1>Résultat de recherche</h1>
+    <someHtmlTag th:each="Product : ${ListProducts}">
+        <ul>
+            <li>
+                Nom : <td th:utext="${Product.name}"></td>
+                Description : <td th:utext="${Product.description}"></td>
+                Prix : <td th:utext="${Product.price}"></td> Euros
+            </li>
+        </ul>
+    </someHtmlTag>
+</body>
+</html>
