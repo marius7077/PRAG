@@ -20,8 +20,6 @@ public class ProductCategory implements Serializable {
     this.name = name;
   }
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   public long getId() {
     return id;
   }
