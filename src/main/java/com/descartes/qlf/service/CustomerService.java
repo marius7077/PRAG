@@ -5,6 +5,7 @@ import com.descartes.qlf.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +24,10 @@ public class CustomerService {
     } else {
       return null;
     }
+  }
+
+  public List<Customer> getAllCustomers() {
+    return (List<Customer>) customerRepository.findAll();
   }
 
   public Customer getById(Long id) {

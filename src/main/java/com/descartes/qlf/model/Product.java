@@ -16,12 +16,12 @@ public class Product implements Serializable {
   private String price;
   private String urlPhoto;
 
-  @OneToOne
-  @JoinColumn(name = "category", nullable = false)
+  @OneToOne(targetEntity = ProductCategory.class)
+//    @JoinColumn(name = "product_category_id", nullable = false)
   private ProductCategory category;
 
-  @OneToOne
-  @JoinColumn(name = "customer", nullable = false)
+  @OneToOne(targetEntity = Customer.class)
+//    @JoinColumn(name = "customer_id", nullable = false)
   private Customer customer;
 
   public Product() {}

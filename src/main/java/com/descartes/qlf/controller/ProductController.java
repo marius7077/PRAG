@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class ProductController {
 
@@ -45,13 +48,20 @@ public class ProductController {
         model.addAttribute("urlPhoto", urlPhoto);
 
 //        productCategoryService.findByName(productCategory);
-        System.out.println("productCategory : " + productCategory);
 
         ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
-        System.out.println(customerService.getById(1L).getFirstName());
-        Product product = new Product(name, description, price, urlPhoto, productCategoryRef, customerService.getById(1L));
+        System.out.println(customerService.getById(10L).getFirstName());
+        Product product = new Product(name, description, price, urlPhoto, productCategoryRef, customerService.getById(10L));
         productService.save(product);
         return "addproduct";
+    }
+
+    @GetMapping("/viewproducts")
+    public String viewproducts() {
+        List<Product> listProducts = new ArrayList<>();
+        listProducts = productService.getAllProduct();
+        System.out.println(listProducts.size());
+        return "viewproducts";
     }
 
 }
