@@ -5,7 +5,6 @@
     <title>ViewProduct</title>
 </head>
 <body>
-
 <form method="post" action="/productcategory">
 
     <input type="checkbox" id="fruit_legume" name="fruit_legume" value="fruit_legume">
@@ -24,7 +23,7 @@
     <ul>
         <li>
             name :
-            <td th:utext="${Product.name}"></td>
+            <a href="/product" th:href="@{/product(productId=${Product.id})}"><td th:utext="${Product.name}"></td></a>
             description :
             <td th:utext="${Product.description}"></td>
             price :

@@ -57,22 +57,22 @@ public class CustomerService {
       String urlCompleted = url + cityList.get(i) + "+" + postalCodeList.get(i) + "&boundary=FRA";
       String body = restTemplate.getForObject(urlCompleted, String.class);
       latitudeList.add(
-          Double.parseDouble(body.substring(body.indexOf("lat") + 5, body.indexOf("lng") - 2)));
+              Double.parseDouble(body.substring(body.indexOf("lat") + 5, body.indexOf("lng") - 2)));
       longitudeList.add(
-          Double.parseDouble(body.substring(body.indexOf("lng") + 5, body.indexOf("zoom") - 2)));
+              Double.parseDouble(body.substring(body.indexOf("lng") + 5, body.indexOf("zoom") - 2)));
     }
     double distance =
-        Math.toDegrees(
-                Math.acos(
-                    (Math.sin(Math.toRadians(latitudeList.get(0)))
-                            * Math.sin(Math.toRadians(latitudeList.get(1)))
-                        + Math.cos(Math.toRadians(latitudeList.get(0)))
-                            * Math.cos(Math.toRadians(latitudeList.get(1)))
-                            * Math.cos(
-                                Math.toRadians(longitudeList.get(0) - longitudeList.get(1))))))
-            * 60
-            * 1.1515
-            * 1.609344;
+            Math.toDegrees(
+                    Math.acos(
+                            (Math.sin(Math.toRadians(latitudeList.get(0)))
+                                    * Math.sin(Math.toRadians(latitudeList.get(1)))
+                                    + Math.cos(Math.toRadians(latitudeList.get(0)))
+                                    * Math.cos(Math.toRadians(latitudeList.get(1)))
+                                    * Math.cos(
+                                    Math.toRadians(longitudeList.get(0) - longitudeList.get(1))))))
+                    * 60
+                    * 1.1515
+                    * 1.609344;
     return (int) Math.round(distance);
   }
 

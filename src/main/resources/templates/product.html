@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fiche produit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<h1>Fiche produit</h1>
+
+<p th:text="'nom ' +${product.name} "></p>
+<p th:text="'description ' +${product.description} "></p>
+<p th:text="'price ' +${product.price} "></p>
+<p th:text="'urlPhoto ' +${product.urlPhoto} "></p>
+<p th:text="'category ' +${product.category?.name} "></p>
+<p th:text="'customer ' +${product.customer?.firstName} "></p>
+
+
+
+</body>
+</html>
