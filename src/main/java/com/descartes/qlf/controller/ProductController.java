@@ -85,7 +85,7 @@ public class ProductController {
             @RequestParam(name = "keyword", required = true) String keyword,
             Model model){
         List<Product> listProducts = new ArrayList<>();
-        listProducts = productService.getBySearch(keyword);
+        listProducts = productService.getBySearch(keyword.toUpperCase());
         model.addAttribute("listProducts", listProducts.toArray());
         return "viewproducts";
     }

@@ -32,7 +32,7 @@ public class CustomerController {
             @RequestParam(name = "keyword", required = true) String keyword,
             Model model){
         List<Customer> listCustomers = new ArrayList<>();
-        listCustomers = customerService.getBySearch(keyword);
+        listCustomers = customerService.getBySearch(keyword.toUpperCase());
         if (listCustomers != null) {
       model.addAttribute("listCustomers", listCustomers.toArray());
       model.addAttribute("erreur","ok");

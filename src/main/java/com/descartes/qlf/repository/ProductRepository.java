@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Long> {
     @Override
     List<Product> findAll();
-    @Query("SELECT p FROM Product p WHERE CONCAT(p.name, p.description) LIKE %?1%")
+    @Query("SELECT p FROM Product p WHERE CONCAT(UPPER(p.name), UPPER(p.description)) LIKE %?1%")
     List<Product> search(String keyword);
     Optional<Product> findById(Long id);
 

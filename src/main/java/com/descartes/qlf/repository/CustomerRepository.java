@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
   Customer findByEmail(String email);
   Optional<Customer> findById(Long id);
-  @Query("SELECT c FROM Customer c WHERE CONCAT(c.firstName, c.lastName) LIKE %?1%")
+  @Query("SELECT c FROM Customer c WHERE CONCAT(UPPER(c.firstName), UPPER(c.lastName)) LIKE %?1%")
   List<Customer> search(String keyword);
   @Override
   List<Customer> findAll();
