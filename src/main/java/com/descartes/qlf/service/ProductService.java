@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import java.util.Optional;
+
 @Service
 public class ProductService {
 
@@ -27,4 +29,11 @@ public class ProductService {
     return productRepository.findByCategory_Id(id);
   }
 
+  public Product getById(Long id) {
+    Optional<Product> product = productRepository.findById(id);
+    return product.orElse(null);
+  }
+  public void removeById(Long id) {
+    productRepository.deleteById(id);
+  }
 }

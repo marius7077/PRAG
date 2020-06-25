@@ -63,6 +63,11 @@ public class ProductController {
     return "addproduct";
   }
 
+    @GetMapping("/removeproduct")
+    public String removeProduct() {
+        return "removeproduct";
+    }
+
     @GetMapping("/viewproducts")
     public String viewproducts(Model model) {
         List<Product> listProducts = new ArrayList<>();
@@ -97,5 +102,13 @@ public class ProductController {
         System.out.println(listProducts.size());
         model.addAttribute("listProducts", listProducts.toArray());
         return "viewproducts";
+    }
+    @PostMapping("/removeproductconfirm")
+    public String removeProduct(
+            @RequestParam(name = "id", required = true) Long id,
+             Model model) {
+        model.addAttribute("id", id);
+        productService.removeById(id);
+        return "removeproduct";
     }
 }
