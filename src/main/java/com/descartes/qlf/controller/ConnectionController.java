@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ConnectionController {
@@ -76,10 +77,12 @@ public class ConnectionController {
   public String logIn(
       @RequestParam(name = "email", required = true) String email,
       @RequestParam(name = "password", required = true) String password,
+      HttpServletRequest request,
       Model model) {
     model.addAttribute("Erreur", "");
     Customer customer = customerService.connect(email, password);
     if(customer != null){
+      request.getSession().setAttribute("customer", customer);
       model.addAttribute("firstName", customer.getFirstName());
       model.addAttribute("lastName", customer.getLastName());
       return "loginconfirm";
@@ -87,7 +90,11 @@ public class ConnectionController {
       model.addAttribute("Erreur", "L'adresse email et le mot de passe ne correspondent pas !");
       return "login";
     }
+  }
 
-
+  @GetMapping("/logout")
+  public String logIn(HttpServletRequest request) {
+    request.getSession().invalidate();
+    return "index";
   }
 }

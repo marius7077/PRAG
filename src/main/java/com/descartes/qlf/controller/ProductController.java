@@ -20,23 +20,23 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-  @Autowired private ProductService productService;
+    @Autowired private ProductService productService;
 
-  @Autowired private ProductCategoryService productCategoryService;
+    @Autowired private ProductCategoryService productCategoryService;
 
-  @Autowired private CustomerService customerService;
+    @Autowired private CustomerService customerService;
 
-  private final FileSystemStorageService fileSystemStorageService;
+    private final FileSystemStorageService fileSystemStorageService;
 
-  @Autowired
-  public ProductController(FileSystemStorageService fileSystemStorageService) {
-    this.fileSystemStorageService = fileSystemStorageService;
-  }
+    @Autowired
+    public ProductController(FileSystemStorageService fileSystemStorageService) {
+        this.fileSystemStorageService = fileSystemStorageService;
+    }
 
-  @GetMapping("/addproduct")
-  public String addProduct() {
-    return "addproduct";
-  }
+    @GetMapping("/addproduct")
+    public String addProduct() {
+        return "addproduct";
+    }
 
     @PostMapping("/addproductconfirm")
     public String addProduct(
@@ -47,7 +47,6 @@ public class ProductController {
             @RequestParam(name = "productCategory", required = true) String productCategory,
             @RequestParam(name = "picture", required = true) MultipartFile file,
             Model model) {
-
         ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
         String filename = fileSystemStorageService.store(file);
         Product product =
@@ -87,7 +86,6 @@ public class ProductController {
             Model model){
         List<Product> listProducts = new ArrayList<>();
         listProducts = productService.getBySearch(keyword);
-        System.out.println(listProducts.toArray());
         model.addAttribute("ListProducts", listProducts.toArray());
         return "searchresult";
     }
@@ -118,6 +116,15 @@ public class ProductController {
         }
         model.addAttribute("listProducts", listProducts.toArray());
         return "viewproducts";
+    }
+
+    @GetMapping("/product")
+    public String product(
+            @RequestParam(name = "productId", required = true) Long productId,
+            Model model) {
+        Product product = productService.getById(productId);
+        model.addAttribute(product);
+        return "product";
     }
 
 
