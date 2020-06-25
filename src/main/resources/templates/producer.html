@@ -16,5 +16,23 @@
 <p th:text="'city ' +${customer.city} "></p>
 <p th:text="'phoneNumber ' +${customer.phoneNumber} "></p>
 
+<div th:each="Product : ${listProducts}">
+    <ul>
+        <li>
+            name :
+            <a href="/product" th:href="@{/product(productId=${Product.id})}"><td th:utext="${Product.name}"></td></a>
+            description :
+            <td th:utext="${Product.description}"></td>
+            price :
+            <td th:utext="${Product.price}"></td>
+            urlPhoto :
+            <td th:utext="${Product.urlPhoto}"></td>
+            category :
+            <td th:utext="${Product.category?.name}"></td>
+
+        </li>
+    </ul>
+</div>
+
 </body>
 </html>
