@@ -25,7 +25,7 @@ public class CustomerController {
 
     @GetMapping("/viewproducteurs")
     public String viewproducteurs(Model model) {
-        List<Customer> listCustomers = new ArrayList<>();
+        List<Customer> listCustomers;
         listCustomers = customerService.getAllCustomers();
         model.addAttribute("listCustomers", listCustomers.toArray());
         return "viewproducteurs";
