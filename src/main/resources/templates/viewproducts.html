@@ -48,7 +48,7 @@
             category :
             <td th:utext="${Product.category?.name}"></td>
             customer :
-            <td th:utext="${Product.customer?.firstName}"></td>
+            <a href="/producer" th:href="@{/producer(producerId=${Product.customer?.id})}"><td th:utext="${Product.customer?.firstName}"></td></a>
 
         </li>
     </ul>

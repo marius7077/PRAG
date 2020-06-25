@@ -32,6 +32,11 @@ public class ProductService {
     return productRepository.findByCategory_Id(id);
   }
 
+  public List<Product> getAllProductByCustomerId(long id){
+    return productRepository.findByCustomer_Id(id);
+  }
+
+
   public Product getById(Long id) {
     Optional<Product> product = productRepository.findById(id);
     return product.orElse(null);
