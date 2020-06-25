@@ -86,8 +86,8 @@ public class ProductController {
             Model model){
         List<Product> listProducts = new ArrayList<>();
         listProducts = productService.getBySearch(keyword);
-        model.addAttribute("ListProducts", listProducts.toArray());
-        return "searchresult";
+        model.addAttribute("listProducts", listProducts.toArray());
+        return "viewproducts";
     }
 
     @GetMapping("/viewproducts")

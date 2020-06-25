@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Résultat de recherche</h1>
-    <div th:each="Product : ${ListProducts}">
+    <div th:each="Product : ${listProducts}">
         <ul>
             <li>
                 Nom : <td th:utext="${Product.name}"></td>

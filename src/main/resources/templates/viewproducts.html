@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>ViewProduct</title>
+    <style>
+        form{
+            display: inline;
+        }
+    </style>
 </head>
 <body>
 <form method="post" action="/productcategory">
@@ -17,6 +22,16 @@
     <br/>
     <input name='btnConnect' type='submit'/> <br/>
     <p>Index <a href="/index">ici</a></p>
+</form>
+
+<form method="post" action="/searchresult">
+    <label for="search">Search the site:</label>
+    <input type="search" id="search" name="keyword">
+    <button>Search</button>
+</form>
+<form method="post" action="/searchresult">
+    <input type="hidden" value="" name="keyword">
+    <button>Clear</button>
 </form>
 
 <div th:each="Product : ${listProducts}">
