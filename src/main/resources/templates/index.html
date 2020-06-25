@@ -1,10 +1,93 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Index</title>
+    <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+    />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet"/>
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="css/design_style.css"/>
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+
+    <title>QLF - Que La Ferme</title>
 </head>
 <body>
+
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">
+            <img src="logo.png" width="50" height="50" />
+        </a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarText"
+                aria-controls="navbarText"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Accueil</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inscription</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div>
+    <div class="container-fluid text-center mt-5 p-5">
+        <div class="row">
+            <div class="col">
+                <div class="container">
+                    <img src="logo.png" height="300px" />
+                    <div class="title">Succombez au made in France</div>
+                    <div class="content my-5">
+                        Vous retrouverez ici une liste d'indénombrable commerces de proximité 100% made in France.
+                    </div>
+                    <button type="button" class="btn btn-lg btn-block">Acceder à mes commerces de proximité</button>
+                </div>
+            </div>
+            <div class="col-1 my-auto">
+                <div class="float-right">
+                    <div class="row">
+                        <a href="#" class="fa fa-twitter"></a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="fa fa-facebook"></a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="fa fa-instagram"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <h1>Index</h1>
 <p th:if="${session.customer != null}" th:text="'Hello, ' + ${session.customer.email} + ' !'"></p>
