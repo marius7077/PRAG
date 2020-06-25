@@ -1,6 +1,7 @@
 package com.descartes.qlf.service;
 
 import com.descartes.qlf.model.Customer;
+import com.descartes.qlf.model.Product;
 import com.descartes.qlf.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,6 @@ public class CustomerService {
   public List<Customer> getAllCustomers() {
     return (List<Customer>) customerRepository.findAll();
   }
-
-
 
   public Customer connect(String email, String password) {
     Customer customer = customerRepository.findByEmail(email);
@@ -79,5 +78,15 @@ public class CustomerService {
   public Customer getById(Long id) {
     Optional<Customer> customer = customerRepository.findById(id);
     return customer.orElse(null);
+  }
+
+  public List<Customer> getBySearch(String keyword)
+  {
+    if (keyword != null) {
+      return customerRepository.search(keyword);
+    }
+    else{
+      return customerRepository.findAll();
+    }
   }
 }
