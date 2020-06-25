@@ -38,34 +38,58 @@ public class ProductController {
     return "addproduct";
   }
 
-  @PostMapping("/addproductconfirm")
-  public String addProduct(
-      @RequestParam(name = "name", required = true) String name,
-      @RequestParam(name = "description", required = true) String description,
-      @RequestParam(name = "price", required = true) String price,
-      @RequestParam(name = "urlPhoto", required = true) String urlPhoto,
-      @RequestParam(name = "productCategory", required = true) String productCategory,
-      @RequestParam(name = "picture", required = true) MultipartFile file,
-  Model model) {
+    @PostMapping("/addproductconfirm")
+    public String addProduct(
+            @RequestParam(name = "name", required = true) String name,
+            @RequestParam(name = "description", required = true) String description,
+            @RequestParam(name = "price", required = true) String price,
+            @RequestParam(name = "urlPhoto", required = true) String urlPhoto,
+            @RequestParam(name = "productCategory", required = true) String productCategory,
+            @RequestParam(name = "picture", required = true) MultipartFile file,
+            Model model) {
 
-    ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
-    String filename = fileSystemStorageService.store(file);
-    Product product =
-        new Product(
-            name,
-            description,
-            price,
-            "/files/" + filename,
-            productCategoryRef,
-            customerService.getById(10L));
-    productService.save(product);
-    model.addAttribute("file", filename);
-    return "addproduct";
-  }
+        ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
+        String filename = fileSystemStorageService.store(file);
+        Product product =
+                new Product(
+                        name,
+                        description,
+                        price,
+                        "/files/" + filename,
+                        productCategoryRef,
+                        customerService.getById(10L));
+        productService.save(product);
+        model.addAttribute("file", filename);
+        return "addproduct";
+    }
 
     @GetMapping("/removeproduct")
     public String removeProduct() {
         return "removeproduct";
+    }
+
+    @PostMapping("/removeproductconfirm")
+    public String removeProduct(
+            @RequestParam(name = "id", required = true) Long id,
+            Model model) {
+        model.addAttribute("id", id);
+        productService.removeById(id);
+        return "removeproduct";
+    }
+
+    @GetMapping("/search")
+    public String SearchProductbyKeyword() {
+        return "search";
+    }
+    @PostMapping("/searchresult")
+    public String SearchProductbyKeyword(
+            @RequestParam(name = "keyword", required = true) String keyword,
+            Model model){
+        List<Product> listProducts = new ArrayList<>();
+        listProducts = productService.getBySearch(keyword);
+        System.out.println(listProducts.toArray());
+        model.addAttribute("ListProducts", listProducts.toArray());
+        return "searchresult";
     }
 
     @GetMapping("/viewproducts")
@@ -82,13 +106,7 @@ public class ProductController {
             @RequestParam(name = "viande", required = false) String viande,
             @RequestParam(name = "laitier", required = false) String laitier,
             Model model) {
-
-        System.out.println("fruit_legume : " + fruit_legume);
-        System.out.println("viande : " + viande);
-        System.out.println("laitier : " + laitier);
-
         List<Product> listProducts = new ArrayList<>();
-
         if(fruit_legume != null){
             listProducts.addAll(productService.getAllProductByCategoryId(1L));
         }
@@ -98,17 +116,9 @@ public class ProductController {
         if(laitier != null){
             listProducts.addAll(productService.getAllProductByCategoryId(3L));
         }
-
-        System.out.println(listProducts.size());
         model.addAttribute("listProducts", listProducts.toArray());
         return "viewproducts";
     }
-    @PostMapping("/removeproductconfirm")
-    public String removeProduct(
-            @RequestParam(name = "id", required = true) Long id,
-             Model model) {
-        model.addAttribute("id", id);
-        productService.removeById(id);
-        return "removeproduct";
-    }
+
+
 }

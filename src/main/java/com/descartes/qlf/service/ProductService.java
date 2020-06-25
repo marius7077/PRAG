@@ -1,8 +1,6 @@
 package com.descartes.qlf.service;
 
 import com.descartes.qlf.model.Customer;
-import com.descartes.qlf.model.Product;
-import com.descartes.qlf.repository.CustomerRepository;
 import com.descartes.qlf.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 import java.util.Optional;
+import com.descartes.qlf.model.Product;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -19,10 +19,13 @@ public class ProductService {
 
   public void save(Product product) {
     productRepository.save(product);
-  }
-
+}
   public List<Product> getAllProduct(){
     return productRepository.findAll();
+  }
+
+  public void removeById(Long id) {
+    productRepository.deleteById(id);
   }
 
   public List<Product> getAllProductByCategoryId(long id){
@@ -33,7 +36,14 @@ public class ProductService {
     Optional<Product> product = productRepository.findById(id);
     return product.orElse(null);
   }
-  public void removeById(Long id) {
-    productRepository.deleteById(id);
+
+  public List<Product> getBySearch(String keyword)
+  {
+    if (keyword != null) {
+      return productRepository.search(keyword);
+    }
+    else{
+      return productRepository.findAll();
+    }
   }
 }

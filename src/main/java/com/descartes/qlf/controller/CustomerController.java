@@ -21,8 +21,7 @@ public class CustomerController {
     public String viewproducteurs(Model model) {
         List<Customer> listCustomers = new ArrayList<>();
         listCustomers = customerService.getAllCustomers();
-        System.out.println(listCustomers.size());
-        model.addAttribute("listCustomers", listCustomers);
+        model.addAttribute("listCustomers", listCustomers.toArray());
         return "viewproducteurs";
     }
 }

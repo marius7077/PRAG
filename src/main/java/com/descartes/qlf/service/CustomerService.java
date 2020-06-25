@@ -22,6 +22,12 @@ public class CustomerService {
     customerRepository.save(customer);
   }
 
+  public List<Customer> getAllCustomers() {
+    return (List<Customer>) customerRepository.findAll();
+  }
+
+
+
   public Customer connect(String email, String password) {
     Customer customer = customerRepository.findByEmail(email);
     if (customer.getPassword().equals(password)) {
@@ -29,10 +35,6 @@ public class CustomerService {
     } else {
       return null;
     }
-  }
-
-  public List<Customer> getAllCustomers() {
-    return (List<Customer>) customerRepository.findAll();
   }
 
   public static int distance(String city1, String postalCode1, String city2, String postalCode2) {

@@ -25,12 +25,12 @@ public class Product implements Serializable {
   public Product() {}
 
   public Product(
-      String name,
-      String description,
-      String price,
-      String urlPhoto,
-      ProductCategory category,
-      Customer customer) {
+          String name,
+          String description,
+          String price,
+          String urlPhoto,
+          ProductCategory category,
+          Customer customer) {
     this.name = name;
     this.description = description;
     this.price = price;

@@ -5,7 +5,16 @@
     <title>ViewProducteurs</title>
 </head>
 <body>
-<!--<p th:text="'Voici les produits ' + ${displayAll} + '"></p>-->
+        <someHtmlTag th:each="Customer : ${listCustomers}">
+            <ul>
+                <li>
+                    Prénom : <td th:utext="${Customer.firstName}"></td>
+                    Nom : <td th:utext="${Customer.lastName}"></td>
+                    Adresse :  <td th:utext="${Customer.address}"></td>
+                    Email : <td th:utext="${Customer.email}"></td>
+                </li>
+            </ul>
+        </someHtmlTag>
 <p>Index <a href="/index">ici</a></p>
 </form>
 </body>
