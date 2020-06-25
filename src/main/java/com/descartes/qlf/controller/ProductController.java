@@ -104,7 +104,7 @@ public class ProductController {
     public String productcategory(
             @RequestParam(name = "fruit_legume", required = false) String fruit_legume,
             @RequestParam(name = "viande", required = false) String viande,
-            @RequestParam(name = "laitier", required = false) String laitier,
+            @RequestParam(name = "laitiers", required = false) String laitier,
             Model model) {
         List<Product> listProducts = new ArrayList<>();
         if(fruit_legume != null){
