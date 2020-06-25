@@ -19,7 +19,7 @@ public class ProductService {
 
   public void save(Product product) {
     productRepository.save(product);
-}
+  }
   public List<Product> getAllProduct(){
     return productRepository.findAll();
   }

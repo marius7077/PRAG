@@ -21,42 +21,42 @@ public class ConnectionController {
 
   @PostMapping("/signupconfirm")
   public String signUp(
-      @RequestParam(name = "lastName", required = true) String lastName,
-      @RequestParam(name = "firstName", required = true) String firstName,
-      @RequestParam(name = "email", required = true) String email,
-      @RequestParam(name = "password", required = true) String password,
-      @RequestParam(name = "address", required = true) String address,
-      @RequestParam(name = "postalCode", required = true) String postalCode,
-      @RequestParam(name = "city", required = true) String city,
-      @RequestParam(name = "phoneNumber", required = true) String phoneNumber,
-      @RequestParam(name = "type", required = true) String type,
-      Model model) {
+          @RequestParam(name = "lastName", required = true) String lastName,
+          @RequestParam(name = "firstName", required = true) String firstName,
+          @RequestParam(name = "email", required = true) String email,
+          @RequestParam(name = "password", required = true) String password,
+          @RequestParam(name = "address", required = true) String address,
+          @RequestParam(name = "postalCode", required = true) String postalCode,
+          @RequestParam(name = "city", required = true) String city,
+          @RequestParam(name = "phoneNumber", required = true) String phoneNumber,
+          @RequestParam(name = "type", required = true) String type,
+          Model model) {
     model.addAttribute("Erreur", "");
     if (customerService.testEmail(email)) {
       if (type.equals("producer")) {
         customerService.save(
-            new Customer(
-                firstName,
-                lastName,
-                email,
-                password,
-                address,
-                postalCode,
-                city,
-                phoneNumber,
-                "producer"));
+                new Customer(
+                        firstName,
+                        lastName,
+                        email,
+                        password,
+                        address,
+                        postalCode,
+                        city,
+                        phoneNumber,
+                        "producer"));
       } else {
         customerService.save(
-            new Customer(
-                firstName,
-                lastName,
-                email,
-                password,
-                address,
-                postalCode,
-                city,
-                phoneNumber,
-                "consumer"));
+                new Customer(
+                        firstName,
+                        lastName,
+                        email,
+                        password,
+                        address,
+                        postalCode,
+                        city,
+                        phoneNumber,
+                        "consumer"));
       }
       model.addAttribute("firstName", firstName);
       model.addAttribute("lastName", lastName);
@@ -74,9 +74,9 @@ public class ConnectionController {
 
   @PostMapping("/loginconfirm")
   public String logIn(
-      @RequestParam(name = "email", required = true) String email,
-      @RequestParam(name = "password", required = true) String password,
-      Model model) {
+          @RequestParam(name = "email", required = true) String email,
+          @RequestParam(name = "password", required = true) String password,
+          Model model) {
     model.addAttribute("Erreur", "");
     Customer customer = customerService.connect(email, password);
     if(customer != null){
