@@ -1,42 +1,47 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Inscription</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 
+<p th:text="${Erreur}"></p>
+
 <h1>Inscription</h1>
 
 <form method="post" action="/signupconfirm">
     <label for='lastName'>Nom :</label>
-    <input id='lastName' name='lastName' type='text'/> <br/>
+    <input id='lastName' name='lastName' type='text' required='true'/> <br/>
 
     <label for='firstName'>Prenom :</label>
-    <input id='firstName' name='firstName' type='text'/> <br/>
+    <input id='firstName' name='firstName' type='text' required='true'/> <br/>
 
     <label for='email'>Email :</label>
-    <input id='email' name='email' type='email'/> <br/>
+    <input id='email' name='email' type='email' required='true'/> <br/>
 
     <label for='password'>Mot de passe :</label>
-    <input id='password' name='password' type='text'/> <br/>
+    <input id='password' name='password' type='password' required='true'/> <br/>
+
+    <label for='password'>Confirmation du mot de passe :</label>
+    <input id='confirm_password' name='confirm_password' type='password' required='true'/> <br/>
 
     <label for='address'>Adresse :</label>
-    <input id='address' name='address' type='text'/> <br/>
+    <input id='address' name='address' type='text' required='true'/> <br/>
 
     <label for='postalCode'>Code postal :</label>
-    <input id='postalCode' name='postalCode' type='text'/> <br/>
+    <input id='postalCode' name='postalCode' type='text' required='true'/> <br/>
 
     <label for='city'>Ville :</label>
-    <input id='city' name='city' type='text'/> <br/>
+    <input id='city' name='city' type='text' required='true'/> <br/>
 
     <label for='phoneNumber'>Telephone :</label>
-    <input id='phoneNumber' name='phoneNumber' type='text'/> <br/>
+    <input id='phoneNumber' name='phoneNumber' type='text' required='true'/> <br/>
 
     <input type="radio" id="producer" name="type" value="producer">
     <label for="producer">Producer</label><br>
 
-    <input type="radio" id="customer" name="type" value="customer">
+    <input type="radio" id="customer" name="type" value="customer" checked='true'>
     <label for="customer">Consumer</label><br>
 
     <br/>

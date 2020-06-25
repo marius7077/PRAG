@@ -30,10 +30,19 @@ public class CustomerService {
 
   public Customer connect(String email, String password) {
     Customer customer = customerRepository.findByEmail(email);
-    if (customer.getPassword().equals(password)) {
+    if (customer != null && customer.getPassword().equals(password)) {
       return customer;
     } else {
       return null;
+    }
+  }
+
+  public boolean testEmail(String email) {
+    Customer customer = customerRepository.findByEmail(email);
+    if (customer == null) {
+      return true;
+    } else {
+      return false;
     }
   }
 
