@@ -9,6 +9,7 @@
 <h1>Confirmation de connexion</h1>
 
 <p th:text="'Bonjour ' + ${firstName} + ' ' + ${lastName} + ', vous êtes bien connecté'"></p>
+<p th:text="'Hello, ' + ${session.customer.email} + ' !'"></p>
 <p>Index <a href="/index">ici</a></p>
 
 

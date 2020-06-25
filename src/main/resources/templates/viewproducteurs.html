@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>ViewProducteurs</title>
 </head>
 <body>
-        <someHtmlTag th:each="Customer : ${listCustomers}">
+        <div th:each="Customer : ${listCustomers}">
             <ul>
                 <li>
                     Prénom : <td th:utext="${Customer.firstName}"></td>
@@ -14,8 +14,7 @@
                     Email : <td th:utext="${Customer.email}"></td>
                 </li>
             </ul>
-        </someHtmlTag>
+        </div>
 <p>Index <a href="/index">ici</a></p>
-</form>
 </body>
 </html>
