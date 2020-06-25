@@ -24,82 +24,51 @@
     <title>QLF - Que La Ferme</title>
 </head>
 <body>
-
+<div class="qlf-socials-icon-fixed-right">
+    <a href="#" class="fa fa-twitter"></a>
+    <a href="#" class="fa fa-facebook"></a>
+    <a href="#" class="fa fa-instagram"></a>
+</div>
 <div>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="logo.png" width="50" height="50" />
-        </a>
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarText"
-                aria-controls="navbarText"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Accueil</a>
-                </li>
-            </ul>
+        <div class="collapse navbar-collapse qlf-nav-links" id="navbarText">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Connexion</a>
+                <li class="nav-item" th:if="${session.customer == null}">
+                    <a class="nav-link qlf-nav-link" href="/login">Connexion</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inscription</a>
+                <li class="nav-item" th:if="${session.customer == null}">
+                    <a class="nav-link qlf-nav-link" href="/signup">Inscription</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer != null}">
+                    <a class="nav-link qlf-nav-link" href="/profil">Mon profil</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer != null}">
+                    <a class="nav-link qlf-nav-link" href="/logout">Déconnexion</a>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
-
 <div>
-    <div class="container-fluid text-center mt-5 p-5">
+    <div class="container-fluid text-center qlf-container">
         <div class="row">
             <div class="col">
                 <div class="container">
-                    <img src="logo.png" height="300px" />
+                    <img src="images/logo.png" alt="QLF" class="qlf-central-logo"/>
                     <div class="title">Succombez au made in France</div>
                     <div class="content my-5">
                         Vous retrouverez ici une liste d'indénombrable commerces de proximité 100% made in France.
                     </div>
-                    <button type="button" class="btn btn-lg btn-block">Acceder à mes commerces de proximité</button>
-                </div>
-            </div>
-            <div class="col-1 my-auto">
-                <div class="float-right">
-                    <div class="row">
-                        <a href="#" class="fa fa-twitter"></a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="fa fa-facebook"></a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="fa fa-instagram"></a>
-                    </div>
+                    <a class="btn btn-lg btn-block btn-go-qlf" href="/viewproducts">Accéder à mes commerces de proximité
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<h1>Index</h1>
-<p th:if="${session.customer != null}" th:text="'Hello, ' + ${session.customer.email} + ' !'"></p>
-
-<img src="images/logo.png"/>
-
+<h2>Pour nos tests</h2>
 <p>Greeting <a href="/queryparam">ici</a></p>
 <p>Crud <a href="/crud">ici</a></p>
-<p th:if="${session.customer == null}">Inscription <a href="/signup">ici</a></p>
-<p th:if="${session.customer == null}">Connexion <a href="/login">ici</a></p>
-<p th:if="${session.customer != null}">Déconnexion <a href="/logout">ici</a></p>
-<p th:if="${session.customer != null}">Profil <a href="/profil">ici</a></p>
 <p>Voir tous les produits <a href="/viewproducts">ici</a></p>
 <p>Voir tous les producteurs <a href="/viewproducteurs">ici</a></p>
 
