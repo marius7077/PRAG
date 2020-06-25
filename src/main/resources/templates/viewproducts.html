@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ViewProduct</title>
+</head>
+<body>
+
+<form method="post" action="/productcategory">
+
+    <input type="checkbox" id="fruit_legume" name="fruit_legume" value="fruit_legume">
+    <label for="fruit_legume"> fruit et légumes</label><br>
+    <input type="checkbox" id="viande" name="viande" value="viande">
+    <label for="viande"> viande</label><br>
+    <input type="checkbox" id="laitier" name="laitier" value="laitier">
+    <label for="laitier"> laitier</label><br>
+
+    <br/>
+    <input name='btnConnect' type='submit'/> <br/>
+    <p>Index <a href="/index">ici</a></p>
+</form>
+
+<someHtmlTag th:each="Product : ${listProducts}">
+    <ul>
+        <li>
+            name :
+            <td th:utext="${Product.name}"></td>
+            description :
+            <td th:utext="${Product.description}"></td>
+            price :
+            <td th:utext="${Product.price}"></td>
+            urlPhoto :
+            <td th:utext="${Product.urlPhoto}"></td>
+            category :
+            <td th:utext="${Product.category?.name}"></td>
+            customer :
+            <td th:utext="${Product.customer?.firstName}"></td>
+
+        </li>
+    </ul>
+</someHtmlTag>
+<p>Index <a href="/index">ici</a></p>
+</form>
+</body>
+</html>

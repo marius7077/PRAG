@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,6 +29,10 @@ public class CustomerService {
     } else {
       return null;
     }
+  }
+
+  public List<Customer> getAllCustomers() {
+    return (List<Customer>) customerRepository.findAll();
   }
 
   public static int distance(String city1, String postalCode1, String city2, String postalCode2) {

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class ProductController {
 
@@ -59,4 +62,40 @@ public class ProductController {
     model.addAttribute("file", filename);
     return "addproduct";
   }
+
+    @GetMapping("/viewproducts")
+    public String viewproducts(Model model) {
+        List<Product> listProducts = new ArrayList<>();
+        listProducts = productService.getAllProduct();
+        model.addAttribute("listProducts", listProducts.toArray());
+        return "viewproducts";
+    }
+
+    @PostMapping("/productcategory")
+    public String productcategory(
+            @RequestParam(name = "fruit_legume", required = false) String fruit_legume,
+            @RequestParam(name = "viande", required = false) String viande,
+            @RequestParam(name = "laitier", required = false) String laitier,
+            Model model) {
+
+        System.out.println("fruit_legume : " + fruit_legume);
+        System.out.println("viande : " + viande);
+        System.out.println("laitier : " + laitier);
+
+        List<Product> listProducts = new ArrayList<>();
+
+        if(fruit_legume != null){
+            listProducts.addAll(productService.getAllProductByCategoryId(1L));
+        }
+        if(viande != null){
+            listProducts.addAll(productService.getAllProductByCategoryId(2L));
+        }
+        if(laitier != null){
+            listProducts.addAll(productService.getAllProductByCategoryId(3L));
+        }
+
+        System.out.println(listProducts.size());
+        model.addAttribute("listProducts", listProducts.toArray());
+        return "viewproducts";
+    }
 }
