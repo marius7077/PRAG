@@ -3,6 +3,7 @@ package com.descartes.qlf.controller;
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import java.util.List;
 public class ConnectionController {
 
   @Autowired private CustomerService customerService;
+
+  @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @GetMapping("/signup")
   public String signUp() {
@@ -42,7 +45,7 @@ public class ConnectionController {
                 firstName,
                 lastName,
                 email,
-                password,
+                bCryptPasswordEncoder.encode(password),
                 address,
                 postalCode,
                 city,
@@ -56,7 +59,7 @@ public class ConnectionController {
                 firstName,
                 lastName,
                 email,
-                password,
+                bCryptPasswordEncoder.encode(password),
                 address,
                 postalCode,
                 city,
