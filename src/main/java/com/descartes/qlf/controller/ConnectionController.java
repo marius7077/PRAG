@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ConnectionController {
@@ -34,6 +35,7 @@ public class ConnectionController {
       Model model) {
     model.addAttribute("Erreur", "");
     if (customerService.testEmail(email)) {
+      List<Double> coordinates = customerService.addressToCoordinates(address, postalCode, city);
       if (type.equals("producer")) {
         customerService.save(
             new Customer(
@@ -45,6 +47,8 @@ public class ConnectionController {
                 postalCode,
                 city,
                 phoneNumber,
+                coordinates.get(0),
+                coordinates.get(1),
                 "producer"));
       } else {
         customerService.save(
@@ -57,12 +61,14 @@ public class ConnectionController {
                 postalCode,
                 city,
                 phoneNumber,
+                coordinates.get(0),
+                coordinates.get(1),
                 "consumer"));
       }
       model.addAttribute("firstName", firstName);
       model.addAttribute("lastName", lastName);
       return "signupconfirm";
-    }else {
+    } else {
       model.addAttribute("Erreur", "L'adresse email est déjà utilisée");
       return "signup";
     }
@@ -81,12 +87,12 @@ public class ConnectionController {
       Model model) {
     model.addAttribute("Erreur", "");
     Customer customer = customerService.connect(email, password);
-    if(customer != null){
+    if (customer != null) {
       request.getSession().setAttribute("customer", customer);
       model.addAttribute("firstName", customer.getFirstName());
       model.addAttribute("lastName", customer.getLastName());
       return "loginconfirm";
-    }else{
+    } else {
       model.addAttribute("Erreur", "L'adresse email et le mot de passe ne correspondent pas !");
       return "login";
     }

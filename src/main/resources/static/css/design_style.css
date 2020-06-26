@@ -1,0 +1,76 @@
+body {
+    background-color: #0a2459;
+    color: #d9d3cc;
+}
+
+.navbar {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    z-index: 2;
+}
+
+.navbar a.nav-link.qlf-nav-link {
+    color: #d9d3cc;
+}
+
+.navbar a.nav-link.qlf-nav-link:hover {
+    color: #a61212;
+}
+
+.qlf-nav-links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container-fluid.text-center.qlf-container {
+    margin: 0;
+    padding: 0 5%;
+}
+
+.qlf-central-logo {
+    width: 20%;
+    height: auto;
+}
+
+.title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 3em;
+}
+
+.content {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.5em;
+}
+
+.btn.btn-lg.btn-block.btn-go-qlf {
+    background-color: #a61212;
+    font-family: "Bebas Neue", sans-serif;
+    color: #d9d3cc;
+    font-size: 3em;
+}
+
+.btn.btn-lg.btn-block.btn-go-qlf:hover {
+    background-color: #bf3f34;
+}
+
+.qlf-socials-icon-fixed-right {
+    height: 100%;
+    right: 3%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+}
+
+a.fa {
+    color: #d9d3cc;
+    font-size: 3em;
+    margin: 100% 0;
+}
+
+a.fa:hover {
+    color: #bf3f34;
+    text-decoration: none;
+}

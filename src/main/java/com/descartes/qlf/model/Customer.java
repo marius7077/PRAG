@@ -19,21 +19,25 @@ public class Customer implements Serializable {
   private String postalCode;
   private String city;
   private String phoneNumber;
+  private double latitude;
+  private double longitude;
   private String rib;
   private String type;
 
   public Customer() {}
 
   public Customer(
-          String firstName,
-          String lastName,
-          String email,
-          String password,
-          String address,
-          String postalCode,
-          String city,
-          String phoneNumber,
-          String type) {
+      String firstName,
+      String lastName,
+      String email,
+      String password,
+      String address,
+      String postalCode,
+      String city,
+      String phoneNumber,
+      double latitude,
+      double longitude,
+      String type) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -42,6 +46,8 @@ public class Customer implements Serializable {
     this.postalCode = postalCode;
     this.city = city;
     this.phoneNumber = phoneNumber;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.type = type;
   }
 
@@ -115,6 +121,22 @@ public class Customer implements Serializable {
 
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+  }
+
+  public double getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(double latitude) {
+    this.latitude = latitude;
+  }
+
+  public double getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(double longitude) {
+    this.longitude = longitude;
   }
 
   public String getRib() {
