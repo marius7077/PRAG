@@ -89,9 +89,7 @@ public class ProductController {
 
   @PostMapping("/removeproductconfirm")
   public String removeProduct(
-      @RequestParam(name = "id", required = true) Long id,
-      Model model,
-      HttpServletRequest request) {
+      @RequestParam(name = "id") Long id, Model model, HttpServletRequest request) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     if (customer.getType().equals("producer")) {
       model.addAttribute("id", id);
@@ -144,8 +142,7 @@ public class ProductController {
   }
 
   @GetMapping("/product")
-  public String product(
-      @RequestParam(name = "productId", required = true) Long productId, Model model) {
+  public String product(@RequestParam(name = "productId") Long productId, Model model) {
     Product product = productService.getById(productId);
     model.addAttribute(product);
     return "product";

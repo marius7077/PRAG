@@ -43,9 +43,7 @@ public class CustomerController {
   }
 
   @GetMapping("/producer")
-  public String producer(
-      @RequestParam(name = "producerId", required = true) Long producerId, Model model) {
-
+  public String producer(@RequestParam(name = "producerId") Long producerId, Model model) {
     Customer customer = customerService.getById(producerId);
     List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
     model.addAttribute("listProducts", listProducts.toArray());
