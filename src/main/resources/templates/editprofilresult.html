@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Moficiation résultat</title>
+</head>
+<body>
+<p th:if="${Erreur != null}" th:text="${Erreur}">...</p>
+<p th:if="${Erreur == null}">Votre profil a bien été modifié !</p>
+<p>Index <a href="/index">ici</a></p>
+<p>Réssayer <a href="/editprofil">ici</a></p>
+</body>
+</html>

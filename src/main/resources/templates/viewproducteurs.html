@@ -25,10 +25,10 @@
             <ul>
                 <li>
                     Prénom : <a href="/producer" th:href="@{/producer(producerId=${Customer.id})}"><td th:utext="${Customer.firstName}"></td></a>
-                    Prénom : <td th:utext="${Customer.firstName}"></td>
                     Nom : <td th:utext="${Customer.lastName}"></td>
                     Adresse :  <td th:utext="${Customer.address}"></td>
                     Email : <td th:utext="${Customer.email}"></td>
+                    Email : <td th:utext="${Customer.phoneNumber}"></td>
                 </li>
             </ul>
         </div>

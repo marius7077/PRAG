@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org/"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Modification du profil</title>
+</head>
+<body>
+<h1>Quel modification souhaitez-vous faire?</h1>
+<div th:each="Informations : ${CustomerInformation}">
+    <div id="boutonEdit">
+        <input type="button" class="boutonEdit" value="Modifier votre profil">
+    </div>
+
+    <p th:text="${Erreur}">...</p>
+
+    <form method="post" action="/editprofilresult">
+        <label for='email'>Courriel :</label>
+        <input type="email" id="email" class="edit" name="email" th:value="${Informations.email}" disabled
+               placeholder="Entrez votre adresse email" required='true'>
+        <br>
+        <label for='fisrtName'>Prénom :</label>
+        <input type="text" id="fisrtName" class="edit" name="firstName" th:value="${Informations.firstName}" disabled
+               placeholder="Entrez votre prénom" required='true'>
+        <br>
+        <label for='lastName'>Nom :</label>
+        <input type="text" id="lastName" class="edit" name="lastName" th:value="${Informations.lastName}" disabled
+               placeholder="Entrez votre nom" required='true'>
+        <br>
+        <label for='password'>Mot de passe :</label>
+        <input type="password" id="password" class="edit" name="password" th:value="${Informations.password}" disabled
+               placeholder="Entrez votre nouveau mot de passe" required='true'>
+        <br>
+        <label for='confirm_password'>Mot de passe :</label>
+        <input type="password" id="confirm_password" class="edit" name="confirm_password"
+               th:value="${Informations.password}" disabled placeholder="Confirmer votre mot de passe" required='true'>
+        <br>
+        <label for='address'>Adresse :</label>
+        <input type="text" id="address" class="edit" name="address" th:value="${Informations.address}" disabled
+               placeholder="Entrez votre nouvelle adresse" required='true'>
+        <br>
+        <label for='city'>Ville :</label>
+        <input type="text" id="city" class="edit" name="city" th:value="${Informations.city}" disabled
+               placeholder="Entrez votre ville" required='true'>
+        <br>
+        <label for='postalCode'>Code postal :</label>
+        <input type="text" id="postalCode" class="edit" name="postalCode" maxlength="5"
+               th:value="${Informations.postalCode}" disabled placeholder="Entrez votre ville" required='true'>
+        <br>
+        <label for='phoneNumber'>Téléphone :</label>
+        <input type="text" id="phoneNumber" class="edit" name="phoneNumber" maxlength="10"
+               th:value="${Informations.phoneNumber}" disabled placeholder="Entrez votre nouveau numéro"
+               required='true'>
+        <br>
+        <input type="submit" class="edit" disabled value="Envoyer les modifier">
+    </form>
+</div>
+
+<script type="text/javascript">
+    const b = document.getElementById("boutonEdit");
+    const log = document.querySelectorAll(".edit");
+    b.addEventListener('click', function () {
+        log.forEach(e => e.disabled = false);
+    })
+</script>
+
+</body>
+</html>

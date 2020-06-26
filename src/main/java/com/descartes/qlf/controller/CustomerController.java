@@ -18,47 +18,79 @@ import java.util.List;
 @Controller
 public class CustomerController {
 
-    @Autowired
-    private CustomerService customerService;
+  @Autowired private CustomerService customerService;
 
-    @Autowired private ProductService productService;
+  @Autowired private ProductService productService;
 
+  @GetMapping("/viewproducteurs")
+  public String viewproducteurs(Model model) {
+    List<Customer> listCustomers;
+    listCustomers = customerService.getAllCustomers();
+    model.addAttribute("listCustomers", listCustomers.toArray());
+    return "viewproducteurs";
+  }
 
-    @GetMapping("/viewproducteurs")
-    public String viewproducteurs(Model model) {
-        List<Customer> listCustomers;
-        listCustomers = customerService.getAllCustomers();
-        model.addAttribute("listCustomers", listCustomers.toArray());
-        return "viewproducteurs";
-    }
-
-    @PostMapping("/searchresult2")
-    public String SearchProducerbyKeyword(
-            @RequestParam(name = "keyword", required = true) String keyword,
-            Model model){
-        List<Customer> listCustomers = new ArrayList<>();
-        listCustomers = customerService.getBySearch(keyword.toUpperCase());
-        if (listCustomers != null) {
+  @PostMapping("/searchresult2")
+  public String SearchProducerbyKeyword(
+      @RequestParam(name = "keyword") String keyword, Model model) {
+    List<Customer> listCustomers = customerService.getBySearch(keyword.toUpperCase());
+    if (listCustomers != null) {
       model.addAttribute("listCustomers", listCustomers.toArray());
-      model.addAttribute("erreur","ok");
-        }
-        else{
-            System.out.println(listCustomers);
-            model.addAttribute("erreur",listCustomers);
-        }
-        return "viewproducteurs";
+      model.addAttribute("erreur", "ok");
+    } else {
+      System.out.println(listCustomers);
+      model.addAttribute("erreur", listCustomers);
     }
+    return "viewproducteurs";
+  }
 
-    @GetMapping("/producer")
-    public String producer(
-            @RequestParam(name = "producerId", required = true) Long producerId,
-            Model model) {
+  @GetMapping("/producer")
+  public String producer(
+      @RequestParam(name = "producerId") Long producerId, Model model) {
 
-        Customer customer = customerService.getById(producerId);
-        List<Product> listProducts = new ArrayList<>();
-        listProducts = productService.getAllProductByCustomerId(customer.getId());
-        model.addAttribute("listProducts", listProducts.toArray());
-        model.addAttribute(customer);
-        return "producer";
+    Customer customer = customerService.getById(producerId);
+    List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
+    model.addAttribute("listProducts", listProducts.toArray());
+    model.addAttribute(customer);
+    return "producer";
+  }
+
+  @GetMapping("/editprofil")
+  public String editprofil(HttpServletRequest request, Model model) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    model.addAttribute("CustomerInformation", customerService.getById(customer.getId()));
+    return "editprofil";
+  }
+
+  @PostMapping("/editprofilresult")
+  public String editprofil(
+      @RequestParam(name = "lastName") String lastName,
+      @RequestParam(name = "firstName") String firstName,
+      @RequestParam(name = "email") String email,
+      @RequestParam(name = "password") String password,
+      @RequestParam(name = "confirm_password") String confirm_password,
+      @RequestParam(name = "address") String address,
+      @RequestParam(name = "postalCode")  String postalCode,
+      @RequestParam(name = "city") String city,
+      @RequestParam(name = "phoneNumber") String phoneNumber,
+      Model model,
+      HttpServletRequest request) {
+    model.addAttribute("Erreur", null);
+    if (!password.equals(confirm_password)) {
+      model.addAttribute("Erreur", "Les mots de passe ne correspondent pas !");
+      return "editprofilresult";
     }
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    List<Double> coordinates = customerService.addressToCoordinates(address, postalCode, city);
+    customer.setAddress(address);
+    customer.setCity(city);
+    customer.setFirstName(firstName);
+    customer.setEmail(email);
+    customer.setLastName(lastName);
+    customer.setPassword(password);
+    customer.setPhoneNumber(phoneNumber);
+    customer.setPostalCode(postalCode);
+    customerService.save(customer);
+    return "editprofilresult";
+  }
 }
