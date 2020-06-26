@@ -27,7 +27,7 @@
 <div class="qlf-central-container">
     <div id="connexion" class="qlf-central-tile qlf-tile">
         <h1> Connectez-vous : </h1>
-        <p class="qlf-alert" th:text="${Erreur}"></p>
+        <p class="qlf-alert" th:text="${error}"></p>
         <form method="post" action="/loginconfirm">
             <label class="qlf-label" for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Entrez votre adresse email">

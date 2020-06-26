@@ -25,7 +25,7 @@ public class CustomerService {
   }
 
   public List<Customer> getAllCustomers() {
-    return (List<Customer>) customerRepository.findAll();
+    return customerRepository.findAll();
   }
 
   public Customer connect(String email, String password) {
@@ -34,6 +34,14 @@ public class CustomerService {
       return customer;
     } else {
       return null;
+    }
+  }
+
+  public List<Customer> getBySearch(String keyword) {
+    if (keyword != null) {
+      return customerRepository.search(keyword);
+    } else {
+      return customerRepository.findAll();
     }
   }
 
@@ -49,7 +57,6 @@ public class CustomerService {
     RestTemplate restTemplate = new RestTemplate();
     String url = "https://geocode.localfocus.nl/geocode.php?q=";
     String urlCompleted = url + address + "+" + postalCode + "+" + city + "&boundary=FRA";
-    System.out.println(urlCompleted);
     String body = restTemplate.getForObject(urlCompleted, String.class);
     if (body != null) {
       coordinates.add(

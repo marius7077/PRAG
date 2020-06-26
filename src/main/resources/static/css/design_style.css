@@ -10,6 +10,7 @@ body.index {
 .navbar {
     font-family: "Bebas Neue", sans-serif;
     font-size: 2em;
+    z-index: 2;
 }
 
 .navbar a.nav-link.qlf-nav-link {

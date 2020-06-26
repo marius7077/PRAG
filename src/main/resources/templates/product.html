@@ -8,14 +8,13 @@
 
 <h1>Fiche produit</h1>
 
-<p th:text="'nom ' +${product.name} "></p>
+<p th:text="'name ' +${product.name} "></p>
 <p th:text="'description ' +${product.description} "></p>
 <p th:text="'price ' +${product.price} "></p>
 <p th:text="'urlPhoto ' +${product.urlPhoto} "></p>
 <p th:text="'category ' +${product.category?.name} "></p>
 <p th:text="'customer ' +${product.customer?.firstName} "></p>
-
-
+<p>Index <a href="/index">ici</a></p>
 
 </body>
 </html>

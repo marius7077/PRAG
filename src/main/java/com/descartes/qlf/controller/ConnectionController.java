@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -23,17 +24,16 @@ public class ConnectionController {
 
   @PostMapping("/signupconfirm")
   public String signUp(
-      @RequestParam(name = "lastName", required = true) String lastName,
-      @RequestParam(name = "firstName", required = true) String firstName,
-      @RequestParam(name = "email", required = true) String email,
-      @RequestParam(name = "password", required = true) String password,
-      @RequestParam(name = "address", required = true) String address,
-      @RequestParam(name = "postalCode", required = true) String postalCode,
-      @RequestParam(name = "city", required = true) String city,
-      @RequestParam(name = "phoneNumber", required = true) String phoneNumber,
-      @RequestParam(name = "type", required = true) String type,
+      @RequestParam(name = "lastName") String lastName,
+      @RequestParam(name = "firstName") String firstName,
+      @RequestParam(name = "email") String email,
+      @RequestParam(name = "password") String password,
+      @RequestParam(name = "address") String address,
+      @RequestParam(name = "postalCode") String postalCode,
+      @RequestParam(name = "city") String city,
+      @RequestParam(name = "phoneNumber") String phoneNumber,
+      @RequestParam(name = "type") String type,
       Model model) {
-    model.addAttribute("Erreur", "");
     if (customerService.testEmail(email)) {
       List<Double> coordinates = customerService.addressToCoordinates(address, postalCode, city);
       if (type.equals("producer")) {
@@ -69,7 +69,7 @@ public class ConnectionController {
       model.addAttribute("lastName", lastName);
       return "signupconfirm";
     } else {
-      model.addAttribute("Erreur", "L'adresse email est déjà utilisée");
+      model.addAttribute("error", "L'adresse email est déjà utilisée !");
       return "signup";
     }
   }
@@ -81,8 +81,8 @@ public class ConnectionController {
 
   @PostMapping("/loginconfirm")
   public String logIn(
-      @RequestParam(name = "email", required = true) String email,
-      @RequestParam(name = "password", required = true) String password,
+      @RequestParam(name = "email") String email,
+      @RequestParam(name = "password") String password,
       HttpServletRequest request,
       Model model) {
     Customer customer = customerService.connect(email, password);
@@ -92,13 +92,13 @@ public class ConnectionController {
       model.addAttribute("lastName", customer.getLastName());
       return "index";
     } else {
-      model.addAttribute("Erreur", "L'adresse email et le mot de passe ne correspondent pas !");
+      model.addAttribute("error", "L'adresse email et le mot de passe ne correspondent pas !");
       return "login";
     }
   }
 
   @GetMapping("/logout")
-  public String logIn(HttpServletRequest request) {
+  public String logOut(HttpServletRequest request) {
     request.getSession().invalidate();
     return "index";
   }
