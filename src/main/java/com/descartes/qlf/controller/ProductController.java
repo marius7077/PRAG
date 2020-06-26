@@ -36,45 +36,71 @@ public class ProductController {
   }
 
   @GetMapping("/addproduct")
-  public String addProduct() {
-    return "addproduct";
+  public String addProduct(Model model, HttpServletRequest request) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      return "addproduct";
+    } else {
+      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      return "error";
+    }
   }
 
-    @PostMapping("/addproductconfirm")
-    public String addProduct(
-            @RequestParam(name = "name", required = true) String name,
-            @RequestParam(name = "description", required = true) String description,
-            @RequestParam(name = "price", required = true) String price,
-            @RequestParam(name = "productCategory", required = true) String productCategory,
-            @RequestParam(name = "picture", required = true) MultipartFile file,
-            HttpServletRequest request,
-            Model model) {
-        Customer customer = (Customer) request.getSession().getAttribute("customer");
-        ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
-        String filename = fileSystemStorageService.store(file);
-        Product product =
-                new Product(
-                        name,
-                        description,
-                        price,
-                        "/files/" + filename,
-                        productCategoryRef,
-                        customerService.getById(customer.getId()));
-        productService.save(product);
-        model.addAttribute("file", filename);
-        return "addproduct";
+  @PostMapping("/addproductconfirm")
+  public String addProduct(
+      @RequestParam(name = "name", required = true) String name,
+      @RequestParam(name = "description", required = true) String description,
+      @RequestParam(name = "price", required = true) String price,
+      @RequestParam(name = "productCategory", required = true) String productCategory,
+      @RequestParam(name = "picture", required = true) MultipartFile file,
+      HttpServletRequest request,
+      Model model) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
+      String filename = fileSystemStorageService.store(file);
+      Product product =
+          new Product(
+              name,
+              description,
+              price,
+              "/files/" + filename,
+              productCategoryRef,
+              customerService.getById(customer.getId()));
+      productService.save(product);
+      model.addAttribute("file", filename);
+      return "addproduct";
+    } else {
+      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      return "error";
     }
+  }
 
   @GetMapping("/removeproduct")
-  public String removeProduct() {
-    return "removeproduct";
+  public String removeProduct(Model model, HttpServletRequest request) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      return "removeproduct";
+    } else {
+      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      return "error";
+    }
   }
 
   @PostMapping("/removeproductconfirm")
-  public String removeProduct(@RequestParam(name = "id", required = true) Long id, Model model) {
-    model.addAttribute("id", id);
-    productService.removeById(id);
-    return "removeproduct";
+  public String removeProduct(
+      @RequestParam(name = "id", required = true) Long id,
+      Model model,
+      HttpServletRequest request) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      model.addAttribute("id", id);
+      productService.removeById(id);
+      return "removeproduct";
+    } else {
+      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      return "error";
+    }
   }
 
   @GetMapping("/search")
@@ -98,25 +124,25 @@ public class ProductController {
     return "viewproducts";
   }
 
-    @PostMapping("/productcategory")
-    public String productcategory(
-            @RequestParam(name = "fruit_legume", required = false) String fruit_legume,
-            @RequestParam(name = "viande", required = false) String viande,
-            @RequestParam(name = "laitiers", required = false) String laitier,
-            Model model) {
-        List<Product> listProducts = new ArrayList<>();
-        if(fruit_legume != null){
-            listProducts.addAll(productService.getAllProductByCategoryId(1L));
-        }
-        if(viande != null){
-            listProducts.addAll(productService.getAllProductByCategoryId(2L));
-        }
-        if(laitier != null){
-            listProducts.addAll(productService.getAllProductByCategoryId(3L));
-        }
-        model.addAttribute("listProducts", listProducts.toArray());
-        return "viewproducts";
+  @PostMapping("/productcategory")
+  public String productcategory(
+      @RequestParam(name = "fruit_legume", required = false) String fruit_legume,
+      @RequestParam(name = "viande", required = false) String viande,
+      @RequestParam(name = "laitiers", required = false) String laitier,
+      Model model) {
+    List<Product> listProducts = new ArrayList<>();
+    if (fruit_legume != null) {
+      listProducts.addAll(productService.getAllProductByCategoryId(1L));
     }
+    if (viande != null) {
+      listProducts.addAll(productService.getAllProductByCategoryId(2L));
+    }
+    if (laitier != null) {
+      listProducts.addAll(productService.getAllProductByCategoryId(3L));
+    }
+    model.addAttribute("listProducts", listProducts.toArray());
+    return "viewproducts";
+  }
 
   @GetMapping("/product")
   public String product(

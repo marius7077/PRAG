@@ -19,27 +19,25 @@ public class CustomerController {
 
   @Autowired private CustomerService customerService;
 
-    @Autowired private ProductService productService;
+  @Autowired private ProductService productService;
 
+  @GetMapping("/viewproducers")
+  public String viewproducteurs(Model model) {
+    List<Customer> listCustomers = new ArrayList<>();
+    listCustomers = customerService.getAllCustomers();
+    model.addAttribute("listCustomers", listCustomers.toArray());
+    return "viewproducers";
+  }
 
-    @GetMapping("/viewproducteurs")
-    public String viewproducteurs(Model model) {
-        List<Customer> listCustomers = new ArrayList<>();
-        listCustomers = customerService.getAllCustomers();
-        model.addAttribute("listCustomers", listCustomers.toArray());
-        return "viewproducteurs";
-    }
+  @GetMapping("/producer")
+  public String producer(
+      @RequestParam(name = "producerId", required = true) Long producerId, Model model) {
 
-    @GetMapping("/producer")
-    public String producer(
-            @RequestParam(name = "producerId", required = true) Long producerId,
-            Model model) {
-
-        Customer customer = customerService.getById(producerId);
-        List<Product> listProducts = new ArrayList<>();
-        listProducts = productService.getAllProductByCustomerId(customer.getId());
-        model.addAttribute("listProducts", listProducts.toArray());
-        model.addAttribute(customer);
-        return "producer";
-    }
+    Customer customer = customerService.getById(producerId);
+    List<Product> listProducts = new ArrayList<>();
+    listProducts = productService.getAllProductByCustomerId(customer.getId());
+    model.addAttribute("listProducts", listProducts.toArray());
+    model.addAttribute(customer);
+    return "producer";
+  }
 }
