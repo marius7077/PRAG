@@ -18,12 +18,12 @@ public class ConnectionController {
   @Autowired private CustomerService customerService;
 
   @GetMapping("/signup")
-  public String signUp() {
+  public String signup() {
     return "signup";
   }
 
   @PostMapping("/signupconfirm")
-  public String signUp(
+  public String signup(
       @RequestParam(name = "lastName") String lastName,
       @RequestParam(name = "firstName") String firstName,
       @RequestParam(name = "email") String email,
@@ -75,12 +75,12 @@ public class ConnectionController {
   }
 
   @GetMapping("/login")
-  public String logIn() {
+  public String login() {
     return "login";
   }
 
   @PostMapping("/loginconfirm")
-  public String logIn(
+  public String login(
       @RequestParam(name = "email") String email,
       @RequestParam(name = "password") String password,
       HttpServletRequest request,
@@ -98,7 +98,7 @@ public class ConnectionController {
   }
 
   @GetMapping("/logout")
-  public String logOut(HttpServletRequest request) {
+  public String loguout(HttpServletRequest request) {
     request.getSession().invalidate();
     return "index";
   }
