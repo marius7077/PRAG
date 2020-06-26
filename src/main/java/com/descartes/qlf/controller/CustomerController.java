@@ -28,17 +28,16 @@ public class CustomerController {
     return "viewproducers";
   }
 
-  @PostMapping("/searchresult2")
+  @PostMapping("/searchproducers")
   public String SearchProducerByKeyword(
-      @RequestParam(name = "keyword", required = true) String keyword, Model model) {
-    List<Customer> listCustomers = new ArrayList<>();
-    listCustomers = customerService.getBySearch(keyword.toUpperCase());
+      @RequestParam(name = "keyword") String keyword, Model model) {
+    List<Customer> listCustomers = customerService.getBySearch(keyword.toUpperCase());
     if (listCustomers != null) {
       model.addAttribute("listCustomers", listCustomers.toArray());
-      model.addAttribute("erreur", "ok");
+      model.addAttribute("error", "ok");
     } else {
-      System.out.println(listCustomers);
-      model.addAttribute("erreur", listCustomers);
+      System.out.println((Object) null);
+      model.addAttribute("error", null);
     }
     return "viewproducers";
   }

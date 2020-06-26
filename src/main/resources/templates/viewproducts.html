@@ -8,33 +8,29 @@
             display: inline;
         }
     </style>
-    <title>Liste des produits</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 
 <h1>Liste des produits</h1>
 
 <form method="post" action="/productcategory">
-
     <input type="checkbox" id="fruitLegume" name="fruitLegume" value="fruitLegume">
     <label for="fruitLegume"> fruit et légume</label><br>
     <input type="checkbox" id="viande" name="viande" value="viande">
     <label for="viande"> viande</label><br>
     <input type="checkbox" id="laitier" name="laitier" value="laitiers">
     <label for="laitier"> laitier</label><br>
-
     <br/>
     <input name='btnConnect' type='submit'/> <br/>
     <p>Index <a href="/index">ici</a></p>
 </form>
 
-<form method="post" action="/searchresult">
+<form method="post" action="/searchproducts">
     <label for="search">Search the site:</label>
     <input type="search" id="search" name="keyword">
     <button>Search</button>
 </form>
-<form method="post" action="/searchresult">
+<form method="post" action="/searchproducts">
     <input type="hidden" value="" name="keyword">
     <button>Clear</button>
 </form>

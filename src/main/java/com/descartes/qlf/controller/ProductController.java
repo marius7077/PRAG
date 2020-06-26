@@ -108,18 +108,17 @@ public class ProductController {
     return "search";
   }
 
-  @PostMapping("/searchresult")
+  @PostMapping("/searchproducts")
   public String SearchProductByKeyword(
       @RequestParam(name = "keyword") String keyword, Model model) {
-    List<Product> listProducts = productService.getBySearch(keyword);
+    List<Product> listProducts = productService.getBySearch(keyword.toUpperCase());
     model.addAttribute("listProducts", listProducts.toArray());
     return "viewproducts";
   }
 
   @GetMapping("/viewproducts")
   public String viewProducts(Model model) {
-    List<Product> listProducts = new ArrayList<>();
-    listProducts = productService.getAllProduct();
+    List<Product> listProducts = productService.getAllProduct();
     model.addAttribute("listProducts", listProducts.toArray());
     return "viewproducts";
   }
