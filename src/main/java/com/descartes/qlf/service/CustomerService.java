@@ -49,7 +49,6 @@ public class CustomerService {
     RestTemplate restTemplate = new RestTemplate();
     String url = "https://geocode.localfocus.nl/geocode.php?q=";
     String urlCompleted = url + address + "+" + postalCode + "+" + city + "&boundary=FRA";
-    System.out.println(urlCompleted);
     String body = restTemplate.getForObject(urlCompleted, String.class);
     if (body != null) {
       coordinates.add(

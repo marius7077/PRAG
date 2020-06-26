@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>ViewProduct</title>
+    <title>Liste des produits</title>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8"/>
     <style>
         form{
             display: inline;
@@ -10,14 +10,17 @@
     </style>
 </head>
 <body>
+
+<h1>Liste des produits</h1>
+
 <form method="post" action="/productcategory">
 
-    <input type="checkbox" id="fruit_legume" name="fruit_legume" value="fruit_legume">
-    <label for="fruit_legume"> fruit et légumes</label><br>
+    <input type="checkbox" id="fruitLegume" name="fruitLegume" value="fruitLegume">
+    <label for="fruitLegume"> fruit et légume</label><br>
     <input type="checkbox" id="viande" name="viande" value="viande">
     <label for="viande"> viande</label><br>
-    <input type="checkbox" id="laitiers" name="laitiers" value="laitiers">
-    <label for="laitiers"> laitiers</label><br>
+    <input type="checkbox" id="laitier" name="laitier" value="laitiers">
+    <label for="laitier"> laitier</label><br>
 
     <br/>
     <input name='btnConnect' type='submit'/> <br/>
@@ -38,7 +41,9 @@
     <ul>
         <li>
             name :
-            <a href="/product" th:href="@{/product(productId=${Product.id})}"><td th:utext="${Product.name}"></td></a>
+            <a href="/product" th:href="@{/product(productId=${Product.id})}">
+                <td th:utext="${Product.name}"></td>
+            </a>
             description :
             <td th:utext="${Product.description}"></td>
             price :
@@ -53,6 +58,5 @@
         </li>
     </ul>
 </div>
-<p>Index <a href="/index">ici</a></p>
 </body>
 </html>

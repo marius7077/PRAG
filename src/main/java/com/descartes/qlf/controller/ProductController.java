@@ -79,21 +79,20 @@ public class ProductController {
   }
 
   @GetMapping("/search")
-  public String SearchProductbyKeyword() {
+  public String SearchProductByKeyword() {
     return "search";
   }
 
   @PostMapping("/searchresult")
-  public String SearchProductbyKeyword(
-      @RequestParam(name = "keyword", required = true) String keyword, Model model) {
-    List<Product> listProducts = new ArrayList<>();
-    listProducts = productService.getBySearch(keyword);
+  public String SearchProductByKeyword(
+      @RequestParam(name = "keyword") String keyword, Model model) {
+    List<Product> listProducts = productService.getBySearch(keyword);
     model.addAttribute("listProducts", listProducts.toArray());
-    return "viewproducts";
+    return "searchresult";
   }
 
   @GetMapping("/viewproducts")
-  public String viewproducts(Model model) {
+  public String viewProducts(Model model) {
     List<Product> listProducts = new ArrayList<>();
     listProducts = productService.getAllProduct();
     model.addAttribute("listProducts", listProducts.toArray());
@@ -101,13 +100,13 @@ public class ProductController {
   }
 
   @PostMapping("/productcategory")
-  public String productcategory(
-      @RequestParam(name = "fruit_legume", required = false) String fruit_legume,
+  public String productCategory(
+      @RequestParam(name = "fruitLegume", required = false) String fruitLegume,
       @RequestParam(name = "viande", required = false) String viande,
-      @RequestParam(name = "laitiers", required = false) String laitier,
+      @RequestParam(name = "laitier", required = false) String laitier,
       Model model) {
     List<Product> listProducts = new ArrayList<>();
-    if (fruit_legume != null) {
+    if (fruitLegume != null) {
       listProducts.addAll(productService.getAllProductByCategoryId(1L));
     }
     if (viande != null) {

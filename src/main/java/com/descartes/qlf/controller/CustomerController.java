@@ -21,12 +21,11 @@ public class CustomerController {
 
   @Autowired private ProductService productService;
 
-  @GetMapping("/viewproducteurs")
-  public String viewproducteurs(Model model) {
-    List<Customer> listCustomers;
-    listCustomers = customerService.getAllCustomers();
+  @GetMapping("/viewproducers")
+  public String viewProducers(Model model) {
+    List<Customer> listCustomers = customerService.getAllCustomers();
     model.addAttribute("listCustomers", listCustomers.toArray());
-    return "viewproducteurs";
+    return "viewproducers";
   }
 
   @GetMapping("/producer")
@@ -34,8 +33,7 @@ public class CustomerController {
       @RequestParam(name = "producerId", required = true) Long producerId, Model model) {
 
     Customer customer = customerService.getById(producerId);
-    List<Product> listProducts = new ArrayList<>();
-    listProducts = productService.getAllProductByCustomerId(customer.getId());
+    List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
     model.addAttribute("listProducts", listProducts.toArray());
     model.addAttribute(customer);
     return "producer";
