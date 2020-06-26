@@ -109,7 +109,11 @@ public class CustomerService {
     message.setFrom("quelaferme@gmail.com");
     message.setTo(email);
     message.setSubject("Votre nouveau mot de passe");
-    message.setText("Votre nouveau mot de passe : " + newPassword + "\n" + "https://prag-qlf.herokuapp.com/login");
+    message.setText(
+        "Votre nouveau mot de passe : "
+            + newPassword
+            + "\n"
+            + "https://prag-qlf.herokuapp.com/login");
     emailSender.send(message);
     return null;
   }
