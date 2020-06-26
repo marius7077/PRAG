@@ -31,7 +31,7 @@ public class ConnectionController {
       @RequestParam(name = "firstName") String firstName,
       @RequestParam(name = "email") String email,
       @RequestParam(name = "password") String password,
-      @RequestParam(name = "confirm_password") String confirm_password,
+      @RequestParam(name = "confirmPassword") String confirmPassword,
       @RequestParam(name = "address") String address,
       @RequestParam(name = "postalCode") String postalCode,
       @RequestParam(name = "city") String city,
@@ -39,7 +39,16 @@ public class ConnectionController {
       @RequestParam(name = "type") String type,
       Model model) {
     model.addAttribute("Erreur", "");
-    if (email.isEmpty() || password.isEmpty() || confirm_password.isEmpty() || lastName.isEmpty() || firstName.isEmpty() || address.isEmpty() || postalCode.isEmpty() || city.isEmpty() || phoneNumber.isEmpty() || type.isEmpty()){
+    if (email.isEmpty()
+        || password.isEmpty()
+        || confirmPassword.isEmpty()
+        || lastName.isEmpty()
+        || firstName.isEmpty()
+        || address.isEmpty()
+        || postalCode.isEmpty()
+        || city.isEmpty()
+        || phoneNumber.isEmpty()
+        || type.isEmpty()) {
       model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
       return "signup";
     }
@@ -48,15 +57,15 @@ public class ConnectionController {
       model.addAttribute("Erreur", "Vous devez rentrer une adresse email valide !");
       return "signup";
     }
-    if (!password.equals(confirm_password)){
+    if (!password.equals(confirmPassword)) {
       model.addAttribute("Erreur", "Les mots de passe ne correspondent pas !");
       return "signup";
     }
-    if (!postalCode.matches("[0-9]{5}")){
+    if (!postalCode.matches("[0-9]{5}")) {
       model.addAttribute("Erreur", "Vous devez rentrer un code postal valide !");
       return "signup";
     }
-    if (!city.matches("[A-Za-zéèêëàâîïôöûüç]*")){
+    if (!city.matches("[A-Za-zéèêëàâîïôöûüç]*")) {
       model.addAttribute("Erreur", "Vous devez rentrer un nom de ville valide !");
       return "signup";
     }
@@ -118,7 +127,7 @@ public class ConnectionController {
       Model model) {
 
     model.addAttribute("Erreur", "");
-    if (email.isEmpty() || password.isEmpty()){
+    if (email.isEmpty() || password.isEmpty()) {
       model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
       return "login";
     }
