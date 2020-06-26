@@ -2,9 +2,9 @@ package com.descartes.qlf.service;
 
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.repository.CustomerRepository;
-import net.bytebuddy.utility.RandomString;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +22,7 @@ public class CustomerService {
 
   @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+  @Qualifier("getJavaMailSender")
   @Autowired private JavaMailSender emailSender;
 
   public void save(Customer customer) {

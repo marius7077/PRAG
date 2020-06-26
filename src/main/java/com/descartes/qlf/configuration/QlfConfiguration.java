@@ -19,10 +19,10 @@ public class QlfConfiguration {
   private String url;
 
   @Value("${spring.datasource.hikari.username}")
-  private String username;
+  private String usernameDatabase;
 
   @Value("${spring.datasource.hikari.password}")
-  private String password;
+  private String passwordDatabase;
 
   @Value("${spring.datasource.hikari.driver-class-name}")
   private String driver;
@@ -30,12 +30,24 @@ public class QlfConfiguration {
   @Value("${spring.datasource.hikari.maximum-pool-size}")
   private int poolSize;
 
+  @Value("${spring.mail.username}")
+  private String usernameMail;
+
+  @Value("${spring.mail.password}")
+  private String passwordMail;
+
+  @Value("${spring.mail.host}")
+  private String host;
+
+  @Value("${spring.mail.port}")
+  private String port;
+
   @Bean
   public DataSource dataSource() {
     HikariConfig config = new HikariConfig();
     config.setJdbcUrl(url);
-    config.setUsername(username);
-    config.setPassword(password);
+    config.setUsername(usernameDatabase);
+    config.setPassword(passwordDatabase);
     config.setDriverClassName(driver);
     config.setMaximumPoolSize(poolSize);
     return new HikariDataSource(config);
@@ -49,16 +61,14 @@ public class QlfConfiguration {
   @Bean
   public JavaMailSender getJavaMailSender() {
     JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-    mailSender.setHost("smtp.gmail.com");
-    mailSender.setPort(587);
-    mailSender.setUsername("quelaferme@gmail.com");
-    mailSender.setPassword("prag2020");
+    mailSender.setUsername(usernameMail);
+    mailSender.setPassword(passwordMail);
+    mailSender.setHost(host);
+    mailSender.setPort(Integer.parseInt(port));
     Properties props = mailSender.getJavaMailProperties();
     props.put("mail.transport.protocol", "smtp");
     props.put("mail.smtp.auth", "true");
     props.put("mail.smtp.starttls.enable", "true");
-    props.put("mail.debug", "true");
-    props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
     return mailSender;
   }
 }
