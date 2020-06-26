@@ -34,9 +34,7 @@ public class QlfController {
   }
 
   @GetMapping("/profil")
-  public String profil(
-          HttpServletRequest request,
-          Model model) {
+  public String profil(HttpServletRequest request, Model model) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     List<Product> listProducts = new ArrayList<>();
     listProducts = productService.getAllProductByCustomerId(customer.getId());
@@ -46,8 +44,8 @@ public class QlfController {
 
   @GetMapping("/queryparam")
   public String greeting(
-          @RequestParam(name = "name", required = false, defaultValue = "Empty Name") String name,
-          Model model) {
+      @RequestParam(name = "name", required = false, defaultValue = "Empty Name") String name,
+      Model model) {
     model.addAttribute("name", name);
     return "queryparam";
   }
@@ -57,12 +55,12 @@ public class QlfController {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt1 = connection.createStatement();
       stmt1.executeUpdate(
-              "INSERT INTO customer(address, city, email, first_name, last_name, password, phone_number, postal_code, rib, type) "
-                      + "VALUES ('crud', 'crud', 'crud', 'crud', 'crud', 'crud', 'crud', 'crud', null, 'crud')");
+          "INSERT INTO customer(address, city, email, first_name, last_name, password, phone_number, postal_code, rib, type) "
+              + "VALUES ('crud', 'crud', 'crud', 'crud', 'crud', 'crud', 'crud', 'crud', null, 'crud')");
       stmt1.executeUpdate("UPDATE customer SET type='producer' WHERE type='crud'");
       stmt1.executeUpdate(
-              "INSERT INTO customer(address, city, email, first_name, last_name, password, phone_number, postal_code, rib, type) "
-                      + "VALUES ('crud', 'crud', 'crud', 'crud', 'crud', 'crud', 'crud', 'crud', null, 'crud')");
+          "INSERT INTO customer(address, city, email, first_name, last_name, password, phone_number, postal_code, rib, type) "
+              + "VALUES ('crud', 'crud', 'crud', 'crud', 'crud', 'crud', 'crud', 'crud', null, 'crud')");
       stmt1.executeUpdate("DELETE FROM customer WHERE type = 'crud'");
       return "crud";
     } catch (Exception e) {

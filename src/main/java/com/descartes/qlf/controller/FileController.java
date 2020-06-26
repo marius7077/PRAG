@@ -25,8 +25,8 @@ public class FileController {
   public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
     Resource file = fileSystemStorageService.loadAsResource(filename);
     return ResponseEntity.ok()
-            .header(
-                    HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-            .body(file);
+        .header(
+            HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+        .body(file);
   }
 }
