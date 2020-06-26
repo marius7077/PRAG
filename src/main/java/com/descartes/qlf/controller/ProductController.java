@@ -1,5 +1,6 @@
 package com.descartes.qlf.controller;
 
+import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.model.Product;
 import com.descartes.qlf.model.ProductCategory;
 import com.descartes.qlf.service.CustomerService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,9 @@ public class ProductController {
             @RequestParam(name = "urlPhoto", required = true) String urlPhoto,
             @RequestParam(name = "productCategory", required = true) String productCategory,
             @RequestParam(name = "picture", required = true) MultipartFile file,
+            HttpServletRequest request,
             Model model) {
+        Customer customer = (Customer) request.getSession().getAttribute("customer");
         ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
         String filename = fileSystemStorageService.store(file);
         Product product =
@@ -56,7 +60,7 @@ public class ProductController {
                         price,
                         "/files/" + filename,
                         productCategoryRef,
-                        customerService.getById(10L));
+                        customerService.getById(customer.getId()));
         productService.save(product);
         model.addAttribute("file", filename);
         return "addproduct";
