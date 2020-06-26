@@ -22,16 +22,43 @@ public class ConnectionController {
 
   @PostMapping("/signupconfirm")
   public String signUp(
-      @RequestParam(name = "lastName", required = true) String lastName,
-      @RequestParam(name = "firstName", required = true) String firstName,
-      @RequestParam(name = "email", required = true) String email,
-      @RequestParam(name = "password", required = true) String password,
-      @RequestParam(name = "address", required = true) String address,
-      @RequestParam(name = "postalCode", required = true) String postalCode,
-      @RequestParam(name = "city", required = true) String city,
-      @RequestParam(name = "phoneNumber", required = true) String phoneNumber,
-      @RequestParam(name = "type", required = true) String type,
+      @RequestParam(name = "lastName") String lastName,
+      @RequestParam(name = "firstName") String firstName,
+      @RequestParam(name = "email") String email,
+      @RequestParam(name = "password") String password,
+      @RequestParam(name = "confirm_password") String confirm_password,
+      @RequestParam(name = "address") String address,
+      @RequestParam(name = "postalCode") String postalCode,
+      @RequestParam(name = "city") String city,
+      @RequestParam(name = "phoneNumber") String phoneNumber,
+      @RequestParam(name = "type") String type,
       Model model) {
+    model.addAttribute("Erreur", "");
+    if (email.isEmpty() || password.isEmpty() || confirm_password.isEmpty() || lastName.isEmpty() || firstName.isEmpty() || address.isEmpty() || postalCode.isEmpty() || city.isEmpty() || phoneNumber.isEmpty() || type.isEmpty()){
+      model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
+      return "signup";
+    }
+    if (!email.matches(
+        "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+      model.addAttribute("Erreur", "Vous devez rentrer une adresse email valide !");
+      return "signup";
+    }
+    if (!password.equals(confirm_password)){
+      model.addAttribute("Erreur", "Les mots de passe ne correspondent pas !");
+      return "signup";
+    }
+    if (!postalCode.matches("[0-9]{5}")){
+      model.addAttribute("Erreur", "Vous devez rentrer un code postal valide !");
+      return "signup";
+    }
+    if (!city.matches("[A-Za-zéèêëàâîïôöûüç]*")){
+      model.addAttribute("Erreur", "Vous devez rentrer un nom de ville valide !");
+      return "signup";
+    }
+    if (!phoneNumber.matches("(0|\\+33)[1-9]( *[0-9]{2}){4}")) {
+      model.addAttribute("Erreur", "Vous devez rentrer un numéro de téléphone valide !");
+      return "signup";
+    }
     model.addAttribute("Erreur", "");
     if (customerService.testEmail(email)) {
       if (type.equals("producer")) {
@@ -63,7 +90,7 @@ public class ConnectionController {
       model.addAttribute("lastName", lastName);
       return "signupconfirm";
     }else {
-      model.addAttribute("Erreur", "L'adresse email est déjà utilisée");
+      model.addAttribute("Erreur", "L'adresse email est déjà utilisée !");
       return "signup";
     }
   }
@@ -75,11 +102,16 @@ public class ConnectionController {
 
   @PostMapping("/loginconfirm")
   public String logIn(
-      @RequestParam(name = "email", required = true) String email,
-      @RequestParam(name = "password", required = true) String password,
+      @RequestParam(name = "email") String email,
+      @RequestParam(name = "password") String password,
       HttpServletRequest request,
       Model model) {
+
     model.addAttribute("Erreur", "");
+    if (email.isEmpty() || password.isEmpty()){
+      model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
+      return "login";
+    }
     Customer customer = customerService.connect(email, password);
     if(customer != null){
       request.getSession().setAttribute("customer", customer);

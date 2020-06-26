@@ -2,7 +2,7 @@
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Inscription</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
 
@@ -10,38 +10,38 @@
 
 <h1>Inscription</h1>
 
-<form method="post" action="/signupconfirm">
+<form action="/signupconfirm" method="post">
     <label for='lastName'>Nom :</label>
-    <input id='lastName' name='lastName' type='text' required='true'/> <br/>
+    <input id='lastName' name='lastName' required='true' type='text'/> <br/>
 
     <label for='firstName'>Prenom :</label>
-    <input id='firstName' name='firstName' type='text' required='true'/> <br/>
+    <input id='firstName' name='firstName' required='true' type='text'/> <br/>
 
     <label for='email'>Email :</label>
-    <input id='email' name='email' type='email' required='true'/> <br/>
+    <input id='email' name='email' required='true' type='email'/> <br/>
 
     <label for='password'>Mot de passe :</label>
-    <input id='password' name='password' type='password' required='true'/> <br/>
+    <input id='password' name='password' required='true' type='password'/> <br/>
 
     <label for='password'>Confirmation du mot de passe :</label>
-    <input id='confirm_password' name='confirm_password' type='password' required='true'/> <br/>
+    <input id='confirm_password' name='confirm_password' required='true' type='password'/> <br/>
 
     <label for='address'>Adresse :</label>
-    <input id='address' name='address' type='text' required='true'/> <br/>
+    <input id='address' name='address' required='true' type='text'/> <br/>
 
     <label for='postalCode'>Code postal :</label>
-    <input id='postalCode' name='postalCode' type='text' required='true'/> <br/>
+    <input id='postalCode' name='postalCode' pattern="[0-9]{5}" required='true' type='tel'/> <br/>
 
     <label for='city'>Ville :</label>
-    <input id='city' name='city' type='text' required='true'/> <br/>
+    <input id='city' name='city' pattern="[A-Za-zéèêëàâîïôöûüç-' ]*" required='true' type='text'/> <br/>
 
     <label for='phoneNumber'>Telephone :</label>
-    <input id='phoneNumber' name='phoneNumber' type='text' required='true'/> <br/>
+    <input id='phoneNumber' name='phoneNumber' pattern="(0|\+33)[1-9]( *[0-9]{2}){4}" required='true' type='tel'/> <br/>
 
-    <input type="radio" id="producer" name="type" value="producer">
+    <input id="producer" name="type" type="radio" value="producer">
     <label for="producer">Producer</label><br>
 
-    <input type="radio" id="customer" name="type" value="customer" checked='true'>
+    <input checked='true' id="customer" name="type" type="radio" value="customer">
     <label for="customer">Consumer</label><br>
 
     <br/>
