@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,22 +28,20 @@ public class CustomerController {
     return "viewproducers";
   }
 
-    @PostMapping("/searchresult2")
-    public String SearchProducerByKeyword(
-            @RequestParam(name = "keyword", required = true) String keyword,
-            Model model){
-        List<Customer> listCustomers = new ArrayList<>();
-        listCustomers = customerService.getBySearch(keyword.toUpperCase());
-        if (listCustomers != null) {
+  @PostMapping("/searchresult2")
+  public String SearchProducerByKeyword(
+      @RequestParam(name = "keyword", required = true) String keyword, Model model) {
+    List<Customer> listCustomers = new ArrayList<>();
+    listCustomers = customerService.getBySearch(keyword.toUpperCase());
+    if (listCustomers != null) {
       model.addAttribute("listCustomers", listCustomers.toArray());
-      model.addAttribute("erreur","ok");
-        }
-        else{
-            System.out.println(listCustomers);
-            model.addAttribute("erreur",listCustomers);
-        }
-        return "viewproducers";
+      model.addAttribute("erreur", "ok");
+    } else {
+      System.out.println(listCustomers);
+      model.addAttribute("erreur", listCustomers);
     }
+    return "viewproducers";
+  }
 
   @GetMapping("/producer")
   public String producer(
