@@ -1,4 +1,8 @@
 body {
+    font-family: "Montserrat", sans-serif;
+}
+
+body.index {
     background-color: #0a2459;
     color: #d9d3cc;
 }
@@ -36,9 +40,67 @@ body {
     font-size: 3em;
 }
 
+.qlf-tile {
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
+    border: solid #aaaaaa 1px;
+    width: 40%;
+}
+
+.qlf-central-tile {
+    padding: 5%;
+}
+
+.qlf-central-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+
+h1 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    color: #a61212;
+}
+
 .content {
     font-family: "Montserrat", sans-serif;
     font-size: 1.5em;
+}
+
+.qlf-label {
+    font-family: "Bebas Neue", sans-serif;
+    color: #0A2459;
+    display: block;
+}
+
+.qlf-label {
+    margin-top: 3%;
+}
+
+input {
+    background-color: #eeeeee;
+    color: #0d0d0d;
+    padding: 2% 5%;
+    display: inline-block;
+    font-size: 1em;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+}
+
+a.qlf-link-signup {
+    text-align: center;
+    display: block;
+    margin: 5% 0;
+    text-decoration: none;
+    color: #1592e6;
+    font-size: 0.8em;
+}
+
+a.qlf-link-signup:hover {
+    text-decoration: underline;
 }
 
 .btn.btn-lg.btn-block.btn-go-qlf {
@@ -48,7 +110,17 @@ body {
     font-size: 3em;
 }
 
-.btn.btn-lg.btn-block.btn-go-qlf:hover {
+.qlf-rounded-btn {
+    background-color: #a61212;
+    font-family: "Bebas Neue", sans-serif;
+    color: #d9d3cc;
+    fonts-size: 1em;
+    width: 60%;
+    margin: auto;
+    display: block;
+}
+
+.btn.btn-lg.btn-block.btn-go-qlf:hover, .qlf-rounded-btn:hover {
     background-color: #bf3f34;
 }
 
@@ -61,6 +133,10 @@ body {
     justify-content: center;
     text-align: center;
     z-index: 1;
+}
+
+.qlf-alert {
+    color: #bf3f34;
 }
 
 a.fa {

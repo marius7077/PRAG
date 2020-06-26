@@ -85,13 +85,12 @@ public class ConnectionController {
       @RequestParam(name = "password", required = true) String password,
       HttpServletRequest request,
       Model model) {
-    model.addAttribute("Erreur", "");
     Customer customer = customerService.connect(email, password);
     if (customer != null) {
       request.getSession().setAttribute("customer", customer);
       model.addAttribute("firstName", customer.getFirstName());
       model.addAttribute("lastName", customer.getLastName());
-      return "loginconfirm";
+      return "index";
     } else {
       model.addAttribute("Erreur", "L'adresse email et le mot de passe ne correspondent pas !");
       return "login";
