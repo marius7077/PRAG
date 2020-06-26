@@ -3,6 +3,7 @@ package com.descartes.qlf.controller;
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.model.Product;
 import com.descartes.qlf.service.ProductService;
+import com.descartes.qlf.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,8 @@ public class QlfController {
 
   @Autowired private ProductService productService;
 
+  @Autowired private CustomerService customerService;
+
   @GetMapping("/")
   public String home() {
     return "index";
@@ -38,9 +41,9 @@ public class QlfController {
           HttpServletRequest request,
           Model model) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
-    List<Product> listProducts = new ArrayList<>();
-    listProducts = productService.getAllProductByCustomerId(customer.getId());
+    List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
     model.addAttribute("listProducts", listProducts.toArray());
+    model.addAttribute("CustomerInformation", customerService.getById(customer.getId()));
     return "profil";
   }
 
