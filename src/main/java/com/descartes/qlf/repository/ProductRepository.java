@@ -9,13 +9,13 @@ import java.util.Optional;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-  @Override
-  List<Product> findAll();
+    @Override
+    List<Product> findAll();
 
-  @Query("SELECT p FROM Product p WHERE CONCAT(p.name, p.description) LIKE %?1%")
-  List<Product> search(String keyword);
+    @Query("SELECT p FROM Product p WHERE CONCAT(UPPER(p.name), UPPER(p.description)) LIKE %?1%")
+    List<Product> search(String keyword);
 
-  Optional<Product> findById(Long id);
+    Optional<Product> findById(Long id);
 
   List<Product> findByCategory_Id(Long id);
 
