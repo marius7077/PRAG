@@ -51,13 +51,13 @@ public class ProductController {
       @RequestParam(name = "name", required = true) String name,
       @RequestParam(name = "description", required = true) String description,
       @RequestParam(name = "price", required = true) String price,
-      @RequestParam(name = "productCategory", required = true) String productCategory,
+      @RequestParam(name = "productCategory", required = true) Long productCategory,
       @RequestParam(name = "picture", required = true) MultipartFile file,
       HttpServletRequest request,
       Model model) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     if (customer.getType().equals("producer")) {
-      ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
+      ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
       String filename = fileSystemStorageService.store(file);
       Product product =
           new Product(
