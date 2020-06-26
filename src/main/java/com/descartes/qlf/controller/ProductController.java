@@ -22,30 +22,29 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    @Autowired private ProductService productService;
+  @Autowired private ProductService productService;
 
-    @Autowired private ProductCategoryService productCategoryService;
+  @Autowired private ProductCategoryService productCategoryService;
 
-    @Autowired private CustomerService customerService;
+  @Autowired private CustomerService customerService;
 
-    private final FileSystemStorageService fileSystemStorageService;
+  private final FileSystemStorageService fileSystemStorageService;
 
-    @Autowired
-    public ProductController(FileSystemStorageService fileSystemStorageService) {
-        this.fileSystemStorageService = fileSystemStorageService;
-    }
+  @Autowired
+  public ProductController(FileSystemStorageService fileSystemStorageService) {
+    this.fileSystemStorageService = fileSystemStorageService;
+  }
 
-    @GetMapping("/addproduct")
-    public String addProduct() {
-        return "addproduct";
-    }
+  @GetMapping("/addproduct")
+  public String addProduct() {
+    return "addproduct";
+  }
 
     @PostMapping("/addproductconfirm")
     public String addProduct(
             @RequestParam(name = "name", required = true) String name,
             @RequestParam(name = "description", required = true) String description,
             @RequestParam(name = "price", required = true) String price,
-            @RequestParam(name = "urlPhoto", required = true) String urlPhoto,
             @RequestParam(name = "productCategory", required = true) String productCategory,
             @RequestParam(name = "picture", required = true) MultipartFile file,
             HttpServletRequest request,
@@ -66,41 +65,38 @@ public class ProductController {
         return "addproduct";
     }
 
-    @GetMapping("/removeproduct")
-    public String removeProduct() {
-        return "removeproduct";
-    }
+  @GetMapping("/removeproduct")
+  public String removeProduct() {
+    return "removeproduct";
+  }
 
-    @PostMapping("/removeproductconfirm")
-    public String removeProduct(
-            @RequestParam(name = "id", required = true) Long id,
-            Model model) {
-        model.addAttribute("id", id);
-        productService.removeById(id);
-        return "removeproduct";
-    }
+  @PostMapping("/removeproductconfirm")
+  public String removeProduct(@RequestParam(name = "id", required = true) Long id, Model model) {
+    model.addAttribute("id", id);
+    productService.removeById(id);
+    return "removeproduct";
+  }
 
-    @GetMapping("/search")
-    public String SearchProductbyKeyword() {
-        return "search";
-    }
-    @PostMapping("/searchresult")
-    public String SearchProductbyKeyword(
-            @RequestParam(name = "keyword", required = true) String keyword,
-            Model model){
-        List<Product> listProducts = new ArrayList<>();
-        listProducts = productService.getBySearch(keyword);
-        model.addAttribute("listProducts", listProducts.toArray());
-        return "viewproducts";
-    }
+  @GetMapping("/search")
+  public String SearchProductByKeyword() {
+    return "search";
+  }
 
-    @GetMapping("/viewproducts")
-    public String viewproducts(Model model) {
-        List<Product> listProducts = new ArrayList<>();
-        listProducts = productService.getAllProduct();
-        model.addAttribute("listProducts", listProducts.toArray());
-        return "viewproducts";
-    }
+  @PostMapping("/searchresult")
+  public String SearchProductByKeyword(
+      @RequestParam(name = "keyword") String keyword, Model model) {
+    List<Product> listProducts = productService.getBySearch(keyword);
+    model.addAttribute("listProducts", listProducts.toArray());
+    return "viewproducts";
+  }
+
+  @GetMapping("/viewproducts")
+  public String viewProducts(Model model) {
+    List<Product> listProducts = new ArrayList<>();
+    listProducts = productService.getAllProduct();
+    model.addAttribute("listProducts", listProducts.toArray());
+    return "viewproducts";
+  }
 
     @PostMapping("/productcategory")
     public String productcategory(
@@ -122,14 +118,11 @@ public class ProductController {
         return "viewproducts";
     }
 
-    @GetMapping("/product")
-    public String product(
-            @RequestParam(name = "productId", required = true) Long productId,
-            Model model) {
-        Product product = productService.getById(productId);
-        model.addAttribute(product);
-        return "product";
-    }
-
-
+  @GetMapping("/product")
+  public String product(
+      @RequestParam(name = "productId", required = true) Long productId, Model model) {
+    Product product = productService.getById(productId);
+    model.addAttribute(product);
+    return "product";
+  }
 }

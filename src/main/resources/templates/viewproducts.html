@@ -8,6 +8,8 @@
             display: inline;
         }
     </style>
+    <title>Liste des produits</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <form method="post" action="/productcategory">
@@ -38,7 +40,9 @@
     <ul>
         <li>
             name :
-            <a href="/product" th:href="@{/product(productId=${Product.id})}"><td th:utext="${Product.name}"></td></a>
+            <a href="/product" th:href="@{/product(productId=${Product.id})}">
+                <td th:utext="${Product.name}"></td>
+            </a>
             description :
             <td th:utext="${Product.description}"></td>
             price :

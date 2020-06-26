@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Résultat de recherche</title>
+    <title>Résultat de la recherche</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h1>Résultat de recherche</h1>
-    <div th:each="Product : ${listProducts}">
-        <ul>
-            <li>
-                Nom : <td th:utext="${Product.name}"></td>
-                Description : <td th:utext="${Product.description}"></td>
-                Prix : <td th:utext="${Product.price}"></td> Euros
-            </li>
-        </ul>
-    </div>
+
+<h1>Résultat de la recherche</h1>
+
+<div th:each="Product : ${listProducts}">
+    <ul>
+        <li>
+            Nom :
+            <td th:utext="${Product.name}"></td>
+            Description :
+            <td th:utext="${Product.description}"></td>
+            Prix :
+            <td th:utext="${Product.price}"></td>
+            Euros
+        </li>
+    </ul>
+</div>
 </body>
 </html>
