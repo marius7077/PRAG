@@ -1,5 +1,6 @@
 body {
     font-family: "Montserrat", sans-serif;
+    max-width: 100%;
 }
 
 body.index {
@@ -14,7 +15,7 @@ body.index {
 }
 
 .navbar.navbar-expand-lg.navbar-dark>#navbarText>.navbar-nav>.nav-item {
-    padding: 0 3%;
+    padding: 0 5%;
 }
 
 .navbar.navbar-expand-lg.navbar-dark>#navbarText>.navbar-nav>.nav-item>a.nav-link.qlf-nav-link {
@@ -88,6 +89,37 @@ body.index {
 
 .qlf-splitted-content {
     width: 48%;
+}
+
+.qlf-splitted-content-3 {
+    width: 30%;
+    border: solid 1px #1592e6;
+    border-radius: 10px;
+    text-align: center;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.qlf-splitted-content-checked {
+    background-color: #0A2459;
+    color: #d9d3cc;
+}
+
+.qlf-splitted-content-3 > p {
+    margin: 0;
+    color: #0A2459;
+    font-size: 0.8em;
+}
+
+.qlf-splitted-content-checked > p {
+    color: #d9d3cc;
+}
+
+.qlf-splitted-content-3 > p.qlf-price {
+    font-weight: bold;
 }
 
 .qlf-splitted-content > .qlf-radio-label {
@@ -170,7 +202,7 @@ a.qlf-link-signup:hover {
     color: #d9d3cc;
     fonts-size: 1em;
     width: 60%;
-    margin: auto;
+    margin: 5% auto 0 auto;
     display: block;
 }
 

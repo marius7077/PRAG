@@ -21,8 +21,9 @@ public class Customer implements Serializable {
   private String phoneNumber;
   private double latitude;
   private double longitude;
-  private String rib;
   private String type;
+  private String company;
+  private long endSubscription;
 
   public Customer() {}
 
@@ -37,7 +38,8 @@ public class Customer implements Serializable {
       String phoneNumber,
       double latitude,
       double longitude,
-      String type) {
+      String type,
+      String company) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -49,6 +51,7 @@ public class Customer implements Serializable {
     this.latitude = latitude;
     this.longitude = longitude;
     this.type = type;
+    this.company = company;
   }
 
   public long getId() {
@@ -139,19 +142,27 @@ public class Customer implements Serializable {
     this.longitude = longitude;
   }
 
-  public String getRib() {
-    return rib;
-  }
-
-  public void setRib(String rib) {
-    this.rib = rib;
-  }
-
   public String getType() {
     return type;
   }
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public String getCompany() {
+    return company;
+  }
+
+  public void setCompany(String company) {
+    this.company = company;
+  }
+
+  public long getEndSubscription() {
+    return this.endSubscription;
+  }
+
+  public void setEndSubscription(long endSubscription) {
+    this.endSubscription = endSubscription;
   }
 }

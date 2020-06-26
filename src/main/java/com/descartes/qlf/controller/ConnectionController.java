@@ -36,11 +36,13 @@ public class ConnectionController {
       @RequestParam(name = "city") String city,
       @RequestParam(name = "phoneNumber") String phoneNumber,
       @RequestParam(name = "type") String type,
+      @RequestParam(name = "company") String company,
+      HttpServletRequest request,
       Model model) {
     if (customerService.testEmail(email)) {
       List<Double> coordinates = customerService.addressToCoordinates(address, postalCode, city);
       if (type.equals("producer")) {
-        customerService.save(
+        Customer customer =
             new Customer(
                 firstName,
                 lastName,
@@ -52,9 +54,16 @@ public class ConnectionController {
                 phoneNumber,
                 coordinates.get(0),
                 coordinates.get(1),
-                "producer"));
+                "producer",
+                company);
+        customerService.save(customer);
+        model.addAttribute(
+            "error",
+            "Veuillez-compléter votre inscription par le paiement de votre premier abonnement");
+        request.getSession().setAttribute("customer", customer);
+        return "billing";
       } else {
-        customerService.save(
+        Customer customer =
             new Customer(
                 firstName,
                 lastName,
@@ -66,11 +75,12 @@ public class ConnectionController {
                 phoneNumber,
                 coordinates.get(0),
                 coordinates.get(1),
-                "consumer"));
+                "consumer",
+                null);
+        customerService.save(customer);
+        request.getSession().setAttribute("customer", customer);
+        return "index";
       }
-      model.addAttribute("firstName", firstName);
-      model.addAttribute("lastName", lastName);
-      return "index";
     } else {
       model.addAttribute("error", "L'adresse email est déjà utilisée !");
       return "signup";
@@ -89,11 +99,16 @@ public class ConnectionController {
       HttpServletRequest request,
       Model model) {
     Customer customer = customerService.connect(email, password);
+    request.getSession().setAttribute("customer", customer);
     if (customer != null) {
-      request.getSession().setAttribute("customer", customer);
-      model.addAttribute("firstName", customer.getFirstName());
-      model.addAttribute("lastName", customer.getLastName());
-      return "index";
+      if ("producer".equals(customer.getType())
+          && customer.getEndSubscription() < System.currentTimeMillis()) {
+        model.addAttribute(
+            "error", "Votre abonnement est expiré. Veuillez-renouveler votre abonnement");
+        return "billing";
+      } else {
+        return "redirect:/";
+      }
     } else {
       model.addAttribute("error", "L'adresse email et le mot de passe ne correspondent pas !");
       return "login";
@@ -103,6 +118,6 @@ public class ConnectionController {
   @GetMapping("/logout")
   public String logout(HttpServletRequest request) {
     request.getSession().invalidate();
-    return "index";
+    return "redirect:/";
   }
 }
