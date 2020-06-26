@@ -148,4 +148,23 @@ public class ConnectionController {
     request.getSession().invalidate();
     return "index";
   }
+
+  @GetMapping("/passwordforgotten")
+  public String passwordforgotten() {
+    return "passwordforgotten";
+  }
+
+  @PostMapping("/passwordforgotten")
+  public String passwordforgotten(
+      @RequestParam(name = "email", required = false) String email, Model model) {
+    Customer customer = customerService.getByEmail(email);
+    if (customer != null) {
+      customerService.resetPassword(email);
+      model.addAttribute("email", email);
+      return "passwordforgottenconfirm";
+    } else {
+      model.addAttribute("error", "L'adresse email n'a pas été trouvé, vous n'existez pas !");
+      return "error";
+    }
+  }
 }

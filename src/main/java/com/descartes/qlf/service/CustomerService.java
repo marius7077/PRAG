@@ -2,7 +2,11 @@ package com.descartes.qlf.service;
 
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.repository.CustomerRepository;
+import net.bytebuddy.utility.RandomString;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,12 +22,19 @@ public class CustomerService {
 
   @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+  @Autowired private JavaMailSender emailSender;
+
   public void save(Customer customer) {
     customerRepository.save(customer);
   }
 
   public Customer getById(Long id) {
     Optional<Customer> customer = customerRepository.findById(id);
+    return customer.orElse(null);
+  }
+
+  public Customer getByEmail(String email) {
+    Optional<Customer> customer = Optional.ofNullable(customerRepository.findByEmail(email));
     return customer.orElse(null);
   }
 
@@ -107,5 +118,23 @@ public class CustomerService {
       distance = distance * 60 * 1.1515 * 1.609344;
       return (int) Math.round(distance);
     }
+  }
+
+  public String resetPassword(String email) {
+    String newPassword = RandomStringUtils.random(10, true, true);
+    Customer customer = customerRepository.findByEmail(email);
+    customer.setPassword(bCryptPasswordEncoder.encode(newPassword));
+    customerRepository.save(customer);
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setFrom("quelaferme@gmail.com");
+    message.setTo(email);
+    message.setSubject("Votre nouveau mot de passe");
+    message.setText(
+        "Votre nouveau mot de passe : "
+            + newPassword
+            + "\n"
+            + "https://prag-qlf.herokuapp.com/login");
+    emailSender.send(message);
+    return null;
   }
 }
