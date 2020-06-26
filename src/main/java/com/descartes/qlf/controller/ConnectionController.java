@@ -98,7 +98,7 @@ public class ConnectionController {
   }
 
   @GetMapping("/logout")
-  public String loguout(HttpServletRequest request) {
+  public String logout(HttpServletRequest request) {
     request.getSession().invalidate();
     return "index";
   }
