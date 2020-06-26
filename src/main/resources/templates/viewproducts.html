@@ -4,10 +4,12 @@
     <title>Liste des produits</title>
     <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8"/>
     <style>
-        form{
+        form {
             display: inline;
         }
     </style>
+    <title>Liste des produits</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 
@@ -53,7 +55,9 @@
             category :
             <td th:utext="${Product.category?.name}"></td>
             customer :
-            <a href="/producer" th:href="@{/producer(producerId=${Product.customer?.id})}"><td th:utext="${Product.customer?.firstName}"></td></a>
+            <a href="/producer" th:href="@{/producer(producerId=${Product.customer?.id})}">
+                <td th:utext="${Product.customer?.firstName}"></td>
+            </a>
 
         </li>
     </ul>

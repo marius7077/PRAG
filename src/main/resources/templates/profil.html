@@ -8,30 +8,37 @@
 
 <h1>Profil</h1>
 
-<p>Ajouter un produit <a href="/addproduct">ici</a></p>
-<p>Supprimer un produit <a href="/removeproduct">ici</a></p>
+<p th:if="${session.customer.type.equals('producer')}">Ajouter un produit <a href="/addproduct">ici</a></p>
+<p th:if="${session.customer.type.equals('producer')}">Supprimer un produit <a href="/removeproduct">ici</a></p>
 <p>Rechercher un produit <a href="/search">ici</a></p>
 <p>Index <a href="/index">ici</a></p>
 
-<p>Vos produits</p>
 
-<div th:each="Product : ${listProducts}">
-    <ul>
-        <li>
-            name :
-            <a href="/product" th:href="@{/product(productId=${Product.id})}"><td th:utext="${Product.name}"></td></a>
-            description :
-            <td th:utext="${Product.description}"></td>
-            price :
-            <td th:utext="${Product.price}"></td>
-            urlPhoto :
-            <td th:utext="${Product.urlPhoto}"></td>
-            category :
-            <td th:utext="${Product.category?.name}"></td>
+<div th:if="${session.customer.type.equals('producer')}">
+    <p>Vos produits</p>
 
-        </li>
-    </ul>
+    <div th:each="Product : ${listProducts}">
+        <ul>
+            <li>
+                name :
+                <a href="/product" th:href="@{/product(productId=${Product.id})}">
+                <td th:utext="${Product.name}"></td>
+                </a>
+                description :
+                <td th:utext="${Product.description}"></td>
+                price :
+                <td th:utext="${Product.price}"></td>
+                urlPhoto :
+                <td th:utext="${Product.urlPhoto}"></td>
+                category :
+                <td th:utext="${Product.category?.name}"></td>
+
+            </li>
+        </ul>
+    </div>
+
 </div>
+
 
 </body>
 </html>

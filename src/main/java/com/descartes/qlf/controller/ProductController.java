@@ -36,8 +36,14 @@ public class ProductController {
   }
 
   @GetMapping("/addproduct")
-  public String addProduct() {
-    return "addproduct";
+  public String addProduct(Model model, HttpServletRequest request) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      return "addproduct";
+    } else {
+      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      return "error";
+    }
   }
 
   @PostMapping("/addproductconfirm")
@@ -45,52 +51,70 @@ public class ProductController {
       @RequestParam(name = "name", required = true) String name,
       @RequestParam(name = "description", required = true) String description,
       @RequestParam(name = "price", required = true) String price,
-      @RequestParam(name = "urlPhoto", required = true) String urlPhoto,
       @RequestParam(name = "productCategory", required = true) String productCategory,
       @RequestParam(name = "picture", required = true) MultipartFile file,
       HttpServletRequest request,
       Model model) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
-    ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
-    String filename = fileSystemStorageService.store(file);
-    Product product =
-        new Product(
-            name,
-            description,
-            price,
-            "/files/" + filename,
-            productCategoryRef,
-            customerService.getById(customer.getId()));
-    productService.save(product);
-    model.addAttribute("file", filename);
-    return "addproduct";
+    if (customer.getType().equals("producer")) {
+      ProductCategory productCategoryRef = productCategoryService.getByName(productCategory);
+      String filename = fileSystemStorageService.store(file);
+      Product product =
+          new Product(
+              name,
+              description,
+              price,
+              "/files/" + filename,
+              productCategoryRef,
+              customerService.getById(customer.getId()));
+      productService.save(product);
+      model.addAttribute("file", filename);
+      return "addproduct";
+    } else {
+      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      return "error";
+    }
   }
 
   @GetMapping("/removeproduct")
-  public String removeProduct() {
-    return "removeproduct";
+  public String removeProduct(Model model, HttpServletRequest request) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      return "removeproduct";
+    } else {
+      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      return "error";
+    }
   }
 
   @PostMapping("/removeproductconfirm")
-  public String removeProduct(@RequestParam(name = "id", required = true) Long id, Model model) {
-    model.addAttribute("id", id);
-    productService.removeById(id);
-    return "removeproduct";
+  public String removeProduct(
+      @RequestParam(name = "id", required = true) Long id,
+      Model model,
+      HttpServletRequest request) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      model.addAttribute("id", id);
+      productService.removeById(id);
+      return "removeproduct";
+    } else {
+      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      return "error";
+    }
   }
 
-    @GetMapping("/search")
-    public String SearchProductByKeyword() {
-        return "search";
-    }
+  @GetMapping("/search")
+  public String SearchProductByKeyword() {
+    return "search";
+  }
 
-    @PostMapping("/searchresult")
-    public String SearchProductByKeyword(
-            @RequestParam(name = "keyword", required = true) String keyword,
-            Model model){
-        List<Product> listProducts = productService.getBySearch(keyword.toUpperCase());
-        model.addAttribute("listProducts", listProducts.toArray());
-        return "viewproducts";
-    }
+  @PostMapping("/searchresult")
+  public String SearchProductByKeyword(
+      @RequestParam(name = "keyword") String keyword, Model model) {
+    List<Product> listProducts = productService.getBySearch(keyword);
+    model.addAttribute("listProducts", listProducts.toArray());
+    return "viewproducts";
+  }
 
   @GetMapping("/viewproducts")
   public String viewProducts(Model model) {
