@@ -43,7 +43,7 @@ public class CustomerController {
             System.out.println(listCustomers);
             model.addAttribute("erreur",listCustomers);
         }
-        return "viewproducteurs";
+        return "viewproducers";
     }
 
   @GetMapping("/producer")

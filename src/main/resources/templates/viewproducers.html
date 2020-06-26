@@ -3,28 +3,38 @@
 <head>
     <title>Liste des producteurs</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        form{
+            display: inline;
+        }
+    </style>
 </head>
 <body>
 
 <h1>Liste des producteurs</h1>
 
+<form method="post" action="/searchresult2">
+    <label for="search">Search the site:</label>
+    <input type="search" id="search" name="keyword">
+    <button>Search</button>
+</form>
+<form method="post" action="/searchresult2">
+    <input type="hidden" value="" name="keyword">
+    <button>Clear</button>
+</form>
+
 <div th:each="Customer : ${listCustomers}">
     <ul>
         <li>
-            Prénom : <a href="/producer" th:href="@{/producer(producerId=${Customer.id})}">
-            <td th:utext="${Customer.firstName}"></td>
-        </a>
-            Prénom :
-            <td th:utext="${Customer.firstName}"></td>
-            Nom :
-            <td th:utext="${Customer.lastName}"></td>
-            Adresse :
-            <td th:utext="${Customer.address}"></td>
-            Email :
-            <td th:utext="${Customer.email}"></td>
+            Prénom : <a href="/producer" th:href="@{/producer(producerId=${Customer.id})}"><td th:utext="${Customer.firstName}"></td></a>
+            Prénom : <td th:utext="${Customer.firstName}"></td>
+            Nom : <td th:utext="${Customer.lastName}"></td>
+            Adresse :  <td th:utext="${Customer.address}"></td>
+            Email : <td th:utext="${Customer.email}"></td>
         </li>
     </ul>
 </div>
 <p>Index <a href="/index">ici</a></p>
+
 </body>
 </html>
