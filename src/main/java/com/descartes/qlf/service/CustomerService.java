@@ -45,6 +45,26 @@ public class CustomerService {
     }
   }
 
+  public List<Customer> getByDistance(int distance, Customer customer) {
+    if (distance != 0) {
+      List<Customer> filteredCustomerList = new ArrayList<>();
+      List<Customer> customerList = getAllCustomers();
+      for (Customer value : customerList) {
+        if (distance(
+                customer.getLatitude(),
+                customer.getLongitude(),
+                value.getLatitude(),
+                value.getLongitude())
+            < distance) {
+          filteredCustomerList.add(value);
+        }
+      }
+      return filteredCustomerList;
+    } else {
+      return null;
+    }
+  }
+
   public boolean testEmail(String email) {
     Customer customer = customerRepository.findByEmail(email);
     return customer == null;

@@ -23,6 +23,12 @@
     <button>Clear</button>
 </form>
 
+<form method="post" action="/filterproducers">
+    <label for="filter">Filter the site:</label>
+    <input type="filter" id="filter" name="distance">
+    <button>Search</button>
+</form>
+
 <div th:each="Customer : ${listCustomers}">
     <ul>
         <li>
