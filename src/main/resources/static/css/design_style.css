@@ -13,12 +13,34 @@ body.index {
     z-index: 2;
 }
 
+.navbar.navbar-expand-lg.navbar-dark>#navbarText>.navbar-nav>.nav-item {
+    padding: 0 3%;
+}
+
+.navbar.navbar-expand-lg.navbar-dark>#navbarText>.navbar-nav>.nav-item>a.nav-link.qlf-nav-link {
+    padding: 0;
+}
+
+.qlf-home-icon {
+    height: 10%;
+    width: 10%;
+}
+
 .navbar a.nav-link.qlf-nav-link {
     color: #d9d3cc;
 }
 
-.navbar a.nav-link.qlf-nav-link:hover {
+.navbar a.nav-link.qlf-nav-link:hover, .navbar.navbar-expand-lg.navbar-dark>a:hover {
     color: #a61212;
+}
+
+.navbar.navbar-expand-lg.navbar-dark {
+    background-color: #0a2459;
+}
+
+.navbar.navbar-expand-lg.navbar-dark > a {
+    color: #d9d3cc;
+    text-decoration: none;
 }
 
 .qlf-nav-links {
@@ -56,7 +78,29 @@ body.index {
 .qlf-central-container {
     display: flex;
     justify-content: center;
-    padding-top: 5%;
+    padding: 5% 0;
+}
+
+.qlf-split-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.qlf-splitted-content {
+    width: 48%;
+}
+
+.qlf-splitted-content > .qlf-radio-label {
+    font-family: "Bebas Neue", sans-serif;
+    color: #0A2459;
+    width: 100%;
+    margin: 0;
+}
+
+.qlf-splitted-content > .qlf-radio-label > .qlf-radio-input {
+    display: inline;
+    width: 20%;
+    margin: 0;
 }
 
 h1 {
@@ -74,9 +118,6 @@ h1 {
     font-family: "Bebas Neue", sans-serif;
     color: #0A2459;
     display: block;
-}
-
-.qlf-label {
     margin-top: 3%;
 }
 
@@ -89,6 +130,18 @@ input {
     width: 100%;
     border: none;
     border-radius: 30px;
+}
+
+*:focus {
+    outline: none;
+}
+
+.qlf-splitted-content > input {
+    padding: 4% 10%;
+}
+
+.qlf-splitted-content > .qlf-label {
+    margin-top: 6%;
 }
 
 a.qlf-link-signup {

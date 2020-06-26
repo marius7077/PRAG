@@ -3,6 +3,7 @@ package com.descartes.qlf.service;
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,6 +15,8 @@ import java.util.Optional;
 public class CustomerService {
 
   @Autowired private CustomerRepository customerRepository;
+
+  @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public void save(Customer customer) {
     customerRepository.save(customer);
@@ -30,7 +33,7 @@ public class CustomerService {
 
   public Customer connect(String email, String password) {
     Customer customer = customerRepository.findByEmail(email);
-    if (customer != null && customer.getPassword().equals(password)) {
+    if (customer != null && bCryptPasswordEncoder.matches(password, customer.getPassword())) {
       return customer;
     } else {
       return null;
