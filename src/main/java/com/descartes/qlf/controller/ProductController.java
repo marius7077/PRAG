@@ -48,33 +48,41 @@ public class ProductController {
 
   @PostMapping("/addproductconfirm")
   public String addProduct(
-      @RequestParam(name = "name") String name,
-      @RequestParam(name = "description") String description,
-      @RequestParam(name = "price") String price,
-      @RequestParam(name = "productCategory") Long productCategory,
-      @RequestParam(name = "picture") MultipartFile file,
+      @RequestParam(name = "name", required = true) String name,
+      @RequestParam(name = "description", required = true) String description,
+      @RequestParam(name = "price", required = true) String price,
+      @RequestParam(name = "productCategory", required = true) Long productCategory,
+      @RequestParam(name = "picture", required = true) MultipartFile file,
       HttpServletRequest request,
       Model model) {
-    Customer customer = (Customer) request.getSession().getAttribute("customer");
-    if (customer.getType().equals("producer")) {
-      ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
-      String filename = fileSystemStorageService.store(file);
-      Product product =
-          new Product(
-              name,
-              description,
-              price,
-              "/files/" + filename,
-              productCategoryRef,
-              customerService.getById(customer.getId()));
-      productService.save(product);
-      model.addAttribute("file", filename);
-      return "addproduct";
+      Customer customer = (Customer) request.getSession().getAttribute("customer");
+      if (customer.getType().equals("producer")) {
+    if (name.isEmpty() || price.isEmpty() || productCategory.toString().isEmpty() || description.isEmpty()) {
+      model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
+    } else if (file.getOriginalFilename().equals("")) {
+      model.addAttribute("Erreur", "Vous devez choisir un fichier avant de valider !");
+    } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
+      model.addAttribute("Erreur", "Vous devez rentrer un prix en euro !");
+      } else {
+        model.addAttribute("Erreur", "");
+        ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
+        String filename = fileSystemStorageService.store(file);
+        Product product =
+            new Product(
+                name,
+                description,
+                price,
+                "/files/" + filename,
+                productCategoryRef,
+                customerService.getById(customer.getId()));
+        productService.save(product);
+        model.addAttribute("file", filename);
+        } return "addproduct";
     } else {
-      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
-      return "error";
-    }
-  }
+              model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+              return "error";
+          }
+      }
 
   @GetMapping("/removeproduct")
   public String removeProduct(Model model, HttpServletRequest request) {
