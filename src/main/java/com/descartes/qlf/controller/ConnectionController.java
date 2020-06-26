@@ -67,7 +67,7 @@ public class ConnectionController {
       }
       model.addAttribute("firstName", firstName);
       model.addAttribute("lastName", lastName);
-      return "signupconfirm";
+      return "index";
     } else {
       model.addAttribute("error", "L'adresse email est déjà utilisée !");
       return "signup";

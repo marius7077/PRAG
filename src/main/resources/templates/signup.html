@@ -1,52 +1,132 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Inscription</title>
+    <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+    />
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet"/>
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="css/design_style.css"/>
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+
+    <title>Inscription</title>
 </head>
 <body>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="/">
+            <img class="qlf-home-icon" src="images/logo.png"/>
+            <span>Accueil</span>
+        </a>
+    </nav>
+</div>
+<div class="qlf-central-container">
+    <div id="connexion" class="qlf-central-tile qlf-tile">
+        <h1>Inscrivez-vous : </h1>
+        <p class="qlf-alert" th:text="${error}"></p>
+        <form method="post" action="/signupconfirm">
+            <label class="qlf-label">Quel type d'utilisateur êtes-vous ?</label>
+            <div class="qlf-split-form">
+                <div class="radio qlf-splitted-content">
+                    <label class="qlf-radio-label">
+                        <input type="radio" id="producer" class="qlf-radio-input" name="type" value="producer" checked>Producteur
+                    </label>
+                </div>
+                <div class="radio qlf-splitted-content">
+                    <label class="qlf-radio-label">
+                        <input type="radio" id="consumer" class="qlf-radio-input" name="type" value="consumer">Consommateur
+                    </label>
+                </div>
+            </div>
+            <div class="qlf-split-form">
+                <div class="qlf-splitted-content">
+                    <label class="qlf-label" for="firstName">Prénom</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Entrez votre prénom">
+                </div>
+                <div class="qlf-splitted-content">
+                    <label class="qlf-label" for="lastName">Nom</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Entrez votre nom">
+                </div>
+            </div>
+            <div class="only_for_producer">
+                <label class="qlf-label" for="company">Entreprise</label>
+                <input type="text" id="company" name="company" placeholder="Entrez votre nom d'entreprise">
+            </div>
+            <label class="qlf-label" for="address">Adresse</label>
+            <input type="text" id="address" name="address" placeholder="Entrez votre adresse">
+            <div class="qlf-split-form">
+                <div class="qlf-splitted-content">
+                    <label class="qlf-label" for="city">Ville</label>
+                    <input type="text" id="city" name="city" placeholder="Entrez votre ville">
+                </div>
+                <div class="qlf-splitted-content">
+                    <label class="qlf-label" for="postalCode">Code Postal</label>
+                    <input type="text" id="postalCode" name="postalCode" placeholder="Entrez votre CP">
+                </div>
+            </div>
+            <label class="qlf-label" for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Entrez votre email">
+            <label class="qlf-label" for="phoneNumber">Téléphone</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Entrez votre numéro de téléphone">
 
-<p th:text="${error}"></p>
+            <div class="qlf-split-form">
+                <div class="qlf-splitted-content">
+                    <label class="qlf-label" for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe">
+                </div>
+                <div class="qlf-splitted-content">
+                    <label class="qlf-label" for="passwordConf">Confirmation de mot de passe</label>
+                    <input type="password" id="passwordConf" name="passwordConf"
+                           placeholder="Confirmez votre mot de passe">
+                </div>
+            </div>
+            <a class="qlf-link-signup" href="/signup">Déjà inscrit ? Connectez-vous !</a>
+            <input type="submit" class="qlf-rounded-btn" value="Se connecter">
+        </form>
+    </div>
+</div>
 
-<h1>Inscription</h1>
+<script>
+    function toggleField(disp) {
+        if (disp) {
+            $(".only_for_producer").each(function () {
+                $(this).show(500);
+            });
+        } else {
+            $(".only_for_producer").each(function () {
+                $(this).hide(500);
+            });
+        }
+    }
 
-<form method="post" action="/signupconfirm">
-    <label for='lastName'>Nom :</label>
-    <input id='lastName' name='lastName' type='text' required='true'/> <br/>
+    const producer = document.getElementById("producer");
+    producer.addEventListener("change", function () {
+        if (this.checked)
+            toggleField(true);
+    });
 
-    <label for='firstName'>Prénom :</label>
-    <input id='firstName' name='firstName' type='text' required='true'/> <br/>
+    const consumer = document.getElementById("consumer");
+    consumer.addEventListener("change", function () {
+        if (this.checked)
+            toggleField(false);
+    });
+</script>
 
-    <label for='email'>Email :</label>
-    <input id='email' name='email' type='email' required='true'/> <br/>
 
-    <label for='password'>Mot de passe :</label>
-    <input id='password' name='password' type='password' required='true'/> <br/>
-
-    <label for='password'>Confirmation du mot de passe :</label>
-    <input id='confirm_password' name='confirm_password' type='password' required='true'/> <br/>
-
-    <label for='address'>Adresse :</label>
-    <input id='address' name='address' type='text' required='true'/> <br/>
-
-    <label for='postalCode'>Code postal :</label>
-    <input id='postalCode' name='postalCode' type='text' required='true'/> <br/>
-
-    <label for='city'>Ville :</label>
-    <input id='city' name='city' type='text' required='true'/> <br/>
-
-    <label for='phoneNumber'>Telephone :</label>
-    <input id='phoneNumber' name='phoneNumber' type='text' required='true'/> <br/>
-
-    <input type="radio" id="producer" name="type" value="producer">
-    <label for="producer">Producer</label><br>
-
-    <input type="radio" id="customer" name="type" value="customer" checked='true'>
-    <label for="customer">Consumer</label><br>
-
-    <br/>
-    <input name='btnConnect' type='submit'/> <br/>
-    <p>Index <a href="/index">ici</a></p>
-</form>
 </body>
 </html>
