@@ -37,7 +37,6 @@ public class CustomerController {
       model.addAttribute("listCustomers", listCustomers.toArray());
       model.addAttribute("error", "ok");
     } else {
-      System.out.println((Object) null);
       model.addAttribute("error", null);
     }
     return "viewproducers";
@@ -53,7 +52,6 @@ public class CustomerController {
       model.addAttribute("listCustomers", listCustomers.toArray());
       model.addAttribute("error", "ok");
     } else {
-      System.out.println((Object) null);
       model.addAttribute("error", null);
     }
     return "viewproducers";
