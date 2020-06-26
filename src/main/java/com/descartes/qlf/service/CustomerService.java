@@ -1,7 +1,6 @@
 package com.descartes.qlf.service;
 
 import com.descartes.qlf.model.Customer;
-import com.descartes.qlf.model.Product;
 import com.descartes.qlf.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +34,14 @@ public class CustomerService {
       return customer;
     } else {
       return null;
+    }
+  }
+
+  public List<Customer> getBySearch(String keyword) {
+    if (keyword != null) {
+      return customerRepository.search(keyword);
+    } else {
+      return customerRepository.findAll();
     }
   }
 
@@ -76,16 +83,6 @@ public class CustomerService {
       distance = Math.toDegrees(distance);
       distance = distance * 60 * 1.1515 * 1.609344;
       return (int) Math.round(distance);
-    }
-  }
-
-  public List<Customer> getBySearch(String keyword)
-  {
-    if (keyword != null) {
-      return customerRepository.search(keyword);
-    }
-    else{
-      return customerRepository.findAll();
     }
   }
 }

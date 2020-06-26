@@ -30,7 +30,7 @@ public class CustomerController {
   }
 
     @PostMapping("/searchresult2")
-    public String SearchProducerbyKeyword(
+    public String SearchProducerByKeyword(
             @RequestParam(name = "keyword", required = true) String keyword,
             Model model){
         List<Customer> listCustomers = new ArrayList<>();
