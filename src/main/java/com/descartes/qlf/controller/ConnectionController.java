@@ -3,6 +3,7 @@ package com.descartes.qlf.controller;
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +18,15 @@ public class ConnectionController {
 
   @Autowired private CustomerService customerService;
 
+  @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+
   @GetMapping("/signup")
-  public String signUp() {
+  public String signup() {
     return "signup";
   }
 
   @PostMapping("/signupconfirm")
-  public String signUp(
+  public String signup(
       @RequestParam(name = "lastName") String lastName,
       @RequestParam(name = "firstName") String firstName,
       @RequestParam(name = "email") String email,
@@ -42,7 +45,7 @@ public class ConnectionController {
                 firstName,
                 lastName,
                 email,
-                password,
+                bCryptPasswordEncoder.encode(password),
                 address,
                 postalCode,
                 city,
@@ -56,7 +59,7 @@ public class ConnectionController {
                 firstName,
                 lastName,
                 email,
-                password,
+                bCryptPasswordEncoder.encode(password),
                 address,
                 postalCode,
                 city,
@@ -75,12 +78,12 @@ public class ConnectionController {
   }
 
   @GetMapping("/login")
-  public String logIn() {
+  public String login() {
     return "login";
   }
 
   @PostMapping("/loginconfirm")
-  public String logIn(
+  public String login(
       @RequestParam(name = "email") String email,
       @RequestParam(name = "password") String password,
       HttpServletRequest request,
@@ -98,7 +101,7 @@ public class ConnectionController {
   }
 
   @GetMapping("/logout")
-  public String logOut(HttpServletRequest request) {
+  public String logout(HttpServletRequest request) {
     request.getSession().invalidate();
     return "index";
   }
