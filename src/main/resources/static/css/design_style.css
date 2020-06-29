@@ -330,6 +330,87 @@ a.qlf-add-link {
     color: #d9d3cc;
 }
 
+.qlf-splitted-content > .qlf-label {
+    margin-top: 6%;
+}
+
+.qlf-img-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.qlf-img-container > a {
+    margin: 1%;
+}
+
+.qlf-img-container > .qlf-square-img {
+    margin: 1%;
+}
+
+.qlf-square-img {
+    width: 10em;
+    height: 10em;
+    border-radius: 20px;
+    border: solid #aaaaaa 1px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.img_producer_products {
+    max-height: 200px;
+    max-width: 150px;
+    margin: 20px;
+    margin-top: 10px;
+}
+
+.left-home {
+    background-color: #0a2459;
+    min-height: 100vh;
+    max-width: 60vh;
+    border-bottom-right-radius: 100% 900px;
+}
+
+
+.div-producers-product {
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
+    border: solid #aaaaaa 1px;
+    margin: 10px;
+    flex-wrap: wrap;
+}
+
+.producers-product-title {
+    font-size: 20px;
+    text-align: center;
+}
+
+.list-producers-product, .info-producer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+}
+
+
+.info-producers-product {
+    margin-right: 10px;
+}
+
+.info-producer h1 {
+    text-align: center;
+}
+
+.info-producer .qlf-tile {
+    margin: 10px;
+    padding: 10px;
+}
+
+.qlf-split-form-producer {
+    width: 48%;
+}
 .img_producer_products {
     max-height: 200px;
     max-width: 150px;
