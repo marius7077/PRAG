@@ -170,6 +170,13 @@ public class ProductController {
     return "product";
   }
 
+  @GetMapping("/viewproduct")
+  public String viewproduct(@RequestParam(name = "productId") Long productId, Model model) {
+    Product product = productService.getById(productId);
+    model.addAttribute("product", product);
+    return "viewproduct";
+  }
+
   @PostMapping("/editproductresult")
   public String editproduct(
           @RequestParam(name = "name") String name,
