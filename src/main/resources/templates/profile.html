@@ -114,7 +114,7 @@
         <div th:if="${session.customer.type.equals('producer')}">
             <h1 class="qlf-new-section">Mes produits :</h1>
             <div class="qlf-img-container">
-                <a th:each="product : ${listProducts}">
+                <a th:each="product : ${listProducts}" th:href="@{/product(productId=${product.id})}">
                     <div th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
                          class="qlf-square-img">
                     </div>
