@@ -80,8 +80,11 @@ public class ProductController {
                 customerService.getById(customer.getId()));
         productService.save(product);
         model.addAttribute("file", filename);
+        List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
+        model.addAttribute("listProducts", listProducts.toArray());
+        model.addAttribute("CustomerInformation", customerService.getById(customer.getId()));
       }
-      return "addproduct";
+      return "profil";
     } else {
       model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
