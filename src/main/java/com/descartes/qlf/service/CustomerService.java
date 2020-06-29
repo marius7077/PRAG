@@ -39,6 +39,10 @@ public class CustomerService {
     return customer.orElse(null);
   }
 
+  public List<Customer> getByType(String type) {
+    return customerRepository.findByType(type);
+  }
+
   public List<Customer> getAllCustomers() {
     return customerRepository.findAll();
   }
@@ -63,7 +67,7 @@ public class CustomerService {
   public List<Customer> getByDistance(int distance, Customer customer) {
     if (distance != 0) {
       List<Customer> filteredCustomerList = new ArrayList<>();
-      List<Customer> customerList = getAllCustomers();
+      List<Customer> customerList = getByType("producer");
       for (Customer value : customerList) {
         if (distance(
                 customer.getLatitude(),
