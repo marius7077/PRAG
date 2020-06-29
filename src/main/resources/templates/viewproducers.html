@@ -1,46 +1,119 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Liste des producteurs</title>
+    <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <style>
-        form{
-            display: inline;
-        }
-    </style>
+
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+    />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet"/>
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="css/design_style.css"/>
+    <link rel="icon" type="image/png" href="/"/>
+
+    <title>QLF - Que La Ferme et Les Artisans</title>
 </head>
 <body>
-
-<h1>Liste des producteurs</h1>
-
-<form method="post" action="/searchproducers">
-    <label for="search">Search the site:</label>
-    <input type="search" id="search" name="keyword">
-    <button>Search</button>
-</form>
-<form method="post" action="/searchproducers">
-    <input type="hidden" value="" name="keyword">
-    <button>Clear</button>
-</form>
-
-<form method="post" action="/filterproducers">
-    <label for="filter">Filter the site:</label>
-    <input type="filter" id="filter" name="distance">
-    <button>Search</button>
-</form>
-
-<div th:each="Customer : ${listCustomers}">
-    <ul>
-        <li>
-            Prénom : <a href="/producer" th:href="@{/producer(producerId=${Customer.id})}"><td th:utext="${Customer.firstName}"></td></a>
-            Nom : <td th:utext="${Customer.lastName}"></td>
-            Adresse :  <td th:utext="${Customer.address}"></td>
-            Email : <td th:utext="${Customer.email}"></td>
-            Email : <td th:utext="${Customer.phoneNumber}"></td>
-        </li>
-    </ul>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">
+            <img class="qlf-home-icon" src="images/logo.png"/>
+            <span>Accueil</span>
+        </a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarText"
+                aria-controls="navbarText"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="collapse navbar-collapse qlf-nav-links" id="navbarText">
+                    <ul class="navbar-nav qlf-nav-links">
+                        <li class="nav-item" th:if="${session.customer == null}">
+                            <a class="nav-link qlf-nav-link" href="/login">Connexion</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.customer == null}">
+                            <a class="nav-link qlf-nav-link" href="/signup">Inscription</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.customer != null}">
+                            <a class="nav-link qlf-nav-link" href="/profile">Mon profil</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.customer != null}">
+                            <a class="nav-link qlf-nav-link" href="/logout">Déconnexion</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </nav>
 </div>
-<p>Index <a href="/index">ici</a></p>
 
+<div>
+    <div class="container mt-5 p-5">
+        <h3>Rechercher des producteurs !</h3>
+        <form class="input-group" method="post" action="/searchproducers">
+            <input type="search" id="search" name="keyword" aria-label="Search">
+            <div class="input-group-append">
+                <button>Search</button>
+            </div>
+        </form>
+        <form method="post" action="/searchproducers">
+            <input type="hidden" value="" name="keyword">
+            <button>Clear</button>
+        </form>
+        <form method="post" action="/filterproducers">
+            <h5>Mettre un filtre:</h5>
+            <input type="filter" id="filter" name="distance">
+            <button>Search</button>
+        </form>
+    </div>
+    <div class="list-producers-product">
+        <div id="producer_products" class="div-producers-product" th:each="producer : ${listCustomers}">
+            <a href="/producer" th:href="@{/producer(producerId=${producer.id})}">
+                <p class="producers-producer-title" th:utext="${producer.firstName} + ' ' + ${producer.lastName}"></p>
+            </a>
+            <div class="qlf-split-form">
+                <div class="info-producers-producer">
+                    <p th:utext="'De : ' + ${producer.city}"></p>
+                    <p>Contact :</p>
+                    <p th:utext="${producer.email}"></p>
+                    <p th:utext="${producer.phoneNumber}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>Index <a href="/index">ici</a></p>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"
+    ></script>
 </body>
 </html>

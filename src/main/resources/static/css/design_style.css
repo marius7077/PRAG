@@ -146,6 +146,17 @@ h1 {
     color: #a61212;
 }
 
+h3 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    color: #a61212;
+}
+h5 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    color: #a61212;
+}
+
 .content {
     font-family: "Montserrat", sans-serif;
     font-size: 1.5em;
