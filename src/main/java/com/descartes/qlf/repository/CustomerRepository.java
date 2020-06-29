@@ -11,6 +11,9 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
   Customer findByEmail(String email);
 
+  @Query("SELECT c FROM Customer c WHERE c.type LIKE %?1%")
+  List<Customer> findByType(String type);
+
   Optional<Customer> findById(Long id);
 
   @Query("SELECT c FROM Customer c WHERE CONCAT(UPPER(c.firstName), UPPER(c.lastName)) LIKE %?1%")

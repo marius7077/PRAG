@@ -143,7 +143,7 @@ public class ConnectionController {
       if ("producer".equals(customer.getType())
           && customer.getEndSubscription() < System.currentTimeMillis()) {
         model.addAttribute(
-            "error", "Votre abonnement est expiré. Veuillez-renouveler votre abonnement");
+            "error", "Votre abonnement a expiré. Veuillez renouveler votre abonnement");
         return "billing";
       } else {
         return "redirect:/";
