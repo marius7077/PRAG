@@ -82,9 +82,8 @@ public class ProductController {
         model.addAttribute("file", filename);
         List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
         model.addAttribute("listProducts", listProducts.toArray());
-        model.addAttribute("CustomerInformation", customerService.getById(customer.getId()));
       }
-      return "redirect:/profile";
+      return "profile";
     } else {
       model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
