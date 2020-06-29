@@ -24,6 +24,7 @@ public class Customer implements Serializable {
   private String type;
   private String company;
   private long endSubscription;
+  private String description;
 
   public Customer() {}
 
@@ -164,5 +165,13 @@ public class Customer implements Serializable {
 
   public void setEndSubscription(long endSubscription) {
     this.endSubscription = endSubscription;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }

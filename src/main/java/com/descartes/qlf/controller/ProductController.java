@@ -58,13 +58,13 @@ public class ProductController {
       Customer customer = (Customer) request.getSession().getAttribute("customer");
       if (customer.getType().equals("producer")) {
     if (name.isEmpty() || price.isEmpty() || productCategory.toString().isEmpty() || description.isEmpty()) {
-      model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
+      model.addAttribute("error", "Vous devez remplir les champs avant de valider !");
     } else if (file.getOriginalFilename().equals("")) {
-      model.addAttribute("Erreur", "Vous devez choisir un fichier avant de valider !");
+      model.addAttribute("error", "Vous devez choisir un fichier avant de valider !");
     } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
-      model.addAttribute("Erreur", "Vous devez rentrer un prix en euro !");
+      model.addAttribute("error", "Vous devez rentrer un prix en euro !");
       } else {
-        model.addAttribute("Erreur", "");
+        model.addAttribute("error", "");
         ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
         String filename = fileSystemStorageService.store(file);
         Product product =

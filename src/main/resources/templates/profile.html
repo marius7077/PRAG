@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet"/>
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/design_style.css"/>
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+
+    <title>Mon Profil</title>
+</head>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="/">
+            <img class="qlf-home-icon" src="images/logo.png"/>
+            <span>Accueil</span>
+        </a>
+    </nav>
+</div>
+<div class="qlf-central-container">
+    <div id="connexion" class="qlf-central-tile qlf-tile qlf-large-tile">
+        <h1>Profil :</h1>
+        <p class="qlf-alert" th:text="${error}"></p>
+        <p class="qlf-alert" th:text="${success}"></p>
+        <form method="post" action="/editprofile">
+            <div class="qlf-split-form">
+                <div class="qlf-splitted-content">
+                    <div class="qlf-split-form">
+                        <div class="qlf-splitted-content">
+                            <label class="qlf-label" for="firstName">Prénom</label>
+                            <input type="text" id="firstName" class="qlf-editable-content" name="firstName"
+                                   placeholder="Entrez votre prénom" th:value="${session.customer.firstName}" disabled>
+                        </div>
+                        <div class="qlf-splitted-content">
+                            <label class="qlf-label" for="lastName">Nom</label>
+                            <input type="text" id="lastName" class="qlf-editable-content" name="lastName"
+                                   placeholder="Entrez votre nom" th:value="${session.customer.lastName}" disabled>
+                        </div>
+                    </div>
+                    <label class="qlf-label" for="address">Adresse</label>
+                    <input type="text" id="address" name="address" class="qlf-editable-content"
+                           placeholder="Entrez votre adresse" th:value="${session.customer.address}" disabled>
+                    <div class="qlf-split-form">
+                        <div class="qlf-splitted-content">
+                            <label class="qlf-label" for="city">Ville</label>
+                            <input type="text" id="city" name="city" class="qlf-editable-content"
+                                   placeholder="Entrez votre ville" th:value="${session.customer.city}" disabled>
+                        </div>
+                        <div class="qlf-splitted-content">
+                            <label class="qlf-label" for="postalCode">Code Postal</label>
+                            <input type="text" id="postalCode" name="postalCode" class="qlf-editable-content"
+                                   placeholder="Entrez votre CP" th:value="${session.customer.postalCode}" disabled>
+                        </div>
+                    </div>
+                    <div class="qlf-split-form">
+                        <div class="qlf-splitted-content">
+                            <label class="qlf-label" for="email">Email</label>
+                            <input type="email" id="email" name="email" class="qlf-editable-content"
+                                   placeholder="Entrez votre email"
+                                   th:value="${session.customer.email}" disabled>
+                        </div>
+                        <div class="qlf-splitted-content">
+                            <label class="qlf-label" for="phoneNumber">Téléphone</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" class="qlf-editable-content"
+                                   placeholder="Entrez votre numéro de téléphone"
+                                   th:value="${session.customer.phoneNumber}" disabled>
+                        </div>
+                    </div>
+                    <label class="qlf-label" for="company">Entreprise</label>
+                    <input type="text" id="company" name="company" class="qlf-editable-content"
+                           placeholder="Entrez votre nom d'entreprise" th:value="${session.customer.company}" disabled>
+                    <div class="qlf-split-form">
+                        <div class="qlf-splitted-content">
+                            <label class="qlf-label" for="password">Mot de passe</label>
+                            <input type="password" id="password" name="password" class="qlf-editable-content"
+                                   placeholder="Entrez votre mot de passe" disabled>
+                        </div>
+                        <div class="qlf-splitted-content">
+                            <label class="qlf-label" for="confirmPassword">Confirmation de mot de passe</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                   class="qlf-editable-content"
+                                   placeholder="Confirmez votre mot de passe" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="qlf-splitted-content">
+                    <label id="qlf-label-description" class="qlf-label" for="qlf-input-description">Description</label>
+                    <textarea id="qlf-input-description" class="qlf-editable-content" name="description" rows="10"
+                              placeholder="Présentez-vous" th:text="${session.customer.description}"
+                              disabled></textarea>
+                </div>
+            </div>
+            <button type="button" id="qlf-edit-profile" class="qlf-rounded-btn">Modifier mes informations</button>
+        </form>
+
+        <h1 class="qlf-new-section">Mes produits :</h1>
+        <div class="qlf-img-container">
+            <div th:each="product : ${listProducts}"
+                 th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
+                 class="qlf-square-img">
+            </div>
+            <div class="qlf-square-img">
+                <a class="qld-add-link" href="/addproduct">Ajouter un produit</a>
+            </div>
+        </div>
+        <p th:if="${session.customer.type.equals('producer')}">Supprimer un produit <a href="/removeproduct">ici</a></p>
+        <p>Rechercher un produit <a href="/search">ici</a></p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const form = document.querySelector("form");
+    const edit = document.getElementById("qlf-edit-profile");
+    const editableContent = document.querySelectorAll(".qlf-editable-content");
+    edit.addEventListener('click', function () {
+        editableContent.forEach(e => e.disabled = false);
+        this.innerText = "Sauvegarder mes modifications";
+        this.addEventListener('click', function () {
+            form.submit();
+        }, false);
+    }, true);
+</script>
+
+
+</body>
+</html>
