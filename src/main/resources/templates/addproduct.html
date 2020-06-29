@@ -1,39 +1,68 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Ajouter un produit</title>
+    <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+    />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet"/>
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="css/design_style.css"/>
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+
+    <title>Ajouter un produit</title>
 </head>
 <body>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="/">
+            <img class="qlf-home-icon" src="images/logo.png"/>
+            <span>Accueil</span>
+        </a>
+    </nav>
+</div>
 
-<p th:text="${Erreur}"></p>
+<div class="qlf-central-container">
+    <div id="connexion" class="qlf-central-tile qlf-tile">
+        <h1>Ajouter un produit</h1>
+        <p th:text="${error}"></p>
+        <form method="post" enctype="multipart/form-data" action="/addproductconfirm">
+            <label class="qlf-label" for='name'>Nom :</label>
+            <input id='name' name='name' type='text' required="true" placeholder="Entrez le nom"/> <br/>
 
-<h1>Ajouter un produit</h1>
+            <label class="qlf-label" for="productCategory">Catégorie de produit :</label>
+            <select name="productCategory" id="productCategory">
+                <option value="1">Fruit et légume</option>
+                <option value="2">Viande</option>
+                <option value="3">Produit laitier</option>
+            </select>
 
-<form method="post" enctype="multipart/form-data" action="/addproductconfirm">
-    <label for='name'>Nom :</label>
-    <input id='name' name='name' type='text' required="true"/> <br/>
+            <label class="qlf-label" for='description'>Description :</label>
+            <input id='description' name='description' type='text' required="true" placeholder="Entrez la description"/>
+            <br/>
 
-    <label for="productCategory">Catégorie de produit:</label>
-    <select name="productCategory" id="productCategory">
-        <option value="1">Fruit et légume</option>
-        <option value="2">Viande</option>
-        <option value="3">Produit laitier</option>
-    </select>
+            <label class="qlf-label" for='price'>Prix :</label>
+            <input id='price' name='price' type='tel' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}" required="true"
+                   placeholder="Entrez le prix"/> <br/>
 
-    <label for='description'>Description :</label>
-    <input id='description' name='description' type='text' required="true"/> <br/>
+            <label class="qlf-label" for='price'>Image :</label>
+            <input type="file" id="picture" name="picture" accept="image/png, image/jpeg"
+                   placeholder="Choisissez une image">
 
-    <label for='price'>Price :</label>
-    <input id='price' name='price' type='tel' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}" required="true"/> <br/>
-
-    <input type="file" id="picture" name="picture" accept="image/png, image/jpeg">
-
-    <br/>
-    <input name='btnConnect' type='submit'/> <br/>
-    <p>Index <a href="/index">ici</a></p>
-
-    <img th:src="'/files/' + ${file}"/>
-</form>
+            <br/>
+            <input class="qlf-rounded-btn" name='btnConnect' type='submit'/> <br/>
+        </form>
+    </div>
+</div>
 </body>
 </html>

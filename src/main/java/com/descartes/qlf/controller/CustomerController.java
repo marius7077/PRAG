@@ -69,30 +69,24 @@ public class CustomerController {
     return "producer";
   }
 
-  @GetMapping("/editprofil")
-  public String editprofil(HttpServletRequest request, Model model) {
-    Customer customer = (Customer) request.getSession().getAttribute("customer");
-    model.addAttribute("CustomerInformation", customerService.getById(customer.getId()));
-    return "editprofil";
-  }
-
-  @PostMapping("/editprofilresult")
-  public String editprofil(
+  @PostMapping("/editprofile")
+  public String editProfile(
       @RequestParam(name = "lastName") String lastName,
       @RequestParam(name = "firstName") String firstName,
       @RequestParam(name = "email") String email,
       @RequestParam(name = "password") String password,
-      @RequestParam(name = "confirm_password") String confirm_password,
+      @RequestParam(name = "confirmPassword") String confirmPassword,
       @RequestParam(name = "address") String address,
       @RequestParam(name = "postalCode") String postalCode,
       @RequestParam(name = "city") String city,
       @RequestParam(name = "phoneNumber") String phoneNumber,
+      @RequestParam(name = "description") String description,
       Model model,
       HttpServletRequest request) {
-    model.addAttribute("Erreur", null);
-    if (!password.equals(confirm_password)) {
-      model.addAttribute("Erreur", "Les mots de passe ne correspondent pas !");
-      return "editprofilresult";
+    model.addAttribute("error", null);
+    if (password != null && !password.equals(confirmPassword)) {
+      model.addAttribute("error", "Les mots de passe ne correspondent pas !");
+      return "profile";
     }
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     List<Double> coordinates = customerService.addressToCoordinates(address, postalCode, city);
@@ -101,10 +95,16 @@ public class CustomerController {
     customer.setFirstName(firstName);
     customer.setEmail(email);
     customer.setLastName(lastName);
-    customer.setPassword(bCryptPasswordEncoder.encode(password));
+    if (password != null && !password.equals("")) {
+      customer.setPassword(bCryptPasswordEncoder.encode(password));
+    }
     customer.setPhoneNumber(phoneNumber);
     customer.setPostalCode(postalCode);
+    customer.setDescription(description);
+    customer.setLatitude(coordinates.get(0));
+    customer.setLongitude(coordinates.get(1));
     customerService.save(customer);
-    return "editprofilresult";
+    model.addAttribute("success", "Les modifications ont été enregistrées !");
+    return "redirect:/profile";
   }
 }

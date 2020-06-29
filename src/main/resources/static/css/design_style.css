@@ -12,6 +12,7 @@ body.index {
     font-family: "Bebas Neue", sans-serif;
     font-size: 2em;
     z-index: 2;
+    border-radius: 0;
 }
 
 .navbar.navbar-expand-lg.navbar-dark > #navbarText > .navbar-nav > .nav-item {
@@ -70,6 +71,10 @@ body.index {
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
     border: solid #aaaaaa 1px;
     width: 40%;
+}
+
+.qlf-large-tile {
+    width: 70%;
 }
 
 .qlf-central-tile {
@@ -164,6 +169,35 @@ input {
     border-radius: 30px;
 }
 
+#qlf-edit-profile {
+    padding: 2% 5%;
+    font-size: 1em;
+    border: none;
+    border-radius: 30px;
+}
+
+.qlf-splitted-content .qlf-editable-content {
+    padding: 2% 5%
+}
+
+input[type="text"][disabled], input[type="email"][disabled], input[type="tel"][disabled], textarea[disabled] {
+    color: #8d8d8d;
+}
+
+#qlf-label-description {
+    margin-top: 3%;
+}
+
+#qlf-input-description {
+    width: 100%;
+    height: 85%;
+    border-radius: 30px;
+    padding: 4% 5%;
+    font-size: 1em;
+    border: none;
+    background-color: #eeeeee;
+}
+
 *:focus {
     outline: none;
 }
@@ -174,6 +208,30 @@ input {
 
 .qlf-splitted-content > .qlf-label {
     margin-top: 6%;
+}
+
+.qlf-img-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.qlf-img-container > a {
+    margin: 1%;
+}
+
+.qlf-img-container > .qlf-square-img  {
+    margin: 1%;
+}
+
+.qlf-square-img {
+    width: 10em;
+    height: 10em;
+    border-radius: 20px;
+    border: solid #aaaaaa 1px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 a.qlf-link-signup {
@@ -219,6 +277,10 @@ a.qlf-link-password-forgotten:hover {
     display: block;
 }
 
+.qlf-new-section {
+    margin-top: 5%;
+}
+
 .btn.btn-lg.btn-block.btn-go-qlf:hover, .qlf-rounded-btn:hover {
     background-color: #bf3f34;
 }
@@ -238,6 +300,10 @@ a.qlf-link-password-forgotten:hover {
     color: #bf3f34;
 }
 
+.qlf-alert {
+    color: #34bf3f;
+}
+
 a.fa {
     color: #d9d3cc;
     font-size: 3em;
@@ -246,6 +312,15 @@ a.fa {
 
 a.fa:hover {
     color: #bf3f34;
+    text-decoration: none;
+}
+
+a.qlf-add-link {
+    display: block;
+    margin: auto;
+    color: #0d0d0d;
+    font-size: 1.5em;
+    text-align: center;
     text-decoration: none;
 }
 
