@@ -1,53 +1,90 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Fiche produit</title>
+    <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+    />
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet"/>
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="css/design_style.css"/>
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+
+    <title>Fiche produit</title>
 </head>
 <body>
-
-<h1>Fiche produit</h1>
-
-<div id="boutonEdit" th:if="${session.customer.type.equals('producer')}">
-    <input type="button" class="boutonEdit" value="Faire une modification?">
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="/">
+            <img class="qlf-home-icon" src="images/logo.png"/>
+            <span>Accueil</span>
+        </a>
+    </nav>
 </div>
 
-<form method="post" enctype="multipart/form-data" action="/editproductresult" )
-<label for='name'>Nom :</label>
-<input type="text" id="name" class="edit" name="name" th:value="${product.name}" disabled
-       placeholder="Entrez son nom" required='true'>
-<br>
-<label for='description'>Description :</label>
-<input type="text" id="description" class="edit" name="description" th:value="${product.description}" disabled
-       placeholder="Entrez sa description" required='true'>
-<br>
-<label for='price'>Prix :</label>
-<input type="tel" id="price" class="edit" name="price" th:value="${product.price}" disabled
-       placeholder="Entrez son prix" required='true' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}">
-<br>
-<label for="productCategory">Catégorie de produit:</label>
-<select name="productCategory" id="productCategory">
-    <option value="1">Fruit et légume</option>
-    <option value="2">Viande</option>
-    <option value="3">Produit laitier</option>
-</select>
-<input type="hidden" name="id" th:value="${product.id}">
-<input type="hidden" id="categoryId" th:value="${product.category?.id}">
-<br>
-<input type="submit" class="edit" disabled value="Envoyer les modifier" th:if="${session.customer.type.equals('producer')}">
-</form>
+<div class="qlf-central-container">
+    <div id="connexion" class="qlf-central-tile qlf-tile">
+        <h1>Fiche produit</h1>
 
-<form method="post" action="/removeproductconfirm" th:if="${session.customer.type.equals('producer')}">
-    <input type="hidden" name="id" id="id" th:value="${product.id}">
-    <input type="submit" value="Supprimer">
-</form>
+        <form id="productForm" method="post" enctype="multipart/form-data" action="/editproductresult">
+            <label class="qlf-label" for='name'>Nom</label>
+            <input type="text" id="name" class="qlf-editable-content" name="name" th:value="${product.name}" disabled
+                   placeholder="Entrez son nom" required='true'>
+            <br>
+            <label class="qlf-label" for='description'>Description</label>
+            <input type="text" id="description" class="qlf-editable-content" name="description"
+                   th:value="${product.description}"
+                   disabled
+                   placeholder="Entrez sa description" required='true'>
+            <br>
+            <label class="qlf-label" for='price'>Prix</label>
+            <input type="tel" id="price" class="qlf-editable-content" name="price" th:value="${product.price}" disabled
+                   placeholder="Entrez son prix" required='true' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}">
+            <br>
+            <label class="qlf-label" for="productCategory">Catégorie de produit</label>
+            <select name="productCategory" id="productCategory" class="qlf-editable-content" disabled>
+                <option value="1">Fruit et légume</option>
+                <option value="2">Viande</option>
+                <option value="3">Produit laitier</option>
+            </select>
+            <input type="hidden" name="id" th:value="${product.id}">
+            <input type="hidden" id="categoryId" th:value="${product.category?.id}">
+            <br>
+            <button type="button" id="qlf-edit-product" class="qlf-rounded-btn">Modifier mes informations</button>
+        </form>
+
+        <form method="post" action="/removeproductconfirm" th:if="${session.customer.type.equals('producer')}">
+            <input type="hidden" name="id" id="id" th:value="${product.id}">
+            <input type="submit" class="qlf-rounded-btn" value="Supprimer">
+        </form>
+    </div>
+</div>
 
 <script type="text/javascript">
-    const d = document.getElementById("boutonEdit");
-    const log = document.querySelectorAll(".edit");
-    d.addEventListener('click', function () {
-        log.forEach(e => e.disabled = false);
-    })
+    const form = document.getElementById("productForm");
+    const edit = document.getElementById("qlf-edit-product");
+    const editableContent = document.querySelectorAll(".qlf-editable-content");
+    edit.addEventListener('click', function () {
+        editableContent.forEach(e => e.disabled = false);
+        this.innerText = "Sauvegarder mes modifications";
+        this.addEventListener('click', function () {
+            form.submit();
+        }, false);
+    }, true);
     const f = document.getElementById("categoryId");
     let productCategory = document.getElementById("productCategory");
     productCategory.value = f.value;

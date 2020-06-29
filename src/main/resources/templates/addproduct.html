@@ -37,25 +37,25 @@
         <h1>Ajouter un produit</h1>
         <p th:text="${error}"></p>
         <form method="post" enctype="multipart/form-data" action="/addproductconfirm">
-            <label class="qlf-label" for='name'>Nom :</label>
+            <label class="qlf-label" for='name'>Nom</label>
             <input id='name' name='name' type='text' required="true" placeholder="Entrez le nom"/> <br/>
 
-            <label class="qlf-label" for="productCategory">Catégorie de produit :</label>
+            <label class="qlf-label" for="productCategory">Catégorie de produit</label>
             <select name="productCategory" id="productCategory">
                 <option value="1">Fruit et légume</option>
                 <option value="2">Viande</option>
                 <option value="3">Produit laitier</option>
             </select>
 
-            <label class="qlf-label" for='description'>Description :</label>
+            <label class="qlf-label" for='description'>Description</label>
             <input id='description' name='description' type='text' required="true" placeholder="Entrez la description"/>
             <br/>
 
-            <label class="qlf-label" for='price'>Prix :</label>
+            <label class="qlf-label" for='price'>Prix</label>
             <input id='price' name='price' type='tel' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}" required="true"
                    placeholder="Entrez le prix"/> <br/>
 
-            <label class="qlf-label" for='price'>Image :</label>
+            <label class="qlf-label" for='price'>Image</label>
             <input type="file" id="picture" name="picture" accept="image/png, image/jpeg"
                    placeholder="Choisissez une image">
 
