@@ -215,13 +215,20 @@ input[type="text"][disabled], input[type="email"][disabled], input[type="tel"][d
     flex-wrap: wrap;
 }
 
+.qlf-img-container > a {
+    margin: 1%;
+}
+
+.qlf-img-container > .qlf-square-img  {
+    margin: 1%;
+}
+
 .qlf-square-img {
     width: 10em;
     height: 10em;
     border-radius: 20px;
     border: solid #aaaaaa 1px;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
-    margin: 1%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -308,7 +315,7 @@ a.fa:hover {
     text-decoration: none;
 }
 
-a.qld-add-link {
+a.qlf-add-link {
     display: block;
     margin: auto;
     color: #0d0d0d;

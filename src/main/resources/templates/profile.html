@@ -113,12 +113,13 @@
 
         <h1 class="qlf-new-section">Mes produits :</h1>
         <div class="qlf-img-container">
-            <div th:each="product : ${listProducts}"
-                 th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
-                 class="qlf-square-img">
-            </div>
+            <a th:each="product : ${listProducts}">
+                <div th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
+                     class="qlf-square-img">
+                </div>
+            </a>
             <div class="qlf-square-img">
-                <a class="qld-add-link" href="/addproduct">Ajouter un produit</a>
+                <a class="qlf-add-link" href="/addproduct">Ajouter un produit</a>
             </div>
         </div>
         <p th:if="${session.customer.type.equals('producer')}">Supprimer un produit <a href="/removeproduct">ici</a></p>
