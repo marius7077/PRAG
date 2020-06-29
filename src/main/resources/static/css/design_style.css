@@ -254,3 +254,39 @@ a.fa:hover {
     font-size: 2em;
     color: #d9d3cc;
 }
+.qlf-splitted-content .img_producer_products{
+    max-height: 200px;
+    max-width: 150px;
+    margin: 20px;
+    margin-top: 10px;
+}
+
+.left-home{
+    background-color: #0a2459;
+    min-height: 100vh;
+    max-width: 60vh;
+    border-bottom-right-radius: 100% 900px;
+}
+
+.producer-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.left-logo{
+    max-width: 40vh;
+}
+
+.div-producers-product{
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
+    border: solid #aaaaaa 1px;
+    width: 40%;
+    margin: 10px;
+}
+
+.producers-product-title{
+    font-size: 20px;
+    text-align: center;
+}
