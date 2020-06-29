@@ -5,9 +5,12 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 public class QlfConfiguration {
@@ -16,10 +19,10 @@ public class QlfConfiguration {
   private String url;
 
   @Value("${spring.datasource.hikari.username}")
-  private String username;
+  private String usernameDatabase;
 
   @Value("${spring.datasource.hikari.password}")
-  private String password;
+  private String passwordDatabase;
 
   @Value("${spring.datasource.hikari.driver-class-name}")
   private String driver;
@@ -27,12 +30,24 @@ public class QlfConfiguration {
   @Value("${spring.datasource.hikari.maximum-pool-size}")
   private int poolSize;
 
+  @Value("${spring.mail.username}")
+  private String usernameMail;
+
+  @Value("${spring.mail.password}")
+  private String passwordMail;
+
+  @Value("${spring.mail.host}")
+  private String host;
+
+  @Value("${spring.mail.port}")
+  private String port;
+
   @Bean
   public DataSource dataSource() {
     HikariConfig config = new HikariConfig();
     config.setJdbcUrl(url);
-    config.setUsername(username);
-    config.setPassword(password);
+    config.setUsername(usernameDatabase);
+    config.setPassword(passwordDatabase);
     config.setDriverClassName(driver);
     config.setMaximumPoolSize(poolSize);
     return new HikariDataSource(config);
@@ -41,5 +56,19 @@ public class QlfConfiguration {
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder(12);
+  }
+
+  @Bean
+  public JavaMailSender getJavaMailSender() {
+    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+    mailSender.setUsername(usernameMail);
+    mailSender.setPassword(passwordMail);
+    mailSender.setHost(host);
+    mailSender.setPort(Integer.parseInt(port));
+    Properties props = mailSender.getJavaMailProperties();
+    props.put("mail.transport.protocol", "smtp");
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.starttls.enable", "true");
+    return mailSender;
   }
 }
