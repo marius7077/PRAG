@@ -41,7 +41,7 @@ public class ProductController {
     if (customer.getType().equals("producer")) {
       return "addproduct";
     } else {
-      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
     }
   }
@@ -83,7 +83,7 @@ public class ProductController {
       }
       return "addproduct";
     } else {
-      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
     }
   }
@@ -94,7 +94,7 @@ public class ProductController {
     if (customer.getType().equals("producer")) {
       return "removeproduct";
     } else {
-      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
     }
   }
@@ -108,7 +108,7 @@ public class ProductController {
       productService.removeById(id);
       return "removeproduct";
     } else {
-      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
     }
   }

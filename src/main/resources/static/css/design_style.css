@@ -316,3 +316,9 @@ a.qld-add-link {
     text-align: center;
     text-decoration: none;
 }
+
+#erreur {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    color: #d9d3cc;
+}
