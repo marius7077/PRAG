@@ -35,8 +35,10 @@ public class QlfController {
   @GetMapping("/profile")
   public String profile(HttpServletRequest request, Model model) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
-    List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
-    model.addAttribute("listProducts", listProducts.toArray());
+    if (customer.getType().equals("consumer")) {
+      List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
+      model.addAttribute("listProducts", listProducts.toArray());
+    }
     return "profile";
   }
 }
