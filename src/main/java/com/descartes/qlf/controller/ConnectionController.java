@@ -178,7 +178,7 @@ public class ConnectionController {
       model.addAttribute("email", email);
       return "passwordforgottenconfirm";
     } else {
-      model.addAttribute("error", "L'adresse email n'a pas été trouvé, vous n'existez pas !");
+      model.addAttribute("error", "L'adresse email n'a pas été trouvé !");
       return "error";
     }
   }

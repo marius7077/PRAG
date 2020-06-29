@@ -41,7 +41,7 @@ public class ProductController {
     if (customer.getType().equals("producer")) {
       return "addproduct";
     } else {
-      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
     }
   }
@@ -55,14 +55,17 @@ public class ProductController {
       @RequestParam(name = "picture", required = true) MultipartFile file,
       HttpServletRequest request,
       Model model) {
-      Customer customer = (Customer) request.getSession().getAttribute("customer");
-      if (customer.getType().equals("producer")) {
-    if (name.isEmpty() || price.isEmpty() || productCategory.toString().isEmpty() || description.isEmpty()) {
-      model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
-    } else if (file.getOriginalFilename().equals("")) {
-      model.addAttribute("Erreur", "Vous devez choisir un fichier avant de valider !");
-    } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
-      model.addAttribute("Erreur", "Vous devez rentrer un prix en euro !");
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      if (name.isEmpty()
+          || price.isEmpty()
+          || productCategory.toString().isEmpty()
+          || description.isEmpty()) {
+        model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
+      } else if (file.getOriginalFilename().equals("")) {
+        model.addAttribute("Erreur", "Vous devez choisir un fichier avant de valider !");
+      } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
+        model.addAttribute("Erreur", "Vous devez rentrer un prix en euro !");
       } else {
         model.addAttribute("Erreur", "");
         ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
@@ -77,12 +80,13 @@ public class ProductController {
                 customerService.getById(customer.getId()));
         productService.save(product);
         model.addAttribute("file", filename);
-        } return "addproduct";
-    } else {
-              model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
-              return "error";
-          }
       }
+      return "addproduct";
+    } else {
+      model.addAttribute("error", "Vous n'avez pas l'autorisation !");
+      return "error";
+    }
+  }
 
   @GetMapping("/removeproduct")
   public String removeProduct(Model model, HttpServletRequest request) {
@@ -90,7 +94,7 @@ public class ProductController {
     if (customer.getType().equals("producer")) {
       return "removeproduct";
     } else {
-      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
     }
   }
@@ -104,7 +108,7 @@ public class ProductController {
       productService.removeById(id);
       return "removeproduct";
     } else {
-      model.addAttribute("error", "Vous êtes un consommateur, pas un producteur");
+      model.addAttribute("error", "Vous n'avez pas l'autorisation !");
       return "error";
     }
   }
