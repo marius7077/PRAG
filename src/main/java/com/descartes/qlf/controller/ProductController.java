@@ -126,6 +126,8 @@ public class ProductController {
   public String SearchProductByKeyword(
       @RequestParam(name = "keyword") String keyword, Model model) {
     List<Product> listProducts = productService.getBySearch(keyword.toUpperCase());
+    List<Product> listProductsCarousel = listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
+    model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
     model.addAttribute("listProducts", listProducts.toArray());
     return "viewproducts";
   }
@@ -133,6 +135,8 @@ public class ProductController {
   @GetMapping("/viewproducts")
   public String viewProducts(Model model) {
     List<Product> listProducts = productService.getAllProduct();
+    List<Product> listProductsCarousel = listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
+    model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
     model.addAttribute("listProducts", listProducts.toArray());
     return "viewproducts";
   }
@@ -153,6 +157,8 @@ public class ProductController {
     if (laitier != null) {
       listProducts.addAll(productService.getAllProductByCategoryId(3L));
     }
+    List<Product> listProductsCarousel = listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
+    model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
     model.addAttribute("listProducts", listProducts.toArray());
     return "viewproducts";
   }
