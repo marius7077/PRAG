@@ -84,8 +84,8 @@
                                    th:value="${session.customer.phoneNumber}" disabled>
                         </div>
                     </div>
-                    <label class="qlf-label" for="company">Entreprise</label>
-                    <input type="text" id="company" name="company" class="qlf-editable-content"
+                    <label th:if="${session.customer.type.equals('producer')}" class="qlf-label" for="company">Entreprise</label>
+                    <input th:if="${session.customer.type.equals('producer')}" type="text" id="company" name="company" class="qlf-editable-content"
                            placeholder="Entrez votre nom d'entreprise" th:value="${session.customer.company}" disabled>
                     <div class="qlf-split-form">
                         <div class="qlf-splitted-content">
@@ -111,15 +111,17 @@
             <button type="button" id="qlf-edit-profile" class="qlf-rounded-btn">Modifier mes informations</button>
         </form>
 
-        <h1 class="qlf-new-section">Mes produits :</h1>
-        <div class="qlf-img-container">
-            <a th:each="product : ${listProducts}" th:href="@{/product(productId=${product.id})}">
-                <div th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
-                     class="qlf-square-img">
+        <div th:if="${session.customer.type.equals('producer')}">
+            <h1 class="qlf-new-section">Mes produits :</h1>
+            <div class="qlf-img-container">
+                <a th:each="product : ${listProducts}">
+                    <div th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
+                         class="qlf-square-img">
+                    </div>
+                </a>
+                <div class="qlf-square-img">
+                    <a class="qlf-add-link" href="/addproduct">Ajouter un produit</a>
                 </div>
-            </a>
-            <div class="qlf-square-img">
-                <a class="qlf-add-link" href="/addproduct">Ajouter un produit</a>
             </div>
         </div>
         <p th:if="${session.customer.type.equals('producer')}">Supprimer un produit <a href="/removeproduct">ici</a></p>
