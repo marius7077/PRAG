@@ -124,7 +124,7 @@
 
         <div class="list-producers-product">
             <div id="producer_products" class="div-producers-product" th:each="product : ${listProducts}">
-                <a href="/product" th:href="@{/product(productId=${product.id})}">
+                <a href="/product" th:href="@{/viewproduct(productId=${product.id})}">
                     <p class="producers-product-title" th:utext="${product.name}"></p>
                 </a>
                 <div class="qlf-split-form">

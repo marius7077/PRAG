@@ -157,6 +157,20 @@ h5 {
     color: #a61212;
 }
 
+.qlf-product-price {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    color: #0A2459;
+}
+
+.qlf-product-description {
+    font-size: 1.2em;
+}
+
+.qlf-news {
+    font-weight: bold;
+}
+
 .content {
     font-family: "Montserrat", sans-serif;
     font-size: 1.5em;
@@ -238,6 +252,17 @@ input[type="text"][disabled], input[type="email"][disabled], input[type="tel"][d
 .qlf-square-img {
     width: 10em;
     height: 10em;
+    border-radius: 20px;
+    border: solid #aaaaaa 1px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.qlf-large-img {
+    width: 100%;
+    height: 30em;
     border-radius: 20px;
     border: solid #aaaaaa 1px;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
