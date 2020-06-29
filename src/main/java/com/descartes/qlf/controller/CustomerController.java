@@ -105,6 +105,6 @@ public class CustomerController {
     customer.setLongitude(coordinates.get(1));
     customerService.save(customer);
     model.addAttribute("success", "Les modifications ont été enregistrées !");
-    return "profile";
+    return "redirect:/profile";
   }
 }
