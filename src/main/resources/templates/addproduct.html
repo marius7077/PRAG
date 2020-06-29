@@ -23,9 +23,6 @@
     <title>Ajouter un produit</title>
 </head>
 <body>
-
-<p th:text="${Erreur}"></p>
-
 <div>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a href="/">
@@ -38,6 +35,7 @@
 <div class="qlf-central-container">
     <div id="connexion" class="qlf-central-tile qlf-tile">
         <h1>Ajouter un produit</h1>
+        <p th:text="${error}"></p>
         <form method="post" enctype="multipart/form-data" action="/addproductconfirm">
             <label class="qlf-label" for='name'>Nom :</label>
             <input id='name' name='name' type='text' required="true" placeholder="Entrez le nom"/> <br/>
