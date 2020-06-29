@@ -32,31 +32,42 @@
                 <img class="qlf-home-icon" src="images/logo.png"/>
                 <span>Accueil</span>
             </a>
+            <a style="margin-right: 50px" href="/viewproducers">Producteurs</a>
+            <a href="/viewproducts">Produits</a>
         </nav>
     </div>
 
     <div>
-        <div class="qlf-central-container">
-            <div id="producer" class="qlf-central-tile qlf-tile">
-                <h1 th:text="${customer.firstName}+' '+${customer.lastName} "></h1>
+        <div class="info-producer">
+            <div class="qlf-tile">
+                <h1 th:text="${customer.firstName}+' '+${customer.lastName}"></h1>
                 <p class="qlf-alert" th:text="${error}"></p>
-                <p th:text="'Email : ' +${customer.email} "></p>
-                <p th:text="'Adresse : ' +${customer.address} "></p>
-                <p th:text="'Code postal : ' +${customer.postalCode} "></p>
-                <p th:text="'Ville : ' +${customer.city} "></p>
-                <p th:text="'Téléphone : ' +${customer.phoneNumber} "></p>
+                <div class="qlf-split-form">
+                    <div class="qlf-split-form-producer">
+                        <p th:text="'Entreprise : ' +${customer.company} "></p>
+                        <p th:text="'Email : ' +${customer.email} "></p>
+                        <p th:text="'Adresse : ' +${customer.address} "></p>
+                        <p th:text="'Code postal : ' +${customer.postalCode} "></p>
+                        <p th:text="'Ville : ' +${customer.city} "></p>
+                        <p th:text="'Téléphone : ' +${customer.phoneNumber} "></p>
+                    </div>
+                    <div class="qlf-split-form-producer">
+                        <p>Description :</p>
+                        <p th:text="${customer.description} "></p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="qlf-central-container">
+        <div class="list-producers-product">
             <div id="producer_products" class="div-producers-product" th:each="Product : ${listProducts}">
                 <a href="/product" th:href="@{/product(productId=${Product.id})}">
                     <p class="producers-product-title" th:utext="${Product.name}"></p>
                 </a>
                 <div class="qlf-split-form">
-                    <div class="qlf-splitted-content">
+                    <div >
                         <img class="img_producer_products" th:src="${Product.urlPhoto}">
                     </div>
-                    <div class="qlf-splitted-content">
+                    <div class="info-producers-product">
 
                         <p th:utext="${Product.price}+' €'"></p>
                         <p th:utext="${Product.category?.name}"></p>
