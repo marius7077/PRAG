@@ -14,11 +14,11 @@ body.index {
     z-index: 2;
 }
 
-.navbar.navbar-expand-lg.navbar-dark>#navbarText>.navbar-nav>.nav-item {
+.navbar.navbar-expand-lg.navbar-dark > #navbarText > .navbar-nav > .nav-item {
     padding: 0 5%;
 }
 
-.navbar.navbar-expand-lg.navbar-dark>#navbarText>.navbar-nav>.nav-item>a.nav-link.qlf-nav-link {
+.navbar.navbar-expand-lg.navbar-dark > #navbarText > .navbar-nav > .nav-item > a.nav-link.qlf-nav-link {
     padding: 0;
 }
 
@@ -31,7 +31,7 @@ body.index {
     color: #d9d3cc;
 }
 
-.navbar a.nav-link.qlf-nav-link:hover, .navbar.navbar-expand-lg.navbar-dark>a:hover {
+.navbar a.nav-link.qlf-nav-link:hover, .navbar.navbar-expand-lg.navbar-dark > a:hover {
     color: #a61212;
 }
 
@@ -247,4 +247,10 @@ a.fa {
 a.fa:hover {
     color: #bf3f34;
     text-decoration: none;
+}
+
+#erreur {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    color: #d9d3cc;
 }
