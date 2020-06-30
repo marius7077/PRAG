@@ -53,43 +53,42 @@
 </div>
 
 <div>
-    <div class="container mt-5 p-5">
+    <div class="container mt-5 mb-5">
         <h3>Rechercher des producteurs !</h3>
         <form class="input-group" method="post" action="/searchproducers">
-            <input type="search" class="form-control" id="search" name="keyword" aria-label="Search" required>
+            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search" required>
             <div class="input-group-append">
-                <button type="submit" class="qlf-send-request">Rechercher</button>
-                <button id="reset" type="button" class="qlf-reset-request">Réinitialiser</button>
+                <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
+                <button id="reset" type="button" class="qlf-reset-request ml-2">Réinitialiser</button>
             </div>
         </form>
         <form id="resetForm" method="post" action="/searchproducers">
             <input type="hidden" value="" name="keyword">
         </form>
-        <form class="input-group" method="post" action="/filterproducers">
-            <input type="filtre" class="form-control " id="filtre" name="keyword" aria-label="filtre" required>
+        <form class="input-group mt-3" method="post" action="/filterproducers">
+            <input type="filtre" class="form-control qlf-form-control" id="filtre" name="keyword" aria-label="filtre" required>
             <div class="input-group-append">
                 <!--                <a role="button" class="btn btn-outline-secondary fa fa-search" href="#"></a>-->
-                <button class="qlf-send-request">Ajouter un filtre</button>
+                <button class="qlf-send-request ml-2">Ajouter un filtre</button>
             </div>
         </form>
     </div>
     <div class="list-producers-product">
         <div id="producer_products" class="div-producers-product" th:each="producer : ${listCustomers}">
             <a href="/producer" th:href="@{/producer(producerId=${producer.id})}">
-                <p class="producers-producer-title" th:utext="${producer.firstName} + ' ' + ${producer.lastName}"></p>
+                <p class="producers-title mb-3 qlf-blue" th:utext="${#strings.capitalize(producer.firstName)} + ' ' + ${producer.lastName.toUpperCase()}"></p>
             </a>
-            <div class="qlf-split-form">
+            <div class="qlf-split-form ml-3">
                 <div class="info-producers-producer">
-                    <p th:utext="'De : ' + ${producer.city}"></p>
-                    <p>Contact :</p>
-                    <p th:utext="${producer.email}"></p>
-                    <p th:utext="${producer.phoneNumber}"></p>
+                    <p class="mb-1  displayinline">De :</p>
+                    <p class="font-weight-bold displayinline" th:utext="${producer.city}"></p>
+                    <p class="mb-1">Contact :</p>
+                    <p class="font-weight-bold mb-1" th:utext="${producer.email}"></p>
+                    <p class="font-weight-bold" th:utext="${producer.phoneNumber}"></p>
                 </div>
             </div>
         </div>
     </div>
-
-    <p>Index <a href="/index">ici</a></p>
     <script
             src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
