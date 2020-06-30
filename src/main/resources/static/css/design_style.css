@@ -151,6 +151,7 @@ h3 {
     font-size: 2em;
     color: #a61212;
 }
+
 h5 {
     font-family: "Bebas Neue", sans-serif;
     font-size: 2em;
@@ -247,6 +248,17 @@ input[type="text"][disabled], input[type="email"][disabled], input[type="tel"][d
 
 .qlf-img-container > .qlf-square-img {
     margin: 1%;
+}
+
+.qlf-square-img-product {
+    width: 10em;
+    height: 10em;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .qlf-square-img {
@@ -396,8 +408,10 @@ a.qlf-add-link {
 }
 
 .img_producer_products {
-    max-height: 200px;
-    max-width: 150px;
+    /*max-height: 150px;*/
+    /*max-width: 150px;*/
+    height: 150px;
+    width: 150px;
     margin: 20px;
     margin-top: 10px;
 }
@@ -431,9 +445,16 @@ a.qlf-add-link {
     margin: 10px;
 }
 
+.product-info {
+    padding-top: 1em;
+    padding-bottom: -0.55em;
+    margin: 0;
+}
 
 .info-producers-product {
-    margin-right: 10px;
+    /*margin-right: 10px;*/
+    margin-top: 1em;
+    margin-right: 1em;
 }
 
 .info-producer h1 {
@@ -448,12 +469,6 @@ a.qlf-add-link {
 .qlf-split-form-producer {
     width: 48%;
 }
-.img_producer_products {
-    max-height: 200px;
-    max-width: 150px;
-    margin: 20px;
-    margin-top: 10px;
-}
 
 .left-home {
     background-color: #0a2459;
@@ -482,11 +497,6 @@ a.qlf-add-link {
     flex-wrap: wrap;
     justify-content: center;
     margin: 10px;
-}
-
-
-.info-producers-product {
-    margin-right: 10px;
 }
 
 .info-producer h1 {

@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -126,7 +128,9 @@ public class ProductController {
   public String SearchProductByKeyword(
       @RequestParam(name = "keyword") String keyword, Model model) {
     List<Product> listProducts = productService.getBySearch(keyword.toUpperCase());
-    List<Product> listProductsCarousel = listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
+    listProducts.sort(Comparator.comparing(Product::getId));
+    List<Product> listProductsCarousel =
+        listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
     model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
     model.addAttribute("listProducts", listProducts.toArray());
     return "viewproducts";
@@ -135,7 +139,9 @@ public class ProductController {
   @GetMapping("/viewproducts")
   public String viewProducts(Model model) {
     List<Product> listProducts = productService.getAllProduct();
-    List<Product> listProductsCarousel = listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
+    listProducts.sort(Comparator.comparing(Product::getId));
+    List<Product> listProductsCarousel =
+        listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
     model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
     model.addAttribute("listProducts", listProducts.toArray());
     return "viewproducts";
@@ -157,7 +163,9 @@ public class ProductController {
     if (laitier != null) {
       listProducts.addAll(productService.getAllProductByCategoryId(3L));
     }
-    List<Product> listProductsCarousel = listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
+    listProducts.sort(Comparator.comparing(Product::getId));
+    List<Product> listProductsCarousel =
+        listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
     model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
     model.addAttribute("listProducts", listProducts.toArray());
     return "viewproducts";
@@ -179,13 +187,13 @@ public class ProductController {
 
   @PostMapping("/editproductresult")
   public String editproduct(
-          @RequestParam(name = "name") String name,
-          @RequestParam(name = "description") String description,
-          @RequestParam(name = "price") String price,
-          @RequestParam(name = "productCategory") Long productCategory,
-          @RequestParam(name = "id") Long id,
-          Model model,
-          HttpServletRequest request) {
+      @RequestParam(name = "name") String name,
+      @RequestParam(name = "description") String description,
+      @RequestParam(name = "price") String price,
+      @RequestParam(name = "productCategory") Long productCategory,
+      @RequestParam(name = "id") Long id,
+      Model model,
+      HttpServletRequest request) {
     model.addAttribute("Erreur", null);
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
@@ -193,9 +201,9 @@ public class ProductController {
     model.addAttribute("CustomerInformation", customerService.getById(customer.getId()));
     if (customer.getType().equals("producer")) {
       if (name.isEmpty()
-              || price.isEmpty()
-              || productCategory.toString().isEmpty()
-              || description.isEmpty()) {
+          || price.isEmpty()
+          || productCategory.toString().isEmpty()
+          || description.isEmpty()) {
         model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
       } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
         model.addAttribute("Erreur", "Vous devez rentrer un prix en euro !");
@@ -213,4 +221,3 @@ public class ProductController {
     return "error";
   }
 }
-

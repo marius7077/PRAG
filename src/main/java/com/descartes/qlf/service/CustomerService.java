@@ -47,6 +47,10 @@ public class CustomerService {
     return customerRepository.findAll();
   }
 
+  public List<Customer> getAllProducers() {
+    return customerRepository.findByType("producer");
+  }
+
   public Customer connect(String email, String password) {
     Customer customer = customerRepository.findByEmail(email);
     if (customer != null && bCryptPasswordEncoder.matches(password, customer.getPassword())) {

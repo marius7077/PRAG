@@ -27,7 +27,7 @@ public class CustomerController {
 
   @GetMapping("/viewproducers")
   public String viewProducers(Model model) {
-    List<Customer> listCustomers = customerService.getAllCustomers();
+    List<Customer> listCustomers = customerService.getAllProducers();
     model.addAttribute("listCustomers", listCustomers.toArray());
     return "viewproducers";
   }
@@ -64,6 +64,17 @@ public class CustomerController {
   public String producer(@RequestParam(name = "producerId") Long producerId, Model model) {
     Customer customer = customerService.getById(producerId);
     List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
+
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < customer.getDescription().length(); i++) {
+      if (customer.getDescription().charAt(i) == ' ') {
+        if (i > 0 && (i % 36 == 0)) {
+          sb.append("\n");
+        }
+      }
+      sb.append(customer.getDescription().charAt(i));
+    }
+    model.addAttribute("descriptionFormat", sb);
     model.addAttribute("listProducts", listProducts.toArray());
     model.addAttribute(customer);
     return "producer";
