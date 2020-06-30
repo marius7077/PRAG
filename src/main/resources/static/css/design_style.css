@@ -541,3 +541,7 @@ a.qlf-add-link {
 .input-group > .form-control.qlf-form-control{
     border-radius: 5px;
 }
+
+.qlf-search-form {
+    margin-bottom: 1%;
+}

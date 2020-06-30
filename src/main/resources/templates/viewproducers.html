@@ -54,9 +54,8 @@
 
 <div>
     <div class="container mt-5 mb-5">
-        <h3>Rechercher des producteurs !</h3>
         <form class="input-group" method="post" action="/searchproducers">
-            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search" required>
+            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search" placeholder="Cherchez vos producteurs" required>
             <div class="input-group-append">
                 <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
                 <button id="reset" type="button" class="qlf-reset-request ml-2">Réinitialiser</button>
@@ -66,7 +65,7 @@
             <input type="hidden" value="" name="keyword">
         </form>
         <form class="input-group mt-3" method="post" action="/filterproducers">
-            <input type="filtre" class="form-control qlf-form-control" id="filtre" name="keyword" aria-label="filtre" required>
+            <input type="filtre" class="form-control qlf-form-control" id="filtre" name="keyword" aria-label="filtre" placeholder="Entrez une distance et trouvez les producteurs les plus proches" required>
             <div class="input-group-append">
                 <!--                <a role="button" class="btn btn-outline-secondary fa fa-search" href="#"></a>-->
                 <button class="qlf-send-request ml-2">Ajouter un filtre</button>

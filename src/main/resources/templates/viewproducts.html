@@ -53,17 +53,33 @@
 </div>
 
 <div>
-    <div class="container mt-5 p-5">
-        <form class="input-group" method="post" action="/searchproducts">
-            <input type="search" class="form-control" id="search" name="keyword" aria-label="Search" required>
+    <div class="container mt-2 p-5">
+        <form class="input-group qlf-search-form" method="post" action="/searchproducts">
+            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search" placeholder="Cherchez vos produits" required>
             <div class="input-group-append">
-                <button type="submit" class="qlf-send-request">Rechercher</button>
-                <button id="reset" type="button" class="qlf-reset-request">Réinitialiser</button>
+                <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
+                <button id="reset" type="button" class="qlf-reset-request ml-2">Réinitialiser</button>
             </div>
         </form>
         <form id="resetForm" method="post" action="/searchproducts">
             <input type="hidden" value="" name="keyword">
         </form>
+
+        <div class="mb-5">
+            <form method="post" action="/productcategory">
+                <span>Quels produits souhaitez-vous afficher ?</span>
+                <label class="checkbox-inline qlf-checkbox-inline">
+                    <input type="checkbox" class="qlf-product-category" id="fruitLegume" name="fruitLegume" value="1">Fruits et Légumes
+                </label>
+                <label class="checkbox-inline qlf-checkbox-inline">
+                    <input type="checkbox" class="qlf-product-category" id="viande" name="viande" value="2">Viandes
+                </label>
+                <label class="checkbox-inline qlf-checkbox-inline">
+                    <input type="checkbox" class="qlf-product-category" id="laitier" name="laitier" value="3">Produits Laitiers
+                </label>
+                <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
+            </form>
+        </div>
 
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 
@@ -98,23 +114,6 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-
-        <div class="mt-5">
-            <form method="post" action="/productcategory">
-                <span>Quels produits souhaitez-vous afficher ?</span>
-                <label class="checkbox-inline qlf-checkbox-inline">
-                    <input type="checkbox" class="qlf-product-category" id="fruitLegume" name="fruitLegume" value="1">Fruits et Légumes
-                </label>
-                <label class="checkbox-inline qlf-checkbox-inline">
-                    <input type="checkbox" class="qlf-product-category" id="viande" name="viande" value="2">Viandes
-                </label>
-                <label class="checkbox-inline qlf-checkbox-inline">
-                    <input type="checkbox" class="qlf-product-category" id="laitier" name="laitier" value="3">Produits Laitiers
-                </label>
-                <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
-            </form>
-        </div>
-
 
         <div class="list-producers-product">
             <div id="producer_products" class="div-producers-product" th:each="product : ${listProducts}">
