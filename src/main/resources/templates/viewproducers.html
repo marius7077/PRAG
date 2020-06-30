@@ -30,74 +30,88 @@
             <img class="qlf-home-icon" src="images/logo.png"/>
             <span>Accueil</span>
         </a>
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarText"
-                aria-controls="navbarText"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div>
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                <div class="collapse navbar-collapse qlf-nav-links" id="navbarText">
-                    <ul class="navbar-nav qlf-nav-links">
-                        <li class="nav-item" th:if="${session.customer == null}">
-                            <a class="nav-link qlf-nav-link" href="/login">Connexion</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.customer == null}">
-                            <a class="nav-link qlf-nav-link" href="/signup">Inscription</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.customer != null}">
-                            <a class="nav-link qlf-nav-link" href="/profile">Mon profil</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.customer != null}">
-                            <a class="nav-link qlf-nav-link" href="/logout">Déconnexion</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+        <div class="collapse navbar-collapse qlf-nav-links" id="navbarText">
+            <ul class="navbar-nav qlf-nav-links">
+                <li class="nav-item">
+                    <a class="nav-link qlf-nav-link" href="/viewproducts">Produits</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer == null}">
+                    <a class="nav-link qlf-nav-link" href="/login">Connexion</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer == null}">
+                    <a class="nav-link qlf-nav-link" href="/signup">Inscription</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer != null}">
+                    <a class="nav-link qlf-nav-link" href="/profile">Profil</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer != null}">
+                    <a class="nav-link qlf-nav-link" href="/logout">Déconnexion</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>
 
 <div>
-    <div class="container mt-5 p-5">
-        <h1>Recherche par nom :</h1>
+    <div class="container mt-5 mb-5">
+        <h3>Rechercher des producteurs !</h3>
         <form class="input-group" method="post" action="/searchproducers">
-            <input type="text" id="search" name="keyword" aria-label="Search">
+            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search" required>
             <div class="input-group-append">
-                <button>Search</button>
+                <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
+                <button id="reset" type="button" class="qlf-reset-request ml-2">Réinitialiser</button>
             </div>
         </form>
-        <form method="post" action="/searchproducers">
+        <form id="resetForm" method="post" action="/searchproducers">
             <input type="hidden" value="" name="keyword">
-            <button>Clear</button>
         </form>
-        <h1>Recherche par distance :</h1>
-        <form method="post" action="/filterproducers">
-            <input type="text" id="filter" name="distance">
-            <button>Search</button>
+        <form class="input-group mt-3" method="post" action="/filterproducers">
+            <input type="filtre" class="form-control qlf-form-control" id="filtre" name="keyword" aria-label="filtre" required>
+            <div class="input-group-append">
+                <!--                <a role="button" class="btn btn-outline-secondary fa fa-search" href="#"></a>-->
+                <button class="qlf-send-request ml-2">Ajouter un filtre</button>
+            </div>
         </form>
     </div>
     <div class="list-producers-product">
         <div id="producer_products" class="div-producers-product" th:each="producer : ${listCustomers}">
             <a href="/producer" th:href="@{/producer(producerId=${producer.id})}">
-                <p class="producers-producer-title" th:utext="${producer.firstName} + ' ' + ${producer.lastName}"></p>
+                <p class="producers-title mb-3 qlf-blue" th:utext="${#strings.capitalize(producer.firstName)} + ' ' + ${producer.lastName.toUpperCase()}"></p>
             </a>
-            <div class="qlf-split-form">
+            <div class="qlf-split-form ml-3">
                 <div class="info-producers-producer">
-                    <p th:utext="'De : ' + ${producer.city}"></p>
-                    <p>Contact :</p>
-                    <p th:utext="${producer.email}"></p>
-                    <p th:utext="${producer.phoneNumber}"></p>
+                    <p class="mb-1  displayinline">De :</p>
+                    <p class="font-weight-bold displayinline" th:utext="${producer.city}"></p>
+                    <p class="mb-1">Contact :</p>
+                    <p class="font-weight-bold mb-1" th:utext="${producer.email}"></p>
+                    <p class="font-weight-bold" th:utext="${producer.phoneNumber}"></p>
                 </div>
             </div>
         </div>
     </div>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"
+    ></script>
+    <script>
+        const reset = document.getElementById("reset");
+        const resetForm = document.getElementById("resetForm");
+        reset.addEventListener('click', function(e) {
+            e.preventDefault();
+            resetForm.submit();
+        })
+    </script>
 </div>
 <script
         src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
