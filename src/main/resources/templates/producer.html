@@ -64,14 +64,18 @@
                     <p class="producers-product-title" th:utext="${Product.name}"></p>
                 </a>
                 <div class="qlf-split-form">
-                    <div>
-                        <img class="img_producer_products" th:src="${Product.urlPhoto}">
-                    </div>
-                    <div class="info-producers-product">
+                    <a th:href="@{/viewproduct(productId=${Product.id})}">
+                        <div class="qlf-img-container-product">
+                            <div th:style="'background: url('+${Product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
+                                 class="qlf-square-img-product">
+                            </div>
+                        </div>
+                    </a>
 
-                        <p th:utext="${Product.price}+' €'"></p>
-                        <p th:utext="${Product.category?.name}"></p>
-                        <p th:utext="${Product.description}"></p>
+                    <div class="info-producers-product">
+                        <p class="product-info" th:utext="${Product.price}+' €'"></p>
+                        <p class="product-info" th:utext="${Product.category?.name}"></p>
+                        <p class="product-info" th:utext="${Product.description}"></p>
                     </div>
                 </div>
             </div>
