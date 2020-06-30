@@ -24,34 +24,7 @@
     <title>Nos Produits</title>
 </head>
 <body>
-<div>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a href="/">
-            <img class="qlf-home-icon" src="images/logo.png"/>
-            <span>Accueil</span>
-        </a>
-        <div class="collapse navbar-collapse qlf-nav-links" id="navbarText">
-            <ul class="navbar-nav qlf-nav-links">
-                <li class="nav-item">
-                    <a class="nav-link qlf-nav-link" href="/viewproducers">Producteurs</a>
-                </li>
-                <li class="nav-item" th:if="${session.customer == null}">
-                    <a class="nav-link qlf-nav-link" href="/login">Connexion</a>
-                </li>
-                <li class="nav-item" th:if="${session.customer == null}">
-                    <a class="nav-link qlf-nav-link" href="/signup">Inscription</a>
-                </li>
-                <li class="nav-item" th:if="${session.customer != null}">
-                    <a class="nav-link qlf-nav-link" href="/profile">Profil</a>
-                </li>
-                <li class="nav-item" th:if="${session.customer != null}">
-                    <a class="nav-link qlf-nav-link" href="/logout">Déconnexion</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-
+<div th:insert="fragments/navbar.html :: navbar"></div>
 <div>
     <div class="container mt-2 p-5">
         <form class="input-group qlf-search-form" method="post" action="/searchproducts">

@@ -50,6 +50,43 @@ body.index {
     justify-content: flex-end;
 }
 
+.qlf-nav-v2 {
+    background-color: #0a2459;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 2em;
+    z-index: 2;
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.qlf-nav-link-v2 {
+    display: block;
+    padding: 0.5% 1%;
+    margin: 0;
+    color: #d9d3cc;
+}
+
+.qlf-nav-link-active-v2 {
+    color: #FFFFFF;
+}
+
+.qlf-nav-v2 > .qlf-nav-link-v2:first-child {
+    margin-right: auto;
+    width: 20%;
+}
+
+.qlf-nav-link-v2:hover {
+    text-decoration: none;
+    color: #a61212;
+}
+
+.qlf-nav-icon-v2 {
+    width: 20%;
+    margin-right: 3%;
+}
+
 .container-fluid.text-center.qlf-container {
     margin: 0;
     padding: 0 5%;
