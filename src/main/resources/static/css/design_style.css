@@ -542,6 +542,10 @@ a.qlf-add-link {
     border-radius: 5px;
 }
 
+.qlf-width-btn{
+    width: 70%;
+}
+
 .qlf-search-form {
     margin-bottom: 1%;
 }
