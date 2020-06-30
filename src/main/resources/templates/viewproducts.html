@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="css/design_style.css"/>
     <link rel="icon" type="image/png" href="images/logo.png"/>
 
-    <title>QLF - Que La Ferme et Les Artisans</title>
+    <title>Nos Produits</title>
 </head>
 <body>
 <div>
@@ -105,20 +105,20 @@
             </a>
         </div>
 
-        <div class="filtre mt-5">
+        <div class="mt-5">
             <form method="post" action="/productcategory">
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="fruitLegume" name="fruitLegume" value="1">Fruit & légume
+                <span>Quels produits souhaitez-vous afficher ?</span>
+                <label class="checkbox-inline qlf-checkbox-inline">
+                    <input type="checkbox" class="qlf-product-category" id="fruitLegume" name="fruitLegume" value="1">Fruits et Légumes
                 </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="viande" name="viande" value="2">Viande
+                <label class="checkbox-inline qlf-checkbox-inline">
+                    <input type="checkbox" class="qlf-product-category" id="viande" name="viande" value="2">Viandes
                 </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="laitier" name="laitier" value="3">Laitier
+                <label class="checkbox-inline qlf-checkbox-inline">
+                    <input type="checkbox" class="qlf-product-category" id="laitier" name="laitier" value="3">Produits Laitiers
                 </label>
-                <input name='btnConnect' type='submit'/> <br/>
+                <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
             </form>
-
         </div>
 
 
@@ -141,11 +141,6 @@
     </div>
 
 </div>
-
-<!--aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-->
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script
         src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

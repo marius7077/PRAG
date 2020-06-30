@@ -183,6 +183,19 @@ input {
     border-radius: 30px;
 }
 
+input.qlf-product-category {
+    display: inline;
+    width: auto;
+}
+
+.qlf-product-category {
+    margin: 0 1%;
+}
+
+.qlf-checkbox-inline {
+    display: inline;
+}
+
 #qlf-edit-profile,
 #qlf-edit-product {
     padding: 2% 5%;
@@ -308,7 +321,7 @@ a.qlf-link-password-forgotten:hover {
     background-color: #a61212;
     font-family: "Bebas Neue", sans-serif;
     color: #d9d3cc;
-    fonts-size: 1em;
+    font-size: 1em;
     width: 60%;
     margin: 5% auto 0 auto;
     display: block;
