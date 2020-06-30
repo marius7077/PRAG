@@ -469,13 +469,14 @@ a.qlf-add-link {
 .div-producers-product {
     border-radius: 10px;
     background: #ffffff;
-    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 5px 5px 3px rgba(10, 36, 89, 0.3);
     border: solid #aaaaaa 1px;
     margin: 10px;
     flex-wrap: wrap;
+    width: 20%;
 }
 
-.producers-product-title {
+.producers-title {
     font-size: 20px;
     text-align: center;
 }
@@ -498,4 +499,32 @@ a.qlf-add-link {
 
 .qlf-split-form-producer {
     width: 48%;
+}
+
+.qlf-send-request {
+    border: 1px solid #ced4da;
+    border-right: none;
+    background-color: #0a2459;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.qlf-reset-request {
+    border: 1px solid #ced4da;
+    border-left: none;
+    background-color: #bf3f34;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.qlf-blue{
+    color : #0a2459;
+}
+
+.displayinline{
+    display: inline-block;
+}
+
+.input-group > .form-control.qlf-form-control{
+    border-radius: 5px;
 }

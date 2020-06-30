@@ -26,29 +26,26 @@
 <body>
 <div>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="images/logo.png" width="50" height="50"/>
+        <a href="/">
+            <img class="qlf-home-icon" src="images/logo.png"/>
+            <span>Accueil</span>
         </a>
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarText"
-                aria-controls="navbarText"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-            </ul>
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse qlf-nav-links" id="navbarText">
+            <ul class="navbar-nav qlf-nav-links">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Connexion</a>
+                    <a class="nav-link qlf-nav-link" href="/viewproducers">Producteurs</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inscription</a>
+                <li class="nav-item" th:if="${session.customer == null}">
+                    <a class="nav-link qlf-nav-link" href="/login">Connexion</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer == null}">
+                    <a class="nav-link qlf-nav-link" href="/signup">Inscription</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer != null}">
+                    <a class="nav-link qlf-nav-link" href="/profile">Profil</a>
+                </li>
+                <li class="nav-item" th:if="${session.customer != null}">
+                    <a class="nav-link qlf-nav-link" href="/logout">Déconnexion</a>
                 </li>
             </ul>
         </div>
@@ -60,15 +57,12 @@
         <form class="input-group" method="post" action="/searchproducts">
             <input type="search" class="form-control" id="search" name="keyword" aria-label="Search" required>
             <div class="input-group-append">
-                <!--                <a role="button" class="btn btn-outline-secondary fa fa-search" href="#"></a>-->
-                <button>Search</button>
+                <button type="submit" class="qlf-send-request">Rechercher</button>
+                <button id="reset" type="button" class="qlf-reset-request">Réinitialiser</button>
             </div>
-
         </form>
-
-        <form method="post" action="/searchproducts">
+        <form id="resetForm" method="post" action="/searchproducts">
             <input type="hidden" value="" name="keyword">
-            <button>Clear</button>
         </form>
 
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -161,5 +155,13 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"
 ></script>
+<script>
+    const reset = document.getElementById("reset");
+    const resetForm = document.getElementById("resetForm");
+    reset.addEventListener('click', function(e) {
+        e.preventDefault();
+        resetForm.submit();
+    })
+</script>
 </body>
 </html>
