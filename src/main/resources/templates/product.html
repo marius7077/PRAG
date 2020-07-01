@@ -48,6 +48,12 @@
             <input type="tel" id="price" class="qlf-editable-content" name="price" th:value="${product.price}" disabled
                    placeholder="Entrez son prix" required='true' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}">
             <br>
+            <label class="qlf-label" for="typePrice"></label>
+            <select name="typePrice" id="typePrice" class="qlf-editable-content" disabled>
+                <option value="1">/kg</option>
+                <option value="2">/unité</option>
+            </select>
+            <br>
             <label class="qlf-label" for="productCategory">Catégorie de produit</label>
             <select name="productCategory" id="productCategory" class="qlf-editable-content" disabled>
                 <option value="1">Fruit et légume</option>
@@ -56,6 +62,7 @@
             </select>
             <input type="hidden" name="id" th:value="${product.id}">
             <input type="hidden" id="categoryId" th:value="${product.category?.id}">
+            <input type="hidden" id="typeId" th:value="${product.type}">
             <br>
             <button type="button" id="qlf-edit-product" class="qlf-rounded-btn">Modifier mes informations</button>
         </form>
@@ -81,6 +88,9 @@
     const f = document.getElementById("categoryId");
     let productCategory = document.getElementById("productCategory");
     productCategory.value = f.value;
+    const t = document.getElementById("typeId");
+    let typePrice = document.getElementById("typePrice");
+    typePrice.value = t.value;
 </script>
 </body>
 </html>

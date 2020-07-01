@@ -90,20 +90,20 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-
-        <div class="list-producers-product">
-            <div id="producer_products" class="div-producers-product" th:each="product : ${listProducts}">
-                <a href="/product" th:href="@{/viewproduct(productId=${product.id})}">
-                    <p class="producers-product-title mb-3 qlf-blue" th:utext="${#strings.capitalize(product.name)}"></p>
-                </a>
-                <div class="qlf-split-form qlf-producer-product">
-                    <div th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
-                         class="qlf-product-img">
-                    </div>
-                    <div class="info-producers-product">
-                        <p th:utext="${#strings.capitalize(product.customer?.city)}"></p>
-                        <p th:utext="${product.price}+' €'"></p>
-                    </div>
+    </div>
+    <div class="list-producers-product">
+        <div id="producer_products" class="div-producers-product" th:each="product : ${listProducts}">
+            <a href="/product" th:href="@{/viewproduct(productId=${product.id})}">
+                <p class="producers-product-title mb-3 qlf-blue" th:utext="${#strings.capitalize(product.name)}"></p>
+            </a>
+            <div class="qlf-split-form qlf-producer-product">
+                <div th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
+                     class="qlf-product-img">
+                </div>
+                <div class="info-producers-product">
+                    <p th:utext="${#strings.capitalize(product.customer?.city)}"></p>
+                    <p th:if="${product.type == '1'}" th:utext="${product.price}+' € le kilo'"></p>
+                    <p th:if="${product.type == '2'}" th:utext="${product.price}+' € l\'unité'"></p>
                 </div>
             </div>
         </div>
