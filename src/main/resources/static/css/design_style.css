@@ -586,3 +586,15 @@ a.qlf-add-link {
 .qlf-search-form {
     margin-bottom: 1%;
 }
+
+.qlf-carousel {
+    min-height: 500px;
+    max-height: 500px;
+}
+
+.carousel.slide.qlf-carousel > .carousel-inner > .carousel-item > .qlf-carousel-img.d-block.w-100  {
+    min-height: 500px;
+    max-height: 500px;
+    margin: auto;
+    width: auto !important;
+}
