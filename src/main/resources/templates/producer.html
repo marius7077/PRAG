@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="css/design_style.css"/>
     <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
 
-    <title>Fiche producteur</title>
+    <title th:text="'Producteur - ' + ${#strings.capitalize(customer.firstName)}+' '+${customer.lastName.toUpperCase()}"></title>
 </head>
 <body>
 <div th:insert="fragments/navbar.html :: navbar"></div>
@@ -50,7 +50,7 @@
         <div class="list-producers-product">
             <div id="producer_products" class="div-producers-product" th:each="Product : ${listProducts}">
                 <a href="/product" th:href="@{/viewproduct(productId=${Product.id})}">
-                    <p class="producers-product-title" th:utext="${Product.name}"></p>
+                    <p class="producers-product-title" th:utext="${#strings.capitalize(Product.name)}"></p>
                 </a>
                 <div class="qlf-split-form">
                     <a th:href="@{/viewproduct(productId=${Product.id})}">
