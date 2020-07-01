@@ -80,20 +80,22 @@ public class CustomerController {
     return "producer";
   }
 
+
   @PostMapping("/editprofile")
   public String editProfile(
-      @RequestParam(name = "lastName") String lastName,
-      @RequestParam(name = "firstName") String firstName,
-      @RequestParam(name = "email") String email,
-      @RequestParam(name = "password") String password,
-      @RequestParam(name = "confirmPassword") String confirmPassword,
-      @RequestParam(name = "address") String address,
-      @RequestParam(name = "postalCode") String postalCode,
-      @RequestParam(name = "city") String city,
-      @RequestParam(name = "phoneNumber") String phoneNumber,
-      @RequestParam(name = "description") String description,
-      Model model,
-      HttpServletRequest request) {
+          @RequestParam(name = "lastName") String lastName,
+          @RequestParam(name = "firstName") String firstName,
+          @RequestParam(name = "email") String email,
+          @RequestParam(name = "password") String password,
+          @RequestParam(name = "confirmPassword") String confirmPassword,
+          @RequestParam(name = "address") String address,
+          @RequestParam(name = "postalCode") String postalCode,
+          @RequestParam(name = "city") String city,
+          @RequestParam(name = "phoneNumber") String phoneNumber,
+          @RequestParam(name = "company") String company,
+          @RequestParam(name = "description") String description,
+          Model model,
+          HttpServletRequest request) {
     model.addAttribute("error", null);
     if (password != null && !password.equals(confirmPassword)) {
       model.addAttribute("error", "Les mots de passe ne correspondent pas !");
@@ -112,9 +114,12 @@ public class CustomerController {
     customer.setPhoneNumber(phoneNumber);
     customer.setPostalCode(postalCode);
     customer.setDescription(description);
+    customer.setCompany(company);
     customer.setLatitude(coordinates.get(0));
     customer.setLongitude(coordinates.get(1));
     customerService.save(customer);
+    List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
+    model.addAttribute("listProducts", listProducts.toArray());
     model.addAttribute("success", "Les modifications ont été enregistrées !");
     return "profile";
   }
