@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
     <link rel="stylesheet" href="css/design_style.css"/>
-    <link rel="icon" type="image/png" href="images/logo.png"/>
+    <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
 
     <title>Nos Produits</title>
 </head>
@@ -54,7 +54,7 @@
             </form>
         </div>
 
-        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleCaptions" class="carousel slide qlf-carousel" data-ride="carousel">
 
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -65,13 +65,13 @@
 
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img th:src="@{${'/images/carousel.jpg'}}" class="d-block w-100" alt="Start Slideshow">
+                    <img th:src="@{${'/images/carousel.jpg'}}" class="d-block w-100 qlf-carousel-img" alt="Start Slideshow">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Découvrez les derniers produits ajouté !</h5>
+                        <h5>Découvrez les derniers produits ajoutés !</h5>
                     </div>
                 </div>
                 <div class="carousel-item" th:each="product : ${listProductsCarousel}">
-                    <img th:src="@{${product.urlPhoto}}" class="d-block w-100" th:alt="${product.name}">
+                    <img th:src="@{${product.urlPhoto}}" class="d-block w-100 qlf-carousel-img" th:alt="${product.name}">
                     <div class="carousel-caption d-none d-md-block">
                         <h5 th:text="${product.name}"></h5>
                         <p th:text="${product.description}"></p>

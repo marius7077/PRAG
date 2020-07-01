@@ -93,13 +93,14 @@ body.index {
 }
 
 .qlf-central-logo {
-    width: 20%;
+    width: 33%;
     height: auto;
 }
 
 .title {
-    font-family: "Bebas Neue", sans-serif;
-    font-size: 3em;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-size: 2em;
 }
 
 .qlf-tile {
@@ -567,22 +568,40 @@ a.qlf-add-link {
     border-radius: 5px;
 }
 
-.qlf-blue{
-    color : #0a2459;
+.qlf-blue {
+    color: #0a2459;
 }
 
-.displayinline{
+.displayinline {
     display: inline-block;
 }
 
-.input-group > .form-control.qlf-form-control{
+.input-group > .form-control.qlf-form-control {
     border-radius: 5px;
 }
 
-.qlf-width-btn{
+.qlf-width-btn {
     width: 70%;
 }
 
 .qlf-search-form {
     margin-bottom: 1%;
+}
+
+.emailSent {
+    color: #0a2459;
+    word-break: break-word;
+    text-align: center;
+}
+
+.qlf-carousel {
+    min-height: 500px;
+    max-height: 500px;
+}
+
+.carousel.slide.qlf-carousel > .carousel-inner > .carousel-item > .qlf-carousel-img.d-block.w-100  {
+    min-height: 500px;
+    max-height: 500px;
+    margin: auto;
+    width: auto !important;
 }

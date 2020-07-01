@@ -119,11 +119,6 @@ public class ProductController {
     }
   }
 
-  @GetMapping("/search")
-  public String SearchProductByKeyword() {
-    return "search";
-  }
-
   @PostMapping("/searchproducts")
   public String SearchProductByKeyword(
       @RequestParam(name = "keyword") String keyword, Model model) {
