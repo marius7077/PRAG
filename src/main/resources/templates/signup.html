@@ -21,6 +21,8 @@
     <!-- Icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+
     <link rel="stylesheet" href="css/design_style.css"/>
     <link rel="icon" type="image/png" href="images/logo.png"/>
 
@@ -94,6 +96,7 @@
                     <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmez votre mot de passe" required='true'>
                 </div>
             </div>
+            <div class="h-captcha" data-sitekey="faee6d9a-baec-4cc7-baa2-a3e27d9b196d"></div>
             <a class="qlf-link-signup" href="/login">Déjà inscrit ? Connectez-vous !</a>
             <input type="submit" class="qlf-rounded-btn" value="S'inscrire">
         </form>
@@ -125,6 +128,32 @@
             toggleField(false);
     });
 </script>
+
+<script>
+
+    async function submitForm() {
+      const signUpForm = document.getElementById('signUpForm');
+      const formData = new FormData(signUpForm);
+
+      // Workaround, hCaptcha adds two keys with same value
+      formData.delete('g-recaptcha-response');
+
+      const response = await fetch('/signup', {
+        method: 'POST',
+        body: formData
+      });
+
+      const ok = await response.json();
+      if (ok) {
+        window.location.href = "ok.html";
+      } else {
+        console.log('something went wrong');
+        window.location.href = "index.html";
+      }
+
+    }
+
+  </script>
 
 
 </body>

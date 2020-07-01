@@ -1,6 +1,7 @@
 package com.descartes.qlf.service;
 
 import com.descartes.qlf.model.Customer;
+import com.descartes.qlf.model.Geolocation;
 import com.descartes.qlf.repository.CustomerRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class CustomerService {
   @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Qualifier("getJavaMailSender")
-  @Autowired private JavaMailSender emailSender;
+  @Autowired
+  private JavaMailSender emailSender;
 
   public void save(Customer customer) {
     customerRepository.save(customer);
@@ -68,18 +70,31 @@ public class CustomerService {
     }
   }
 
-  public List<Customer> getByDistance(int distance, Customer customer) {
+  public List<Customer> getByDistance(int distance, Customer customer, Geolocation geolocation) {
     if (distance != 0) {
       List<Customer> filteredCustomerList = new ArrayList<>();
       List<Customer> customerList = getByType("producer");
-      for (Customer value : customerList) {
-        if (distance(
-                customer.getLatitude(),
-                customer.getLongitude(),
-                value.getLatitude(),
-                value.getLongitude())
-            < distance) {
-          filteredCustomerList.add(value);
+      if (customer != null) {
+        for (Customer value : customerList) {
+          if (distance(
+                  customer.getLatitude(),
+                  customer.getLongitude(),
+                  value.getLatitude(),
+                  value.getLongitude())
+              < distance) {
+            filteredCustomerList.add(value);
+          }
+        }
+      } else {
+        for (Customer value : customerList) {
+          if (distance(
+                  geolocation.getLatitude(),
+                  geolocation.getLongitude(),
+                  value.getLatitude(),
+                  value.getLongitude())
+              < distance) {
+            filteredCustomerList.add(value);
+          }
         }
       }
       return filteredCustomerList;

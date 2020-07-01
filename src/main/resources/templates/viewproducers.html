@@ -66,21 +66,22 @@
 
 <div>
     <div class="container mt-5 p-5">
-        <h3>Rechercher des producteurs !</h3>
+        <h3>Rechercher des producteurs :</h3>
         <form class="input-group" method="post" action="/searchproducers">
             <input type="search" id="search" name="keyword" aria-label="Search">
             <div class="input-group-append">
-                <button>Search</button>
+                <button>Rechercher</button>
             </div>
+        </form>
+        <form id="ipForm" method="post" action="/filterproducers">
+            <h5>Ajuster la distance :</h5>
+            <input type="text" name="ipAddress" id="ip" hidden/>
+            <input type="filter" id="filter" name="distance">
+            <button>Adjuster</button>
         </form>
         <form method="post" action="/searchproducers">
             <input type="hidden" value="" name="keyword">
-            <button>Clear</button>
-        </form>
-        <form method="post" action="/filterproducers">
-            <h5>Mettre un filtre:</h5>
-            <input type="filter" id="filter" name="distance">
-            <button>Search</button>
+            <button>Effacer</button>
         </form>
     </div>
     <div class="list-producers-product">
@@ -115,5 +116,38 @@
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"
     ></script>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+        $(document).ready (function () {
+            $.get( "https://api.ipify.org?format=json",
+              function( data ) {
+                 $("#ip").val(data.ip) ;
+             });
+        });
+
+        $( "#ipForm" ).submit(function( event ) {
+            event.preventDefault();
+            $.ajax({
+                url: "/filterproducers",
+                type: "POST",
+                contentType:
+                "application/x-www-form-urlencoded; charset=UTF-8",
+                data: $.param( {ipAddress : $("#ip").val(), distance : $("#filter").val()} ),
+                complete: function(data) {},
+                success: function(data) {
+                    $("#status").html(JSON.stringify(data));
+                    if (data.ipAddress !=null) {
+                        showLocationOnMap(data);
+                    }
+                },
+                error: function(err) {
+                    $("#status").html("Error:"+JSON.stringify(data));
+                },
+            });
+        });
+</script>
 </body>
 </html>
