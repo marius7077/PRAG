@@ -98,7 +98,7 @@
             </div>
             <div class="h-captcha" data-sitekey="faee6d9a-baec-4cc7-baa2-a3e27d9b196d"></div>
             <a class="qlf-link-signup" href="/login">Déjà inscrit ? Connectez-vous !</a>
-            <input type="submit" class="qlf-rounded-btn" value="S'inscrire">
+            <input id="signUpButton" type="submit" class="qlf-rounded-btn" value="S'inscrire" disabled>
         </form>
     </div>
 </div>
@@ -146,6 +146,7 @@
       const ok = await response.json();
       if (ok) {
         window.location.href = "ok.html";
+        document.getElementById('signUpButton').disabled = false;
       } else {
         console.log('something went wrong');
         window.location.href = "index.html";
