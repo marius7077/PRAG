@@ -59,12 +59,7 @@ public class CustomerController {
             distance,
             (Customer) request.getSession().getAttribute("customer"),
             new GeolocationService().getLocation(ipAdrress));
-    if (listCustomers != null) {
-      model.addAttribute("listCustomers", listCustomers.toArray());
-      model.addAttribute("error", "ok");
-    } else {
-      model.addAttribute("error", null);
-    }
+    model.addAttribute("listCustomers", listCustomers.toArray());
     return "viewproducers";
   }
 
@@ -123,7 +118,7 @@ public class CustomerController {
     customer.setPhoneNumber(phoneNumber);
     customer.setPostalCode(postalCode);
     customer.setDescription(description);
-    if (customer.getType().equals("producer")){
+    if (customer.getType().equals("producer")) {
       customer.setCompany(company);
     }
     customer.setLatitude(coordinates.get(0));

@@ -28,7 +28,8 @@
 <div>
     <div class="container mt-5 mb-5">
         <form class="input-group" method="post" action="/searchproducers">
-            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search" placeholder="Cherchez vos producteurs" required>
+            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search"
+                   placeholder="Cherchez vos producteurs" required>
             <div class="input-group-append">
                 <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
                 <button id="reset" type="button" class="qlf-reset-request ml-2">Réinitialiser</button>
@@ -38,7 +39,8 @@
             <input type="hidden" value="" name="keyword">
         </form>
         <form id="ipForm" class="input-group mt-3" method="post" action="/filterproducers">
-            <input type="filter" class="form-control qlf-form-control" id="filter" name="distance" aria-label="filtre" placeholder="Entrez une distance et trouvez les producteurs les plus proches" required>
+            <input type="filter" class="form-control qlf-form-control" id="filter" name="distance" aria-label="filtre"
+                   placeholder="Entrez une distance et trouvez les producteurs les plus proches" required>
             <input type="text" name="ipAddress" id="ip" hidden/>
             <div class="input-group-append">
                 <button class="qlf-send-request ml-2">Ajouter un filtre</button>
@@ -48,7 +50,8 @@
     <div class="list-producers-product">
         <div id="producer_products" class="div-producers-product" th:each="producer : ${listCustomers}">
             <a href="/producer" th:href="@{/producer(producerId=${producer.id})}">
-                <p class="producers-title mb-3 qlf-blue" th:utext="${#strings.capitalize(producer.firstName)} + ' ' + ${producer.lastName.toUpperCase()}"></p>
+                <p class="producers-title mb-3 qlf-blue"
+                   th:utext="${#strings.capitalize(producer.firstName)} + ' ' + ${producer.lastName.toUpperCase()}"></p>
             </a>
             <div class="qlf-split-form ml-3">
                 <div class="info-producers-producer">
@@ -62,60 +65,39 @@
         </div>
     </div>
 </div>
-    <script
-            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-    ></script>
-    <script
-            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"
-    ></script>
-    <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-            crossorigin="anonymous"
-    ></script>
-    <script>
-        const reset = document.getElementById("reset");
-        const resetForm = document.getElementById("resetForm");
-        reset.addEventListener('click', function(e) {
-            e.preventDefault();
-            resetForm.submit();
-        })
-    </script>
+<script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"
+></script>
+<script>
+    const reset = document.getElementById("reset");
+    const resetForm = document.getElementById("resetForm");
+    reset.addEventListener('click', function (e) {
+        e.preventDefault();
+        resetForm.submit();
+    })
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-        $(document).ready (function () {
-            $.get( "https://api.ipify.org?format=json",
-              function( data ) {
-                 $("#ip").val(data.ip) ;
-             });
-        });
-
-        $( "#ipForm" ).submit(function( event ) {
-            event.preventDefault();
-            $.ajax({
-                url: "/filterproducers",
-                type: "POST",
-                contentType:
-                "application/x-www-form-urlencoded; charset=UTF-8",
-                data: $.param( {ipAddress : $("#ip").val(), distance : $("#filter").val()} ),
-                complete: function(data) {},
-                success: function(data) {
-                    $("#status").html(JSON.stringify(data));
-                    if (data.ipAddress !=null) {
-                        showLocationOnMap(data);
-                    }
-                },
-                error: function(err) {
-                    $("#status").html("Error:"+JSON.stringify(data));
-                },
+    $(document).ready(function () {
+        $.get("https://api.ipify.org?format=json",
+            function (data) {
+                $("#ip").val(data.ip);
             });
-        });
+    });
 </script>
 </body>
 </html>
