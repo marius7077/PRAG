@@ -41,7 +41,7 @@
     <div id="connexion" class="qlf-central-tile qlf-tile">
         <h1>Inscrivez-vous : </h1>
         <p class="qlf-alert" th:text="${error}"></p>
-        <form method="post" onsubmit="submitForm(); return false;">
+        <form id="signupForm" method="post" onsubmit="submitForm(); return false;">
             <label class="qlf-label">Quel type d'utilisateur êtes-vous ?</label>
             <div class="qlf-split-form">
                 <div class="radio qlf-splitted-content">
@@ -153,11 +153,8 @@
 
       const ok = await response.json();
       if (ok) {
-      console.log('ok');
-        window.location.href = "ok.html";
       } else {
-        console.log('something went wrong');
-        window.location.href = "index.html";
+        window.location.href = "signup.html";
       }
     }
 
