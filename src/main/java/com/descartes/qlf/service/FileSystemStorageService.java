@@ -33,10 +33,10 @@ public class FileSystemStorageService {
   public String store(MultipartFile file) {
     String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
     fileName =
-        fileName.substring(0, fileName.lastIndexOf("."))
+        fileName.substring(0, fileName.lastIndexOf('.'))
             + "_"
             + (new Date()).getTime()
-            + fileName.substring(fileName.lastIndexOf("."));
+            + fileName.substring(fileName.lastIndexOf('.'));
     try {
       if (file.isEmpty()) {
         throw new StorageException("Failed to store empty file " + fileName);

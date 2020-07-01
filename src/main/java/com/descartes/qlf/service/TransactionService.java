@@ -11,7 +11,7 @@ public class TransactionService {
   @Autowired private TransactionRepository transactionRepository;
 
   public void removeAllTransactionByCustomer(Long id) {
-    transactionRepository.deleteAllByCustomer_Id(id);
+    transactionRepository.deleteAllByCustomerId(id);
   }
 
   public void save(Transaction transaction) {

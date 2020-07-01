@@ -26,15 +26,15 @@ public class ProductService {
   }
 
   public List<Product> getAllProductByCategoryId(long id) {
-    return productRepository.findByCategory_Id(id);
+    return productRepository.findByCategoryId(id);
   }
 
   public List<Product> getAllProductByCustomerId(long id) {
-    return productRepository.findByCustomer_Id(id);
+    return productRepository.findByCustomerId(id);
   }
 
   public void removeAllProductByCustomerId(long id) {
-    productRepository.deleteAllByCustomer_Id(id);
+    productRepository.deleteAllByCustomerId(id);
   }
 
   public Product getById(Long id) {

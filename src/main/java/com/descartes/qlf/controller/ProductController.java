@@ -7,6 +7,7 @@ import com.descartes.qlf.service.CustomerService;
 import com.descartes.qlf.service.FileSystemStorageService;
 import com.descartes.qlf.service.ProductCategoryService;
 import com.descartes.qlf.service.ProductService;
+import com.google.re2j.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class ProductController {
@@ -49,12 +51,12 @@ public class ProductController {
 
   @PostMapping("/addproductconfirm")
   public String addProduct(
-      @RequestParam(name = "name", required = true) String name,
-      @RequestParam(name = "description", required = true) String description,
-      @RequestParam(name = "price", required = true) String price,
-      @RequestParam(name = "typePrice", required = true) String typePrice,
-      @RequestParam(name = "productCategory", required = true) Long productCategory,
-      @RequestParam(name = "picture", required = true) MultipartFile file,
+      @RequestParam(name = "name") String name,
+      @RequestParam(name = "description") String description,
+      @RequestParam(name = "price") String price,
+      @RequestParam(name = "typePrice") String typePrice,
+      @RequestParam(name = "productCategory") Long productCategory,
+      @RequestParam(name = "picture") MultipartFile file,
       HttpServletRequest request,
       Model model) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
@@ -66,10 +68,10 @@ public class ProductController {
           || typePrice.isEmpty()) {
         model.addAttribute("error", "Vous devez remplir les champs avant de valider !");
         return "addproduct";
-      } else if (file.getOriginalFilename().equals("")) {
+      } else if (Objects.equals(file.getOriginalFilename(), "")) {
         model.addAttribute("error", "Vous devez choisir un fichier avant de valider !");
         return "addproduct";
-      } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
+      } else if (!Pattern.compile("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}").matcher(price).find()) {
         model.addAttribute("error", "Vous devez rentrer un prix en euro !");
         return "addproduct";
       } else {
@@ -125,20 +127,19 @@ public class ProductController {
   }
 
   @PostMapping("/searchproducts")
-  public String SearchProductByKeyword(
+  public String searchProductByKeyword(
       @RequestParam(name = "keyword") String keyword, Model model) {
     List<Product> listProducts = productService.getBySearch(keyword.toUpperCase());
-    listProducts.sort(Comparator.comparing(Product::getId));
-    List<Product> listProductsCarousel =
-        listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
-    model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
-    model.addAttribute("listProducts", listProducts.toArray());
-    return "viewproducts";
+    return sortListProducts(model, listProducts);
   }
 
   @GetMapping("/viewproducts")
   public String viewProducts(Model model) {
     List<Product> listProducts = productService.getAllProduct();
+    return sortListProducts(model, listProducts);
+  }
+
+  private String sortListProducts(Model model, List<Product> listProducts) {
     listProducts.sort(Comparator.comparing(Product::getId));
     List<Product> listProductsCarousel =
         listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
@@ -163,12 +164,7 @@ public class ProductController {
     if (laitier != null) {
       listProducts.addAll(productService.getAllProductByCategoryId(3L));
     }
-    listProducts.sort(Comparator.comparing(Product::getId));
-    List<Product> listProductsCarousel =
-        listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
-    model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
-    model.addAttribute("listProducts", listProducts.toArray());
-    return "viewproducts";
+    return sortListProducts(model, listProducts);
   }
 
   @GetMapping("/product")
@@ -190,7 +186,7 @@ public class ProductController {
       @RequestParam(name = "name") String name,
       @RequestParam(name = "description") String description,
       @RequestParam(name = "price") String price,
-      @RequestParam(name = "typePrice", required = true) String typePrice,
+      @RequestParam(name = "typePrice") String typePrice,
       @RequestParam(name = "productCategory") Long productCategory,
       @RequestParam(name = "id") Long id,
       Model model,
@@ -207,7 +203,7 @@ public class ProductController {
           || description.isEmpty()
           || typePrice.isEmpty()) {
         model.addAttribute("error", "Vous devez remplir les champs avant de valider !");
-      } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
+      } else if (!Pattern.compile("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}").matcher(price).find()) {
         model.addAttribute("error", "Vous devez rentrer un prix en euro !");
       } else {
         Product product = productService.getById(id);

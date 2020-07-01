@@ -20,7 +20,7 @@
         <java.version>11</java.version>
         <sonar.exclusions>
             **/view/**,
-            **/Application.java
+            **/QlfApplication.java
         </sonar.exclusions>
     </properties>
 
@@ -67,6 +67,12 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- Google Re2 dependencies -->
+        <dependency>
+            <groupId>com.google.re2j</groupId>
+            <artifactId>re2j</artifactId>
+            <version>1.4</version>
         </dependency>
         <!-- GPS dependencies -->
         <dependency>

@@ -17,7 +17,7 @@ public class ProductCategoryService {
   }
 
   public ProductCategory getById(Long id) {
-    Optional<ProductCategory> ProductCategory = productCategoryRepository.findById(id);
-    return ProductCategory.orElse(null);
+    Optional<ProductCategory> productCategory = productCategoryRepository.findById(id);
+    return productCategory.orElse(null);
   }
 }

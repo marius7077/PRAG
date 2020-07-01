@@ -19,6 +19,7 @@
     <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
     <title th:text="'Profil - ' + ${#strings.capitalize(session.customer.firstName)}+' '+${session.customer.lastName.toUpperCase()}"></title>
 </head>
+<body>
 <div th:insert="fragments/navbar.html :: navbar"></div>
 <div class="qlf-central-container">
     <div id="connexion" class="qlf-central-tile qlf-tile qlf-large-tile">

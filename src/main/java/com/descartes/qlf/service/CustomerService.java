@@ -3,7 +3,6 @@ package com.descartes.qlf.service;
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.model.Geolocation;
 import com.descartes.qlf.repository.CustomerRepository;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,9 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
+import java.util.*;
 
 @Service
 public class CustomerService {
@@ -122,7 +122,7 @@ public class CustomerService {
       coordinates.add(
           Double.parseDouble(body.substring(body.indexOf("lng") + 5, body.indexOf("zoom") - 2)));
     } else {
-      return null;
+      return Collections.emptyList();
     }
     return coordinates;
   }
@@ -144,8 +144,12 @@ public class CustomerService {
     }
   }
 
-  public String resetPassword(String email) {
-    String newPassword = RandomStringUtils.random(10, true, true);
+  public void resetPassword(String email) throws NoSuchProviderException, NoSuchAlgorithmException {
+    SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+    byte[] bytes = new byte[16];
+    random.nextBytes(bytes);
+    Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
+    String newPassword = encoder.encodeToString(bytes);
     Customer customer = customerRepository.findByEmail(email);
     customer.setPassword(bCryptPasswordEncoder.encode(newPassword));
     customerRepository.save(customer);
@@ -159,6 +163,5 @@ public class CustomerService {
             + "\n"
             + "https://prag-qlf.herokuapp.com/login");
     emailSender.send(message);
-    return null;
   }
 }

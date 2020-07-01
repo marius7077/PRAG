@@ -12,5 +12,5 @@ public interface TransactionRepository extends CrudRepository<Transaction, Long>
   @Transactional
   @Modifying
   @Query("DELETE FROM Transaction t WHERE t.customer.id = :id")
-  void deleteAllByCustomer_Id(@Param("id") long id);
+  void deleteAllByCustomerId(@Param("id") long id);
 }

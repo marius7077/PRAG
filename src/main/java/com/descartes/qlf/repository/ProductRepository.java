@@ -20,12 +20,12 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
   Optional<Product> findById(Long id);
 
-  List<Product> findByCategory_Id(Long id);
+  List<Product> findByCategoryId(Long id);
 
-  List<Product> findByCustomer_Id(Long id);
+  List<Product> findByCustomerId(Long id);
 
   @Transactional
   @Modifying
   @Query("DELETE FROM Product p WHERE p.customer.id = :id")
-  void deleteAllByCustomer_Id(@Param("id") long id);
+  void deleteAllByCustomerId(@Param("id") long id);
 }

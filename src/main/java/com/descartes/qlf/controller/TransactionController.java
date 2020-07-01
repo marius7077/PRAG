@@ -41,7 +41,6 @@ public class TransactionController {
       calendar.set(Calendar.SECOND, 0);
       calendar.set(Calendar.MILLISECOND, 0);
       calendar.add(Calendar.MONTH, Integer.parseInt(duration));
-
       double price;
       switch (duration) {
         case "1":
@@ -57,7 +56,6 @@ public class TransactionController {
           model.addAttribute("error", "Paiment invalide. Veuillez-contacter les administrateurs.");
           return "billing";
       }
-
       transactionService.save(
           new Transaction(
               customer, date.getTime(), "producer_subscription_" + duration + "_month", price));
@@ -65,7 +63,6 @@ public class TransactionController {
       customerService.save(customer);
       // faire la vérif de validité
       // régler probleme affichage menu
-
       return "index";
     } else {
       model.addAttribute("error", "Vous n'êtes pas connectés");

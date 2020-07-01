@@ -3,9 +3,10 @@ package com.descartes.qlf.controller;
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.model.Product;
 import com.descartes.qlf.service.CustomerService;
-import com.descartes.qlf.service.ProductService;
 import com.descartes.qlf.service.GeolocationService;
+import com.descartes.qlf.service.ProductService;
 import com.descartes.qlf.service.TransactionService;
+import com.google.re2j.Pattern;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -70,14 +71,11 @@ public class CustomerController {
   public String producer(@RequestParam(name = "producerId") Long producerId, Model model) {
     Customer customer = customerService.getById(producerId);
     List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
-
     StringBuilder sb = new StringBuilder();
     if (customer.getDescription() != null) {
       for (int i = 0; i < customer.getDescription().length(); i++) {
-        if (customer.getDescription().charAt(i) == ' ') {
-          if (i > 0 && (i % 36 == 0)) {
-            sb.append("\n");
-          }
+        if (customer.getDescription().charAt(i) == ' ' && (i > 0 && (i % 36 == 0))) {
+          sb.append("\n");
         }
         sb.append(customer.getDescription().charAt(i));
       }
@@ -122,26 +120,7 @@ public class CustomerController {
       Model model,
       HttpServletRequest request) {
     model.addAttribute("error", null);
-    if (!email.matches(
-        "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
-      model.addAttribute("error", "Vous devez rentrer une adresse email valide !");
-      return "profile";
-    } else if (!password.equals(confirmPassword)) {
-      model.addAttribute("error", "Les mots de passe ne correspondent pas !");
-      return "profile";
-    } else if (password == null
-        || password.equals("")
-        || confirmPassword == null
-        || confirmPassword.equals("")) {
-      model.addAttribute("error", "Remplissez les champs Mot de passe !");
-      return "profile";
-    } else if (!postalCode.matches("[0-9]{5}")) {
-      model.addAttribute("error", "Vous devez rentrer un code postal valide !");
-      return "profile";
-    } else if (!phoneNumber.matches("(0|\\+33)[1-9]( *[0-9]{2}){4}")) {
-      model.addAttribute("error", "Vous devez rentrer un numéro de téléphone valide !");
-      return "profile";
-    } else if (lastName == null || lastName.equals("")) {
+    if (lastName == null || lastName.equals("")) {
       model.addAttribute("error", "Remplissez le champ Nom !");
       return "profile";
     } else if (firstName == null || firstName.equals("")) {
@@ -150,17 +129,38 @@ public class CustomerController {
     } else if (email == null || email.equals("")) {
       model.addAttribute("error", "Remplissez le champ Email !");
       return "profile";
+    } else if (password == null
+        || password.equals("")
+        || confirmPassword == null
+        || confirmPassword.equals("")) {
+      model.addAttribute("error", "Remplissez les champs Mot de passe !");
+      return "profile";
     } else if (address == null || address.equals("")) {
       model.addAttribute("error", "Remplissez le champ Adresse !");
       return "profile";
     } else if (postalCode == null || postalCode.equals("")) {
       model.addAttribute("error", "Remplissez le champ Code postal !");
       return "profile";
-    } else if (city == null || city == "") {
+    } else if (city == null || city.equals("")) {
       model.addAttribute("error", "Remplissez le champ Ville !");
       return "profile";
     } else if (phoneNumber == null || phoneNumber.equals("")) {
       model.addAttribute("error", "Remplissez le champ Téléphone !");
+      return "profile";
+    } else if (!Pattern.compile(
+            "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
+        .matcher(email)
+        .find()) {
+      model.addAttribute("error", "Vous devez rentrer une adresse email valide !");
+      return "profile";
+    } else if (!password.equals(confirmPassword)) {
+      model.addAttribute("error", "Les mots de passe ne correspondent pas !");
+      return "profile";
+      } else if (!Pattern.compile("[0-9]{5}").matcher(postalCode).find()) {
+      model.addAttribute("error", "Vous devez rentrer un code postal valide !");
+      return "profile";
+      } else if (!Pattern.compile("(0|\\+33)[1-9]( *[0-9]{2}){4}").matcher(phoneNumber).find()) {
+      model.addAttribute("error", "Vous devez rentrer un numéro de téléphone valide !");
       return "profile";
     } else {
       Customer customer = (Customer) request.getSession().getAttribute("customer");
@@ -170,9 +170,7 @@ public class CustomerController {
       customer.setFirstName(firstName);
       customer.setEmail(email);
       customer.setLastName(lastName);
-      if (password != null && !password.equals("")) {
-        customer.setPassword(bCryptPasswordEncoder.encode(password));
-      }
+      customer.setPassword(bCryptPasswordEncoder.encode(password));
       customer.setPhoneNumber(phoneNumber);
       customer.setPostalCode(postalCode);
       customer.setDescription(description);
