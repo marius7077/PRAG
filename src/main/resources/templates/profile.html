@@ -39,27 +39,27 @@
                         <div class="qlf-splitted-content">
                             <label class="qlf-label" for="firstName">Prénom</label>
                             <input type="text" id="firstName" class="qlf-editable-content" name="firstName"
-                                   placeholder="Entrez votre prénom" th:value="${session.customer.firstName}" disabled>
+                                   placeholder="Entrez votre prénom" th:value="${session.customer.firstName}" disabled required="true">
                         </div>
                         <div class="qlf-splitted-content">
                             <label class="qlf-label" for="lastName">Nom</label>
                             <input type="text" id="lastName" class="qlf-editable-content" name="lastName"
-                                   placeholder="Entrez votre nom" th:value="${session.customer.lastName}" disabled>
+                                   placeholder="Entrez votre nom" th:value="${session.customer.lastName}" disabled required="true">
                         </div>
                     </div>
                     <label class="qlf-label" for="address">Adresse</label>
                     <input type="text" id="address" name="address" class="qlf-editable-content"
-                           placeholder="Entrez votre adresse" th:value="${session.customer.address}" disabled>
+                           placeholder="Entrez votre adresse" th:value="${session.customer.address}" disabled required="true">
                     <div class="qlf-split-form">
                         <div class="qlf-splitted-content">
                             <label class="qlf-label" for="city">Ville</label>
                             <input type="text" id="city" name="city" class="qlf-editable-content"
-                                   placeholder="Entrez votre ville" th:value="${session.customer.city}" disabled>
+                                   placeholder="Entrez votre ville" th:value="${session.customer.city}" disabled required="true" pattern="[A-Za-zéèêëàâîïôöûüç-' ]*">
                         </div>
                         <div class="qlf-splitted-content">
                             <label class="qlf-label" for="postalCode">Code Postal</label>
                             <input type="text" id="postalCode" name="postalCode" class="qlf-editable-content"
-                                   placeholder="Entrez votre CP" th:value="${session.customer.postalCode}" disabled>
+                                   placeholder="Entrez votre CP" th:value="${session.customer.postalCode}" disabled required="true" pattern="[0-9]{5}">
                         </div>
                     </div>
                     <div class="qlf-split-form">
@@ -67,29 +67,29 @@
                             <label class="qlf-label" for="email">Email</label>
                             <input type="email" id="email" name="email" class="qlf-editable-content"
                                    placeholder="Entrez votre email"
-                                   th:value="${session.customer.email}" disabled>
+                                   th:value="${session.customer.email}" disabled required="true">
                         </div>
                         <div class="qlf-splitted-content">
                             <label class="qlf-label" for="phoneNumber">Téléphone</label>
                             <input type="tel" id="phoneNumber" name="phoneNumber" class="qlf-editable-content"
                                    placeholder="Entrez votre numéro de téléphone"
-                                   th:value="${session.customer.phoneNumber}" disabled>
+                                   th:value="${session.customer.phoneNumber}" disabled required="true" pattern="(0|\+33)[1-9]( *[0-9]{2}){4}">
                         </div>
                     </div>
                     <label th:if="${session.customer.type.equals('producer')}" class="qlf-label" for="company">Entreprise</label>
                     <input th:if="${session.customer.type.equals('producer')}" type="text" id="company" name="company" class="qlf-editable-content"
-                           placeholder="Entrez votre nom d'entreprise" th:value="${session.customer.company}" disabled>
+                           placeholder="Entrez votre nom d'entreprise" th:value="${session.customer.company}" disabled required="true">
                     <div class="qlf-split-form">
                         <div class="qlf-splitted-content">
                             <label class="qlf-label" for="password">Mot de passe</label>
                             <input type="password" id="password" name="password" class="qlf-editable-content"
-                                   placeholder="Entrez votre mot de passe" disabled>
+                                   placeholder="Entrez votre mot de passe" disabled required="true">
                         </div>
                         <div class="qlf-splitted-content">
                             <label class="qlf-label" for="confirmPassword">Confirmation de mot de passe</label>
                             <input type="password" id="confirmPassword" name="confirmPassword"
                                    class="qlf-editable-content"
-                                   placeholder="Confirmez votre mot de passe" disabled>
+                                   placeholder="Confirmez votre mot de passe" disabled required="true">
                         </div>
                     </div>
                 </div>

@@ -66,10 +66,13 @@ public class ProductController {
           || description.isEmpty()
           || typePrice.isEmpty()) {
         model.addAttribute("error", "Vous devez remplir les champs avant de valider !");
+        return "addproduct";
       } else if (file.getOriginalFilename().equals("")) {
         model.addAttribute("error", "Vous devez choisir un fichier avant de valider !");
+        return "addproduct";
       } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
         model.addAttribute("error", "Vous devez rentrer un prix en euro !");
+        return "addproduct";
       } else {
         model.addAttribute("error", "");
         ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
