@@ -3,23 +3,18 @@
 <head>
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
     <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
             integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
             crossorigin="anonymous"
     />
-
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet"/>
-
     <!-- Icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
-    <link rel="stylesheet" href="css/design_style.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
-
     <title>Ajout d'un produit</title>
 </head>
 <body>
@@ -30,7 +25,7 @@
         <p class="qlf-alert" th:text="${error}"></p>
         <form method="post" enctype="multipart/form-data" action="/addproductconfirm">
             <label class="qlf-label" for='name'>Nom</label>
-            <input id='name' name='name' type='text' required="true" placeholder="Entrez le nom"/> <br/>
+            <input id='name' name='name' type='text' placeholder="Entrez le nom" required/>
 
             <label class="qlf-label" for="productCategory">Catégorie de produit</label>
             <select name="productCategory" id="productCategory">
@@ -38,25 +33,21 @@
                 <option value="2">Viande</option>
                 <option value="3">Produit laitier</option>
             </select>
-
             <label class="qlf-label" for='description'>Description</label>
-            <input id='description' name='description' type='text' required="true" placeholder="Entrez la description"/>
-            <br/>
-
+            <input id='description' name='description' type='text' required
+                   placeholder="Entrez la description"/>
             <label class="qlf-label" for='price'>Prix</label>
-            <input id='price' name='price' type='tel' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}" required="true"
-                   placeholder="Entrez le prix"/> <br/>
-
+            <input id='price' name='price' type='tel' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}" required
+                   placeholder="Entrez le prix"/>
+            <label class="qlf-label" for="typePrice">Type de vente</label>
+            <select name="typePrice" id="typePrice">
+                <option value="1">Au kilogramme</option>
+                <option value="2">À l'unité</option>
+            </select>
             <label class="qlf-label" for='price'>Image</label>
             <input type="file" id="picture" name="picture" accept="image/png, image/jpeg"
                    placeholder="Choisissez une image">
-            <label class="qlf-label" for="typePrice"></label>
-            <select name="typePrice" id="typePrice">
-                <option value="1">/kg</option>
-                <option value="2">/unité</option>
-            </select>
-            <br/>
-            <input class="qlf-rounded-btn" name='btnConnect' type='submit'/> <br/>
+            <input class="qlf-rounded-btn" name='btnConnect' type='submit'/>
         </form>
     </div>
 </div>

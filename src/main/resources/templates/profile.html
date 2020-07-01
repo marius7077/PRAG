@@ -20,8 +20,7 @@
 
     <!-- Icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
-    <link rel="stylesheet" href="css/design_style.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
 
     <title th:text="'Profil - ' + ${#strings.capitalize(session.customer.firstName)}+' '+${session.customer.lastName.toUpperCase()}"></title>
@@ -102,7 +101,9 @@
             </div>
             <button type="button" id="qlf-edit-profile" class="qlf-rounded-btn">Modifier mes informations</button>
         </form>
-
+        <form method="get" action="/deleteprofile">
+            <input type="submit" class="qlf-rounded-btn" value="Supprimer mon compte">
+        </form>
         <div th:if="${session.customer.type.equals('producer')}">
             <h1 class="qlf-new-section">Mes produits :</h1>
             <div class="qlf-img-container">

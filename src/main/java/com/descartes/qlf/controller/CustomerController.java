@@ -5,6 +5,7 @@ import com.descartes.qlf.model.Product;
 import com.descartes.qlf.service.CustomerService;
 import com.descartes.qlf.service.ProductService;
 import com.descartes.qlf.service.GeolocationService;
+import com.descartes.qlf.service.TransactionService;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +23,8 @@ import java.util.List;
 public class CustomerController {
 
   @Autowired private CustomerService customerService;
+
+  @Autowired private TransactionService transactionService;
 
   @Autowired private ProductService productService;
 
@@ -83,6 +86,24 @@ public class CustomerController {
     model.addAttribute("listProducts", listProducts.toArray());
     model.addAttribute(customer);
     return "producer";
+  }
+
+  @GetMapping("/deleteprofile")
+  public String deleteProfile(Model model) {
+    return "deleteprofile";
+  }
+
+  @PostMapping("/deleteprofileconfirm")
+  public String deleteProfile(Model model, HttpServletRequest request) {
+    Customer customer = (Customer) request.getSession().getAttribute("customer");
+    if (customer.getType().equals("producer")) {
+      productService.removeAllProductByCustomerId(customer.getId());
+      transactionService.removeAllTransactionByCustomer(customer.getId());
+    }
+    customerService.delete(customer);
+    request.getSession().removeAttribute("customer");
+    request.getSession().invalidate();
+    return "/index";
   }
 
   @PostMapping("/editprofile")
