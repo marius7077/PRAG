@@ -71,36 +71,32 @@ public class CustomerService {
   }
 
   public List<Customer> getByDistance(int distance, Customer customer, Geolocation geolocation) {
-    if (distance != 0) {
-      List<Customer> filteredCustomerList = new ArrayList<>();
-      List<Customer> customerList = getByType("producer");
-      if (customer != null) {
-        for (Customer value : customerList) {
-          if (distance(
-                  customer.getLatitude(),
-                  customer.getLongitude(),
-                  value.getLatitude(),
-                  value.getLongitude())
-              < distance) {
-            filteredCustomerList.add(value);
-          }
-        }
-      } else {
-        for (Customer value : customerList) {
-          if (distance(
-                  geolocation.getLatitude(),
-                  geolocation.getLongitude(),
-                  value.getLatitude(),
-                  value.getLongitude())
-              < distance) {
-            filteredCustomerList.add(value);
-          }
+    List<Customer> filteredCustomerList = new ArrayList<>();
+    List<Customer> customerList = getByType("producer");
+    if (customer != null) {
+      for (Customer value : customerList) {
+        if (distance(
+                customer.getLatitude(),
+                customer.getLongitude(),
+                value.getLatitude(),
+                value.getLongitude())
+            < distance) {
+          filteredCustomerList.add(value);
         }
       }
-      return filteredCustomerList;
     } else {
-      return null;
+      for (Customer value : customerList) {
+        if (distance(
+                geolocation.getLatitude(),
+                geolocation.getLongitude(),
+                value.getLatitude(),
+                value.getLongitude())
+            < distance) {
+          filteredCustomerList.add(value);
+        }
+      }
     }
+    return filteredCustomerList;
   }
 
   public boolean testEmail(String email) {
