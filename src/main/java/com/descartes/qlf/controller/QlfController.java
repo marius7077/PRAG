@@ -2,8 +2,8 @@ package com.descartes.qlf.controller;
 
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.model.Product;
-import com.descartes.qlf.service.ProductService;
 import com.descartes.qlf.service.CustomerService;
+import com.descartes.qlf.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -42,7 +42,7 @@ public class Product implements Serializable {
     this.customer = customer;
   }
 
-  public Product(String name, String description, String price,String type, String urlPhoto) {
+  public Product(String name, String description, String price, String type, String urlPhoto) {
     this.name = name;
     this.description = description;
     this.price = price;
@@ -50,9 +50,13 @@ public class Product implements Serializable {
     this.urlPhoto = urlPhoto;
   }
 
-  public String getType() { return type; }
+  public String getType() {
+    return type;
+  }
 
-  public void setType(String type) { this.type = type; }
+  public void setType(String type) {
+    this.type = type;
+  }
 
   public long getId() {
     return id;

@@ -1,6 +1,5 @@
 package com.descartes.qlf.configuration;
 
-import com.maxmind.geoip2.DatabaseReader;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +10,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
-import java.io.File;
 import java.util.Properties;
 
 @Configuration
