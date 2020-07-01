@@ -102,14 +102,19 @@
                            placeholder="Confirmez votre mot de passe" required='true'>
                 </div>
             </div>
-            <div class="h-captcha" data-sitekey="faee6d9a-baec-4cc7-baa2-a3e27d9b196d"></div>
+            <div class="h-captcha" data-sitekey="faee6d9a-baec-4cc7-baa2-a3e27d9b196d" data-callback="enableBtn"></div>
             <a class="qlf-link-signup" href="/login">Déjà inscrit ? Connectez-vous !</a>
-            <input id="signUpButton" type="submit" class="qlf-rounded-btn" value="S'inscrire">
+            <input id="signUpButton" type="submit" class="qlf-rounded-btn" value="S'inscrire" disabled>
         </form>
     </div>
 </div>
 
 <script>
+
+    function enableBtn(){
+        document.getElementById("signUpButton").disabled = false;
+    }
+
     function toggleField(disp) {
         if (disp) {
             $(".only_for_producer").each(function () {
@@ -155,6 +160,7 @@
         window.location.href = "index.html";
       }
     }
+
 </script>
 </body>
 </html>

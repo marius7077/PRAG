@@ -71,43 +71,8 @@ public class ConnectionController {
       System.out.println("body: " + response.body());
 
       JsonNode hCaptchaResponseObject = this.om.readTree(response.body());
-      boolean success = hCaptchaResponseObject.get("success").asBoolean();
-
-      // timestamp of the captcha (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
-      JsonNode jsonNode = hCaptchaResponseObject.get("challenge_ts");
-      if (jsonNode != null) {
-        String challengeTs = jsonNode.asText();
-        System.out.println("challenge_ts=" + challengeTs);
-      }
-
-      // the hostname of the site where the captcha was solved
-      jsonNode = hCaptchaResponseObject.get("hostname");
-      if (jsonNode != null) {
-        String hostname = jsonNode.asText();
-        System.out.println("hostname=" + hostname);
-      }
-
-      // optional: whether the response will be credited
-      jsonNode = hCaptchaResponseObject.get("credit");
-      if (jsonNode != null) {
-        boolean credit = jsonNode.asBoolean();
-        System.out.println("credit=" + credit);
-      }
-
-      JsonNode errorCodesArray = hCaptchaResponseObject.get("error-codes");
-      if (errorCodesArray != null) {
-        System.out.println("error-codes");
-        for (JsonNode errorCode : errorCodesArray) {
-          System.out.println("  " + errorCode.asText());
-        }
-      }
-      else {
-        System.out.println("no errors");
-      }
-
-      return success;
+      return hCaptchaResponseObject.get("success").asBoolean();
     }
-
     return false;
   }
 
