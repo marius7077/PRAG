@@ -40,45 +40,27 @@ public class ConnectionController {
   private final ObjectMapper om = new ObjectMapper();
 
   ConnectionController() {
-    this.httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5))
-            .build();
+    this.httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build();
   }
 
-  @PostMapping("/signup2")
-  public boolean signup(
-          @RequestParam(name = "username", required = true) String username,
-          @RequestParam(name = "email", required = true) String email,
-          @RequestParam("h-captcha-response") String captchaResponse)
-          throws IOException, InterruptedException {
+  @PostMapping("/hcaptcha")
+  public boolean hcaptcha(@RequestParam("h-captcha-response") String captchaResponse)
+      throws IOException, InterruptedException {
     if (StringUtils.hasText(captchaResponse)) {
-
-      var sb = new StringBuilder();
-      sb.append("response=");
-      sb.append(captchaResponse);
-      sb.append("&secret=");
-      sb.append(this.hCaptchaSecretKey);
-
-      HttpRequest request = HttpRequest.newBuilder()
+      String sb = "response=" + captchaResponse + "&secret=" + this.hCaptchaSecretKey;
+      HttpRequest request =
+          HttpRequest.newBuilder()
               .uri(URI.create("https://hcaptcha.com/siteverify"))
               .header("Content-Type", "application/x-www-form-urlencoded")
               .timeout(Duration.ofSeconds(10))
-              .POST(BodyPublishers.ofString(sb.toString())).build();
-
-      HttpResponse<String> response = this.httpClient.send(request,
-              BodyHandlers.ofString());
-
-      System.out.println("http response status: " + response.statusCode());
-      System.out.println("body: " + response.body());
-
+              .POST(BodyPublishers.ofString(sb))
+              .build();
+      HttpResponse<String> response = this.httpClient.send(request, BodyHandlers.ofString());
       JsonNode hCaptchaResponseObject = this.om.readTree(response.body());
       return hCaptchaResponseObject.get("success").asBoolean();
     }
     return false;
   }
-
-
-
-
 
   @GetMapping("/signup")
   public String signUp() {
