@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
     <link rel="stylesheet" href="css/design_style.css"/>
-    <link rel="icon" type="image/png" href="images/logo.png"/>
+    <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
 
-    <title>Fiche produit</title>
+    <title th:text="'Produit - ' + ${#strings.capitalize(product.name)}"></title>
 </head>
 <body>
 <div th:insert="fragments/navbar.html :: navbar"></div>

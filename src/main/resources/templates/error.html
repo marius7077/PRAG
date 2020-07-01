@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
     <link rel="stylesheet" href="css/design_style.css"/>
-    <link rel="icon" type="image/png" href="images/logo.png"/>
+    <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
 
-    <title>Erreur !</title>
+    <title>Erreur</title>
 </head>
 <body class="index">
 <div th:insert="fragments/navbar.html :: navbar"></div>
@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col">
                 <div class="container">
-                    <img src="images/logo.png" alt="QLF" class="qlf-central-logo"/>
+                    <img src="images/logo_first_page.png" alt="QLF" class="qlf-central-logo"/>
                     <div class="content my-5"
                          th:if="${#strings.equalsIgnoreCase(error, 'not found')== true or #strings.equalsIgnoreCase(error, 'internal server error')== true} ">
                         <h1 id="erreur">Une erreur est survenue </h1>
