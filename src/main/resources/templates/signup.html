@@ -41,7 +41,7 @@
     <div id="connexion" class="qlf-central-tile qlf-tile">
         <h1>Inscrivez-vous : </h1>
         <p class="qlf-alert" th:text="${error}"></p>
-        <form id="signupForm" method="post" onsubmit="submitForm(); return false;">
+        <form id="signupForm" method="post" action="/signupconfirm">
             <label class="qlf-label">Quel type d'utilisateur êtes-vous ?</label>
             <div class="qlf-split-form">
                 <div class="radio qlf-splitted-content">
@@ -102,7 +102,7 @@
                            placeholder="Confirmez votre mot de passe" required='true'>
                 </div>
             </div>
-            <div class="h-captcha" data-sitekey="faee6d9a-baec-4cc7-baa2-a3e27d9b196d" data-callback="enableBtn"></div>
+            <div class="h-captcha" data-sitekey="faee6d9a-baec-4cc7-baa2-a3e27d9b196d" data-callback="submitForm"></div>
             <a class="qlf-link-signup" href="/login">Déjà inscrit ? Connectez-vous !</a>
             <input id="signUpButton" type="submit" class="qlf-rounded-btn" value="S'inscrire" disabled>
         </form>
@@ -110,10 +110,6 @@
 </div>
 
 <script>
-
-    function enableBtn(){
-        document.getElementById("signUpButton").disabled = false;
-    }
 
     function toggleField(disp) {
         if (disp) {
@@ -153,6 +149,7 @@
 
       const ok = await response.json();
       if (ok) {
+        document.getElementById("signUpButton").disabled = false;
       } else {
         window.location.href = "signup.html";
       }
