@@ -50,9 +50,9 @@
         <div class="list-producers-product">
             <div id="producer_products" class="div-producers-product" th:each="Product : ${listProducts}">
                 <a href="/product" th:href="@{/viewproduct(productId=${Product.id})}">
-                    <p class="producers-product-title" th:utext="${#strings.capitalize(Product.name)}"></p>
+                    <p class="producers-product-title qlf-blue" th:utext="${#strings.capitalize(Product.name)}"></p>
                 </a>
-                <div class="qlf-split-form">
+                <div class="qlf-split-form qlf-producer-product">
                     <a th:href="@{/viewproduct(productId=${Product.id})}">
                         <div class="qlf-img-container-product">
                             <div th:style="'background: url('+${Product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"

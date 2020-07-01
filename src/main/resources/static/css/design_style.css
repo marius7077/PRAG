@@ -620,3 +620,9 @@ a.qlf-add-link {
     margin: auto;
     width: auto !important;
 }
+
+.qlf-product-informations {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
