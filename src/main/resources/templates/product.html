@@ -3,7 +3,6 @@
 <head>
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
     <!-- Bootstrap CSS -->
     <link
             rel="stylesheet"
@@ -11,42 +10,35 @@
             integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
             crossorigin="anonymous"
     />
-
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet"/>
-
     <!-- Icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
     <link rel="stylesheet" href="css/design_style.css"/>
     <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
-
     <title th:text="'Produit - ' + ${#strings.capitalize(product.name)}"></title>
 </head>
 <body>
 <div th:insert="fragments/navbar.html :: navbar"></div>
-
 <div class="qlf-central-container">
     <div id="connexion" class="qlf-central-tile qlf-tile">
         <h1>Fiche produit</h1>
-
         <form id="productForm" method="post" enctype="multipart/form-data" action="/editproductresult">
             <label class="qlf-label" for='name'>Nom</label>
             <input type="text" id="name" class="qlf-editable-content" name="name" th:value="${product.name}" disabled
-                   placeholder="Entrez son nom" required='true'>
+                   placeholder="Entrez son nom" required>
             <br>
             <label class="qlf-label" for='description'>Description</label>
             <input type="text" id="description" class="qlf-editable-content" name="description"
                    th:value="${product.description}"
                    disabled
-                   placeholder="Entrez sa description" required='true'>
+                   placeholder="Entrez sa description" required>
             <br>
             <label class="qlf-label" for='price'>Prix</label>
             <input type="tel" id="price" class="qlf-editable-content" name="price" th:value="${product.price}" disabled
-                   placeholder="Entrez son prix" required='true' pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}">
+                   placeholder="Entrez son prix" required pattern="[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}">
             <br>
             <label class="qlf-label" for="typePrice"></label>
             <select name="typePrice" id="typePrice" class="qlf-editable-content" disabled>
@@ -66,14 +58,12 @@
             <br>
             <button type="button" id="qlf-edit-product" class="qlf-rounded-btn">Modifier mes informations</button>
         </form>
-
         <form method="post" action="/removeproductconfirm" th:if="${session.customer.type.equals('producer')}">
             <input type="hidden" name="id" id="id" th:value="${product.id}">
             <input type="submit" class="qlf-rounded-btn" value="Supprimer">
         </form>
     </div>
 </div>
-
 <script type="text/javascript">
     const form = document.getElementById("productForm");
     const edit = document.getElementById("qlf-edit-product");

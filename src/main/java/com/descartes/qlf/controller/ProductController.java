@@ -193,7 +193,7 @@ public class ProductController {
       @RequestParam(name = "id") Long id,
       Model model,
       HttpServletRequest request) {
-    model.addAttribute("Erreur", null);
+    model.addAttribute("error", null);
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
     model.addAttribute("listProducts", listProducts.toArray());
@@ -204,11 +204,11 @@ public class ProductController {
           || productCategory.toString().isEmpty()
           || description.isEmpty()
           || typePrice.isEmpty()) {
-        model.addAttribute("Erreur", "Vous devez remplir les champs avant de valider !");
+        model.addAttribute("error", "Vous devez remplir les champs avant de valider !");
       } else if (!price.matches("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}")) {
-        model.addAttribute("Erreur", "Vous devez rentrer un prix en euro !");
+        model.addAttribute("error", "Vous devez rentrer un prix en euro !");
       } else {
-        Product product = (Product) productService.getById(id);
+        Product product = productService.getById(id);
         ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
         product.setName(name);
         product.setDescription(description);

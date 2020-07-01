@@ -424,7 +424,7 @@ a.qlf-add-link {
     text-decoration: none;
 }
 
-#erreur {
+.error {
     font-family: "Bebas Neue", sans-serif;
     font-size: 2em;
     color: #d9d3cc;
