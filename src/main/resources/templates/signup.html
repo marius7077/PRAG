@@ -41,7 +41,7 @@
     <div id="connexion" class="qlf-central-tile qlf-tile">
         <h1>Inscrivez-vous : </h1>
         <p class="qlf-alert" th:text="${error}"></p>
-        <form method="post" action="/signupconfirm">
+        <form method="post" onsubmit="submitForm(); return false;">
             <label class="qlf-label">Quel type d'utilisateur êtes-vous ?</label>
             <div class="qlf-split-form">
                 <div class="radio qlf-splitted-content">
@@ -141,23 +141,20 @@
       // Workaround, hCaptcha adds two keys with same value
       formData.delete('g-recaptcha-response');
 
-      const response = await fetch('/signup', {
+      const response = await fetch('/signup2', {
         method: 'POST',
         body: formData
       });
 
       const ok = await response.json();
       if (ok) {
+      console.log('ok');
         window.location.href = "ok.html";
-        document.getElementById('signUpButton').disabled = true;
       } else {
         console.log('something went wrong');
         window.location.href = "index.html";
       }
     }
-
-const signUpForm = document.querySelector('form');
-signUpForm.addEventListener('submit', function(e){e.stopPropagation();submitForm();});
 </script>
 </body>
 </html>
