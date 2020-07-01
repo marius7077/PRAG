@@ -567,24 +567,30 @@ a.qlf-add-link {
     border-radius: 5px;
 }
 
-.qlf-blue{
-    color : #0a2459;
+.qlf-blue {
+    color: #0a2459;
 }
 
-.displayinline{
+.displayinline {
     display: inline-block;
 }
 
-.input-group > .form-control.qlf-form-control{
+.input-group > .form-control.qlf-form-control {
     border-radius: 5px;
 }
 
-.qlf-width-btn{
+.qlf-width-btn {
     width: 70%;
 }
 
 .qlf-search-form {
     margin-bottom: 1%;
+}
+
+.emailSent {
+    color: #0a2459;
+    word-break: break-word;
+    text-align: center;
 }
 
 .qlf-carousel {
