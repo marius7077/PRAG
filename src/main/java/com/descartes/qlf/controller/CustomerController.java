@@ -4,6 +4,8 @@ import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.model.Product;
 import com.descartes.qlf.service.CustomerService;
 import com.descartes.qlf.service.ProductService;
+import com.descartes.qlf.service.GeolocationService;
+import com.maxmind.geoip2.exception.GeoIp2Exception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -47,10 +49,16 @@ public class CustomerController {
 
   @PostMapping("/filterproducers")
   public String filterProducerByKeyword(
-      @RequestParam(name = "distance") int distance, HttpServletRequest request, Model model) {
+      @RequestParam(name = "distance") int distance,
+      @RequestParam(name = "ipAddress") String ipAdrress,
+      HttpServletRequest request,
+      Model model)
+      throws IOException, GeoIp2Exception {
     List<Customer> listCustomers =
         customerService.getByDistance(
-            distance, (Customer) request.getSession().getAttribute("customer"));
+            distance,
+            (Customer) request.getSession().getAttribute("customer"),
+            new GeolocationService().getLocation(ipAdrress));
     if (listCustomers != null) {
       model.addAttribute("listCustomers", listCustomers.toArray());
       model.addAttribute("error", "ok");

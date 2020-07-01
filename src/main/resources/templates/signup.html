@@ -21,6 +21,9 @@
     <!-- Icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
+    <!-- hCaptcha -->
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+
     <link rel="stylesheet" href="css/design_style.css"/>
     <link rel="icon" type="image/png" href="images/logo_sans_texte.png"/>
 
@@ -32,7 +35,7 @@
     <div id="connexion" class="qlf-central-tile qlf-tile">
         <h1>Inscrivez-vous : </h1>
         <p class="qlf-alert" th:text="${error}"></p>
-        <form method="post" action="/signupconfirm">
+        <form id="signupForm" method="post" action="/signupconfirm">
             <label class="qlf-label">Quel type d'utilisateur êtes-vous ?</label>
             <div class="qlf-split-form">
                 <div class="radio qlf-splitted-content">
@@ -49,7 +52,8 @@
             <div class="qlf-split-form">
                 <div class="qlf-splitted-content">
                     <label class="qlf-label" for="firstName">Prénom</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="Entrez votre prénom" required='true'>
+                    <input type="text" id="firstName" name="firstName" placeholder="Entrez votre prénom"
+                           required='true'>
                 </div>
                 <div class="qlf-splitted-content">
                     <label class="qlf-label" for="lastName">Nom</label>
@@ -65,30 +69,38 @@
             <div class="qlf-split-form">
                 <div class="qlf-splitted-content">
                     <label class="qlf-label" for="city">Ville</label>
-                    <input type="text" id="city" name="city" placeholder="Entrez votre ville" required='true' pattern="[A-Za-zéèêëàâîïôöûüç-' ]*">
+                    <input type="text" id="city" name="city" placeholder="Entrez votre ville" required='true'
+                           pattern="[A-Za-zéèêëàâîïôöûüç-' ]*">
                 </div>
                 <div class="qlf-splitted-content">
                     <label class="qlf-label" for="postalCode">Code Postal</label>
-                    <input type="text" id="postalCode" name="postalCode" placeholder="Entrez votre CP" required='true' pattern="[0-9]{5}">
+                    <input type="text" id="postalCode" name="postalCode" placeholder="Entrez votre code postal" required='true'
+                           pattern="[0-9]{5}">
                 </div>
             </div>
             <label class="qlf-label" for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Entrez votre email" required='true'>
-            <label class="qlf-label" for="phoneNumber">Téléphone</label>
-            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Entrez votre numéro de téléphone" required='true' pattern="(0|\+33)[1-9]( *[0-9]{2}){4}">
+            <label class="qlf-label" for="phoneNumber">Numéro de téléphone</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Entrez votre numéro de téléphone"
+                   required='true' pattern="(0|\+33)[1-9]( *[0-9]{2}){4}">
 
             <div class="qlf-split-form">
                 <div class="qlf-splitted-content">
                     <label class="qlf-label" for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required='true'>
+                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe"
+                           required='true'>
                 </div>
                 <div class="qlf-splitted-content">
                     <label class="qlf-label" for="confirmPassword">Confirmation de mot de passe</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmez votre mot de passe" required='true'>
+                    <input type="password" id="confirmPassword" name="confirmPassword"
+                           placeholder="Confirmez votre mot de passe" required='true'>
                 </div>
             </div>
+            <div class="qlf-captcha">
+                <div class="h-captcha" data-sitekey="faee6d9a-baec-4cc7-baa2-a3e27d9b196d" data-callback="submitForm"></div>
+            </div>
             <a class="qlf-link-signup" href="/login">Déjà inscrit ? Connectez-vous !</a>
-            <input type="submit" class="qlf-rounded-btn" value="S'inscrire">
+            <input id="signUpButton" type="submit" class="qlf-rounded-btn" value="S'inscrire" disabled>
         </form>
     </div>
 </div>
@@ -117,8 +129,22 @@
         if (this.checked)
             toggleField(false);
     });
+
+    async function submitForm() {
+      const signUpForm = document.querySelector('form');
+      const formData = new FormData(signUpForm);
+      formData.delete('g-recaptcha-response');
+      const response = await fetch('/hcaptcha', {
+        method: 'POST',
+        body: formData
+      });
+      const ok = await response.json();
+      if (ok) {
+        document.getElementById("signUpButton").disabled = false;
+      } else {
+        window.location.href = "signup.html";
+      }
+    }
 </script>
-
-
 </body>
 </html>

@@ -2,15 +2,27 @@ package com.descartes.qlf.controller;
 
 import com.descartes.qlf.model.Customer;
 import com.descartes.qlf.service.CustomerService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
+import java.time.Duration;
 import java.util.List;
 
 @Controller
@@ -19,6 +31,36 @@ public class ConnectionController {
   @Autowired private CustomerService customerService;
 
   @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+  @Value("${hCaptcha.secret.key}")
+  private String hCaptchaSecretKey;
+
+  private final HttpClient httpClient;
+
+  private final ObjectMapper om = new ObjectMapper();
+
+  ConnectionController() {
+    this.httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build();
+  }
+
+  @PostMapping("/hcaptcha")
+  public boolean hcaptcha(@RequestParam("h-captcha-response") String captchaResponse)
+      throws IOException, InterruptedException {
+    if (StringUtils.hasText(captchaResponse)) {
+      String sb = "response=" + captchaResponse + "&secret=" + this.hCaptchaSecretKey;
+      HttpRequest request =
+          HttpRequest.newBuilder()
+              .uri(URI.create("https://hcaptcha.com/siteverify"))
+              .header("Content-Type", "application/x-www-form-urlencoded")
+              .timeout(Duration.ofSeconds(10))
+              .POST(BodyPublishers.ofString(sb))
+              .build();
+      HttpResponse<String> response = this.httpClient.send(request, BodyHandlers.ofString());
+      JsonNode hCaptchaResponseObject = this.om.readTree(response.body());
+      return hCaptchaResponseObject.get("success").asBoolean();
+    }
+    return false;
+  }
 
   @GetMapping("/signup")
   public String signUp() {
