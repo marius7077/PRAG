@@ -311,6 +311,12 @@ input[type="text"][disabled], input[type="email"][disabled], input[type="tel"][d
     justify-content: center;
 }
 
+.qlf-product-img {
+    margin: 3%;
+    width: 10em;
+    height: 10em;
+}
+
 .qlf-large-img {
     width: 100%;
     height: 30em;
@@ -453,6 +459,10 @@ a.qlf-add-link {
 
 }
 
+.qlf-div-img-product {
+    height: 10em;
+}
+
 .left-home {
     background-color: #0a2459;
     min-height: 100vh;
@@ -488,10 +498,16 @@ a.qlf-add-link {
     margin: 0;
 }
 
+.qlf-split-form.qlf-producer-product {
+    justify-content: flex-start;
+}
+
 .info-producers-product {
-    /*margin-right: 10px;*/
-    margin-top: 1em;
-    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: start;
+    margin-right: 1%;
 }
 
 .info-producer h1 {
