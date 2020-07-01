@@ -33,16 +33,16 @@
                 <p class="qlf-alert" th:text="${error}"></p>
                 <div class="qlf-split-form">
                     <div class="qlf-split-form-producer">
-                        <p th:text="'Entreprise : ' +${customer.company} "></p>
+                        <p th:text="'Entreprise : ' +${#strings.capitalize(customer.company)} "></p>
                         <p th:text="'Email : ' +${customer.email} "></p>
                         <p th:text="'Adresse : ' +${customer.address} "></p>
                         <p th:text="'Code postal : ' +${customer.postalCode} "></p>
-                        <p th:text="'Ville : ' +${customer.city} "></p>
+                        <p th:text="'Ville : ' +${#strings.capitalize(customer.city)} "></p>
                         <p th:text="'Téléphone : ' +${customer.phoneNumber} "></p>
                     </div>
                     <div class="qlf-split-form-producer">
                         <p>Description :</p>
-                        <p th:text="${descriptionFormat}">
+                        <p th:text="${#strings.capitalize(descriptionFormat)}">
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         <p class="product-info" th:if="${Product.type == '1'}" th:utext="${Product.price}+' € le kilo'"></p>
                         <p class="product-info" th:if="${Product.type == '2'}" th:utext="${Product.price}+' € l\'unité'"></p>
                         <p class="product-info" th:utext="${Product.category?.name}"></p>
-                        <p class="product-info" th:utext="${Product.description}"></p>
+                        <p class="product-info" th:utext="${#strings.capitalize(Product.description)}"></p>
                     </div>
                 </div>
             </div>
