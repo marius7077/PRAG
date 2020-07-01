@@ -33,6 +33,10 @@ public class ProductService {
     return productRepository.findByCustomer_Id(id);
   }
 
+  public void removeAllProductByCustomerId(long id) {
+    productRepository.deleteAllByCustomer_Id(id);
+  }
+
   public Product getById(Long id) {
     Optional<Product> product = productRepository.findById(id);
     return product.orElse(null);

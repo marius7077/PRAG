@@ -101,6 +101,10 @@
                 </div>
             </div>
             <button type="button" id="qlf-edit-profile" class="qlf-rounded-btn">Modifier mes informations</button>
+
+        </form>
+        <form method="get" action="/deleteprofile">
+            <input type="submit" class="qlf-rounded-btn" value="Supprimer mon compte">
         </form>
 
         <div th:if="${session.customer.type.equals('producer')}">
