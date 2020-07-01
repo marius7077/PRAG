@@ -93,7 +93,7 @@ public class CustomerController {
       @RequestParam(name = "postalCode") String postalCode,
       @RequestParam(name = "city") String city,
       @RequestParam(name = "phoneNumber") String phoneNumber,
-      @RequestParam(name = "company") String company,
+      @RequestParam(name = "company", required = false) String company,
       @RequestParam(name = "description") String description,
       Model model,
       HttpServletRequest request) {
@@ -115,7 +115,9 @@ public class CustomerController {
     customer.setPhoneNumber(phoneNumber);
     customer.setPostalCode(postalCode);
     customer.setDescription(description);
-    customer.setCompany(company);
+    if (customer.getType().equals("producer")){
+      customer.setCompany(company);
+    }
     customer.setLatitude(coordinates.get(0));
     customer.setLongitude(coordinates.get(1));
     customerService.save(customer);
