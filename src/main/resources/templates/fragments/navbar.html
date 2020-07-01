@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:fragment="navbar">
-    <nav class="qlf-nav-v2">
+    <nav id="qlf-navbar-v2-fixed" class="qlf-nav-v2">
         <a href="/" class="qlf-nav-link-v2"
            th:classappend="${#httpServletRequest.requestURI == '/' || #httpServletRequest.requestURI == '/index'} ? 'qlf-nav-link-active-v2' : ''">
             <img class="qlf-nav-icon-v2" src="images/logo_txt.png"/><span>Accueil</span>
@@ -28,6 +28,28 @@
            th:classappend="${#httpServletRequest.requestURI == '/logout'} ? 'qlf-nav-link-active-v2' : ''"
            th:if="${session.customer != null}">Déconnexion</a>
     </nav>
+
+    <script>
+        let fix = false;
+        const nav = document.getElementById("qlf-navbar-v2-fixed");
+        const body = document.querySelector('body');
+        nav.style.zIndex = "1000";
+
+        document.addEventListener('scroll', function() {
+            if (!fix && nav.getBoundingClientRect().top < 0) {
+                nav.style.position = "fixed";
+                nav.style.width = "100%";
+                nav.style.top = "0";
+                body.style.paddingTop = nav.offsetHeight + "px";
+                fix = true;
+            }
+            if (fix && body.getBoundingClientRect().top >= 0) {
+                nav.style.position = "static";
+                body.style.paddingTop = "0";
+                fix = false;
+            }
+        }, false);
+    </script>
 </div>
 </body>
 </html>
