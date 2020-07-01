@@ -626,3 +626,14 @@ a.qlf-add-link {
     flex-direction: column;
     justify-content: center;
 }
+
+#picture {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+#productCategory {
+    width: 100%;
+    border-radius: 3px;
+}
