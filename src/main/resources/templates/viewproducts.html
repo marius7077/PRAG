@@ -28,7 +28,8 @@
 <div>
     <div class="container mt-2 p-5">
         <form class="input-group qlf-search-form" method="post" action="/searchproducts">
-            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search" placeholder="Cherchez vos produits" required>
+            <input type="search" class="form-control qlf-form-control" id="search" name="keyword" aria-label="Search"
+                   placeholder="Cherchez vos produits" required>
             <div class="input-group-append">
                 <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
                 <button id="reset" type="button" class="qlf-reset-request ml-2">Réinitialiser</button>
@@ -42,13 +43,15 @@
             <form method="post" action="/productcategory">
                 <span>Quels produits souhaitez-vous afficher ?</span>
                 <label class="checkbox-inline qlf-checkbox-inline">
-                    <input type="checkbox" class="qlf-product-category" id="fruitLegume" name="fruitLegume" value="1">Fruits et Légumes
+                    <input type="checkbox" class="qlf-product-category" id="fruitLegume" name="fruitLegume" value="1">Fruits
+                    et Légumes
                 </label>
                 <label class="checkbox-inline qlf-checkbox-inline">
                     <input type="checkbox" class="qlf-product-category" id="viande" name="viande" value="2">Viandes
                 </label>
                 <label class="checkbox-inline qlf-checkbox-inline">
-                    <input type="checkbox" class="qlf-product-category" id="laitier" name="laitier" value="3">Produits Laitiers
+                    <input type="checkbox" class="qlf-product-category" id="laitier" name="laitier" value="3">Produits
+                    Laitiers
                 </label>
                 <button type="submit" class="qlf-send-request ml-2">Rechercher</button>
             </form>
@@ -91,7 +94,7 @@
         <div class="list-producers-product">
             <div id="producer_products" class="div-producers-product" th:each="product : ${listProducts}">
                 <a href="/product" th:href="@{/viewproduct(productId=${product.id})}">
-                    <p class="producers-product-title" th:utext="${product.name}"></p>
+                    <p class="producers-product-title mb-3 qlf-blue" th:utext="${#strings.capitalize(product.name)}"></p>
                 </a>
                 <div class="qlf-split-form qlf-producer-product">
                     <div th:style="'background: url('+${product.urlPhoto}+') 50% 50% no-repeat; background-size: contain'"
@@ -105,7 +108,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <script
         src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -125,7 +127,7 @@
 <script>
     const reset = document.getElementById("reset");
     const resetForm = document.getElementById("resetForm");
-    reset.addEventListener('click', function(e) {
+    reset.addEventListener('click', function (e) {
         e.preventDefault();
         resetForm.submit();
     })
