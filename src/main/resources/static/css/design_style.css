@@ -446,12 +446,12 @@ a.qlf-add-link {
 }
 
 .img_producer_products {
-    /*max-height: 150px;*/
-    /*max-width: 150px;*/
-    height: 150px;
-    width: 150px;
+    max-height: 150px;
+    max-width: 150px;
+    /*height: 150px;
+    width: 150px;*/
     margin: 20px;
-    margin-top: 10px;
+
 }
 
 .left-home {
