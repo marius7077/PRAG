@@ -37,7 +37,8 @@
             </div>
             <div class="qlf-splitted-content qlf-product-informations">
                 <h1 th:text="${product.name}"></h1>
-                <p class="qlf-product-price" th:text="${product.price} + ' €'"></p>
+                <p class="qlf-product-price" th:if="${product.type == '1'}" th:utext="${product.price}+' € le kilo'"></p>
+                <p class="qlf-product-price" th:if="${product.type == '2'}" th:utext="${product.price}+' € l\'unité'"></p>
                 <p class="qlf-product-description" th:text="${product.description}"></p>
                 <p class="qlf-product-description">Producteur : <a class="qlf-blue"
                         th:href="@{/producer(producerId=${product.customer.id})}"

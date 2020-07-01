@@ -62,7 +62,8 @@
                     </a>
 
                     <div class="info-producers-product">
-                        <p class="product-info" th:utext="${Product.price}+' €'"></p>
+                        <p class="product-info" th:if="${Product.type == '1'}" th:utext="${Product.price}+' € le kilo'"></p>
+                        <p class="product-info" th:if="${Product.type == '2'}" th:utext="${Product.price}+' € l\'unité'"></p>
                         <p class="product-info" th:utext="${Product.category?.name}"></p>
                         <p class="product-info" th:utext="${Product.description}"></p>
                     </div>
