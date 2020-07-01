@@ -639,7 +639,7 @@ a.qlf-add-link {
     border-radius: 0;
 }
 
-#productCategory {
+#productCategory, #typePrice {
     width: 100%;
     border-radius: 3px;
 }

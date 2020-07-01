@@ -33,16 +33,16 @@
                 <p class="qlf-alert" th:text="${error}"></p>
                 <div class="qlf-split-form">
                     <div class="qlf-split-form-producer">
-                        <p th:text="'Entreprise : ' +${customer.company} "></p>
-                        <p th:text="'Email : ' +${customer.email} "></p>
-                        <p th:text="'Adresse : ' +${customer.address} "></p>
-                        <p th:text="'Code postal : ' +${customer.postalCode} "></p>
-                        <p th:text="'Ville : ' +${customer.city} "></p>
-                        <p th:text="'Téléphone : ' +${customer.phoneNumber} "></p>
+                        <p>Entreprise : <span class="displayinline font-weight-bold" th:text="${customer.company}"></span></p>
+                        <p>Email : <span class="displayinline font-weight-bold" th:text="${customer.email} "></span></p>
+                        <p>Adresse : <span class="displayinline font-weight-bold" th:text="${customer.address} "></span></p>
+                        <p>Code postal : <span class="displayinline font-weight-bold" th:text="${customer.postalCode} "></span></p>
+                        <p>Ville : <span class="displayinline font-weight-bold" th:text="${customer.city} "></span></p>
+                        <p>Téléphone : <span class="displayinline font-weight-bold" th:text="${customer.phoneNumber} "></span></p>
                     </div>
                     <div class="qlf-split-form-producer">
                         <p>Description :</p>
-                        <p th:text="${descriptionFormat}">
+                        <p class="font-weight-bold" th:text="${descriptionFormat}">
                     </div>
                 </div>
             </div>
