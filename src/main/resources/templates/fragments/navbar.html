@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -28,7 +28,6 @@
            th:classappend="${#httpServletRequest.requestURI == '/logout'} ? 'qlf-nav-link-active-v2' : ''"
            th:if="${session.customer != null}">Déconnexion</a>
     </nav>
-
     <script>
         let fix = false;
         const nav = document.getElementById("qlf-navbar-v2-fixed");
