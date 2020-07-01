@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/design_style.css"/>
     <link rel="icon" type="image/png" href="images/logo.png"/>
 
-    <title>Mon Profil</title>
+    <title th:text="'Profil - ' + ${#strings.capitalize(session.customer.firstName)}+' '+${session.customer.lastName.toUpperCase()}"></title>
 </head>
 <div th:insert="fragments/navbar.html :: navbar"></div>
 <div class="qlf-central-container">

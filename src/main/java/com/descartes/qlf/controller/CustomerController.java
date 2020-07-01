@@ -66,13 +66,15 @@ public class CustomerController {
     List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
 
     StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < customer.getDescription().length(); i++) {
-      if (customer.getDescription().charAt(i) == ' ') {
-        if (i > 0 && (i % 36 == 0)) {
-          sb.append("\n");
+    if (customer.getDescription() != null) {
+      for (int i = 0; i < customer.getDescription().length(); i++) {
+        if (customer.getDescription().charAt(i) == ' ') {
+          if (i > 0 && (i % 36 == 0)) {
+            sb.append("\n");
+          }
         }
+        sb.append(customer.getDescription().charAt(i));
       }
-      sb.append(customer.getDescription().charAt(i));
     }
     model.addAttribute("descriptionFormat", sb);
     model.addAttribute("listProducts", listProducts.toArray());
@@ -80,22 +82,21 @@ public class CustomerController {
     return "producer";
   }
 
-
   @PostMapping("/editprofile")
   public String editProfile(
-          @RequestParam(name = "lastName") String lastName,
-          @RequestParam(name = "firstName") String firstName,
-          @RequestParam(name = "email") String email,
-          @RequestParam(name = "password") String password,
-          @RequestParam(name = "confirmPassword") String confirmPassword,
-          @RequestParam(name = "address") String address,
-          @RequestParam(name = "postalCode") String postalCode,
-          @RequestParam(name = "city") String city,
-          @RequestParam(name = "phoneNumber") String phoneNumber,
-          @RequestParam(name = "company") String company,
-          @RequestParam(name = "description") String description,
-          Model model,
-          HttpServletRequest request) {
+      @RequestParam(name = "lastName") String lastName,
+      @RequestParam(name = "firstName") String firstName,
+      @RequestParam(name = "email") String email,
+      @RequestParam(name = "password") String password,
+      @RequestParam(name = "confirmPassword") String confirmPassword,
+      @RequestParam(name = "address") String address,
+      @RequestParam(name = "postalCode") String postalCode,
+      @RequestParam(name = "city") String city,
+      @RequestParam(name = "phoneNumber") String phoneNumber,
+      @RequestParam(name = "company") String company,
+      @RequestParam(name = "description") String description,
+      Model model,
+      HttpServletRequest request) {
     model.addAttribute("error", null);
     if (password != null && !password.equals(confirmPassword)) {
       model.addAttribute("error", "Les mots de passe ne correspondent pas !");
