@@ -5,6 +5,7 @@ import com.descartes.qlf.model.Product;
 import com.descartes.qlf.service.CustomerService;
 import com.descartes.qlf.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,9 @@ public class QlfController {
   @Autowired private ProductService productService;
 
   @Autowired private CustomerService customerService;
+
+  @Value("${controller.profile}")
+  private String profile;
 
   @GetMapping("/")
   public String home() {
@@ -39,6 +43,6 @@ public class QlfController {
       List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
       model.addAttribute("listProducts", listProducts.toArray());
     }
-    return "profile";
+    return profile;
   }
 }

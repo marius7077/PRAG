@@ -146,7 +146,7 @@ public class CustomerService {
 
   public void resetPassword(String email) throws NoSuchProviderException, NoSuchAlgorithmException {
     SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
-    byte[] bytes = new byte[16];
+    byte[] bytes = new byte[8];
     random.nextBytes(bytes);
     Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
     String newPassword = encoder.encodeToString(bytes);

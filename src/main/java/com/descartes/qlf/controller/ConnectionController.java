@@ -42,6 +42,21 @@ public class ConnectionController {
 
   private final ObjectMapper om = new ObjectMapper();
 
+  @Value("${controller.index}")
+  private String index;
+
+  @Value("${controller.signup}")
+  private String signup;
+
+  @Value("${controller.billing}")
+  private String billing;
+
+  @Value("${controller.login}")
+  private String login;
+
+  @Value("${controller.error}")
+  private String error;
+
   ConnectionController() {
     this.httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build();
   }
@@ -67,7 +82,7 @@ public class ConnectionController {
 
   @GetMapping("/signup")
   public String signUp() {
-    return "signup";
+    return signup;
   }
   
   @PostMapping("/signupconfirm")
@@ -97,26 +112,26 @@ public class ConnectionController {
         || phoneNumber.isEmpty()
         || type.isEmpty()) {
       model.addAttribute("error", "Vous devez remplir les champs avant de valider !");
-      return "signup";
+      return signup;
     }
     if (!Pattern.compile(
             "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
         .matcher(email)
         .find()) {
       model.addAttribute("error", "Vous devez rentrer une adresse email valide !");
-      return "signup";
+      return signup;
     }
     if (!password.equals(confirmPassword)) {
       model.addAttribute("error", "Les mots de passe ne correspondent pas !");
-      return "signup";
+      return signup;
     }
     if (!Pattern.compile("[0-9]{5}").matcher(postalCode).find()) {
       model.addAttribute("error", "Vous devez rentrer un code postal valide !");
-      return "signup";
+      return signup;
     }
     if (!Pattern.compile("(0|\\+33)[1-9]( *[0-9]{2}){4}").matcher(phoneNumber).find()) {
       model.addAttribute("error", "Vous devez rentrer un numéro de téléphone valide !");
-      return "signup";
+      return signup;
     }
     model.addAttribute("error", "");
     if (customerService.testEmail(email)) {
@@ -141,7 +156,7 @@ public class ConnectionController {
             "error",
             "Veuillez-compléter votre inscription par le paiement de votre premier abonnement");
         request.getSession().setAttribute("customer", customer);
-        return "billing";
+        return billing;
       } else {
         Customer customer =
             new Customer(
@@ -159,17 +174,17 @@ public class ConnectionController {
                 null);
         customerService.save(customer);
         request.getSession().setAttribute("customer", customer);
-        return "index";
+        return index;
       }
     } else {
       model.addAttribute("error", "L'adresse email est déjà utilisée !");
-      return "signup";
+      return signup;
     }
   }
 
   @GetMapping("/login")
   public String login() {
-    return "login";
+    return login;
   }
 
   @PostMapping("/loginconfirm")
@@ -178,11 +193,10 @@ public class ConnectionController {
       @RequestParam(name = "password") String password,
       HttpServletRequest request,
       Model model) {
-
     model.addAttribute("error", "");
     if (email.isEmpty() || password.isEmpty()) {
       model.addAttribute("error", "Vous devez remplir les champs avant de valider !");
-      return "login";
+      return login;
     }
     Customer customer = customerService.connect(email, password);
     request.getSession().setAttribute("customer", customer);
@@ -191,13 +205,13 @@ public class ConnectionController {
           && customer.getEndSubscription() < System.currentTimeMillis()) {
         model.addAttribute(
             "error", "Votre abonnement a expiré. Veuillez renouveler votre abonnement");
-        return "billing";
+        return billing;
       } else {
         return "redirect:/";
       }
     } else {
       model.addAttribute("error", "L'adresse email et le mot de passe ne correspondent pas !");
-      return "login";
+      return login;
     }
   }
 
@@ -223,7 +237,7 @@ public class ConnectionController {
       return "passwordforgottenconfirm";
     } else {
       model.addAttribute("error", "L'adresse email n'a pas été trouvé !");
-      return "error";
+      return error;
     }
   }
 }

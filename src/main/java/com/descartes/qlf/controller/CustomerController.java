@@ -9,6 +9,7 @@ import com.descartes.qlf.service.TransactionService;
 import com.google.re2j.Pattern;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +32,26 @@ public class CustomerController {
 
   @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+  @Value("${controller.viewproducers}")
+  private String viewproducers;
+
+  @Value("${controller.producer}")
+  private String producer;
+
+  @Value("${controller.deleteprofile}")
+  private String deleteprofile;
+
+  @Value("${controller.index}")
+  private String index;
+
+  @Value("${controller.profile}")
+  private String profile;
+
   @GetMapping("/viewproducers")
   public String viewProducers(Model model) {
     List<Customer> listCustomers = customerService.getAllProducers();
     model.addAttribute("listCustomers", listCustomers.toArray());
-    return "viewproducers";
+    return viewproducers;
   }
 
   @PostMapping("/searchproducers")
@@ -48,7 +64,7 @@ public class CustomerController {
     } else {
       model.addAttribute("error", null);
     }
-    return "viewproducers";
+    return viewproducers;
   }
 
   @PostMapping("/filterproducers")
@@ -64,7 +80,7 @@ public class CustomerController {
             (Customer) request.getSession().getAttribute("customer"),
             new GeolocationService().getLocation(ipAdrress));
     model.addAttribute("listCustomers", listCustomers.toArray());
-    return "viewproducers";
+    return viewproducers;
   }
 
   @GetMapping("/producer")
@@ -83,16 +99,16 @@ public class CustomerController {
     model.addAttribute("descriptionFormat", sb);
     model.addAttribute("listProducts", listProducts.toArray());
     model.addAttribute(customer);
-    return "producer";
+    return producer;
   }
 
   @GetMapping("/deleteprofile")
   public String deleteProfile(Model model) {
-    return "deleteprofile";
+    return deleteprofile;
   }
 
   @PostMapping("/deleteprofileconfirm")
-  public String deleteProfile(Model model, HttpServletRequest request) {
+  public String deleteProfile(HttpServletRequest request) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     if (customer.getType().equals("producer")) {
       productService.removeAllProductByCustomerId(customer.getId());
@@ -101,7 +117,7 @@ public class CustomerController {
     customerService.delete(customer);
     request.getSession().removeAttribute("customer");
     request.getSession().invalidate();
-    return "/index";
+    return index;
   }
 
   @PostMapping("/editprofile")
@@ -122,46 +138,46 @@ public class CustomerController {
     model.addAttribute("error", null);
     if (lastName == null || lastName.equals("")) {
       model.addAttribute("error", "Remplissez le champ Nom !");
-      return "profile";
+      return profile;
     } else if (firstName == null || firstName.equals("")) {
       model.addAttribute("error", "Remplissez le champ Prénom !");
-      return "profile";
+      return profile;
     } else if (email == null || email.equals("")) {
       model.addAttribute("error", "Remplissez le champ Email !");
-      return "profile";
+      return profile;
     } else if (password == null
         || password.equals("")
         || confirmPassword == null
         || confirmPassword.equals("")) {
       model.addAttribute("error", "Remplissez les champs Mot de passe !");
-      return "profile";
+      return profile;
     } else if (address == null || address.equals("")) {
       model.addAttribute("error", "Remplissez le champ Adresse !");
-      return "profile";
+      return profile;
     } else if (postalCode == null || postalCode.equals("")) {
       model.addAttribute("error", "Remplissez le champ Code postal !");
-      return "profile";
+      return profile;
     } else if (city == null || city.equals("")) {
       model.addAttribute("error", "Remplissez le champ Ville !");
-      return "profile";
+      return profile;
     } else if (phoneNumber == null || phoneNumber.equals("")) {
       model.addAttribute("error", "Remplissez le champ Téléphone !");
-      return "profile";
+      return profile;
     } else if (!Pattern.compile(
             "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
         .matcher(email)
         .find()) {
       model.addAttribute("error", "Vous devez rentrer une adresse email valide !");
-      return "profile";
+      return profile;
     } else if (!password.equals(confirmPassword)) {
       model.addAttribute("error", "Les mots de passe ne correspondent pas !");
-      return "profile";
+      return profile;
       } else if (!Pattern.compile("[0-9]{5}").matcher(postalCode).find()) {
       model.addAttribute("error", "Vous devez rentrer un code postal valide !");
-      return "profile";
+      return profile;
       } else if (!Pattern.compile("(0|\\+33)[1-9]( *[0-9]{2}){4}").matcher(phoneNumber).find()) {
       model.addAttribute("error", "Vous devez rentrer un numéro de téléphone valide !");
-      return "profile";
+      return profile;
     } else {
       Customer customer = (Customer) request.getSession().getAttribute("customer");
       List<Double> coordinates = customerService.addressToCoordinates(address, postalCode, city);
@@ -183,7 +199,7 @@ public class CustomerController {
       List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
       model.addAttribute("listProducts", listProducts.toArray());
       model.addAttribute("success", "Les modifications ont été enregistrées !");
-      return "profile";
+      return profile;
     }
   }
 }

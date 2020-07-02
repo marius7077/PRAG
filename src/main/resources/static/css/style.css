@@ -195,6 +195,10 @@ h1 {
     font-size: 1.2em;
 }
 
+.qlf-producer-description {
+    word-break: break-all;
+}
+
 .qlf-news {
     font-weight: bold;
 }

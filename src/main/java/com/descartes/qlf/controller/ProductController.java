@@ -9,6 +9,7 @@ import com.descartes.qlf.service.ProductCategoryService;
 import com.descartes.qlf.service.ProductService;
 import com.google.re2j.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,26 @@ public class ProductController {
 
   private final FileSystemStorageService fileSystemStorageService;
 
+  @Value("${controller.error}")
+  private String error;
+  @Value("${controller.product}")
+  private String product;
+
+  @Value("${controller.addproduct}")
+  private String addproduct;
+
+  @Value("${controller.removeproduct}")
+  private String removeproduct;
+
+  @Value("${controller.viewproducts}")
+  private String viewproducts;
+
+  @Value("${controller.viewproduct}")
+  private String viewproduct;
+
+  @Value("${controller.profile}")
+  private String profile;
+
   @Autowired
   public ProductController(FileSystemStorageService fileSystemStorageService) {
     this.fileSystemStorageService = fileSystemStorageService;
@@ -42,10 +63,10 @@ public class ProductController {
   public String addProduct(Model model, HttpServletRequest request) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     if (customer.getType().equals("producer")) {
-      return "addproduct";
+      return addproduct;
     } else {
       model.addAttribute("error", "Vous n'avez pas l'autorisation !");
-      return "error";
+      return error;
     }
   }
 
@@ -67,18 +88,18 @@ public class ProductController {
           || description.isEmpty()
           || typePrice.isEmpty()) {
         model.addAttribute("error", "Vous devez remplir les champs avant de valider !");
-        return "addproduct";
+        return addproduct;
       } else if (Objects.equals(file.getOriginalFilename(), "")) {
         model.addAttribute("error", "Vous devez choisir un fichier avant de valider !");
-        return "addproduct";
+        return addproduct;
       } else if (!Pattern.compile("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}").matcher(price).find()) {
         model.addAttribute("error", "Vous devez rentrer un prix en euro !");
-        return "addproduct";
+        return addproduct;
       } else {
         model.addAttribute("error", "");
         ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
         String filename = fileSystemStorageService.store(file);
-        Product product =
+        Product newProduct =
             new Product(
                 name,
                 description,
@@ -87,15 +108,15 @@ public class ProductController {
                 typePrice,
                 productCategoryRef,
                 customerService.getById(customer.getId()));
-        productService.save(product);
+        productService.save(newProduct);
         model.addAttribute("file", filename);
         List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
         model.addAttribute("listProducts", listProducts.toArray());
       }
-      return "profile";
+      return profile;
     } else {
       model.addAttribute("error", "Vous n'avez pas l'autorisation !");
-      return "error";
+      return error;
     }
   }
 
@@ -103,10 +124,10 @@ public class ProductController {
   public String removeProduct(Model model, HttpServletRequest request) {
     Customer customer = (Customer) request.getSession().getAttribute("customer");
     if (customer.getType().equals("producer")) {
-      return "removeproduct";
+      return removeproduct;
     } else {
       model.addAttribute("error", "Vous n'avez pas l'autorisation !");
-      return "error";
+      return error;
     }
   }
 
@@ -119,10 +140,10 @@ public class ProductController {
       productService.removeById(id);
       List<Product> listProducts = productService.getAllProductByCustomerId(customer.getId());
       model.addAttribute("listProducts", listProducts.toArray());
-      return "profile";
+      return profile;
     } else {
       model.addAttribute("error", "Vous n'avez pas l'autorisation !");
-      return "error";
+      return error;
     }
   }
 
@@ -145,7 +166,7 @@ public class ProductController {
         listProducts.subList(Math.max(listProducts.size() - 3, 0), listProducts.size());
     model.addAttribute("listProductsCarousel", listProductsCarousel.toArray());
     model.addAttribute("listProducts", listProducts.toArray());
-    return "viewproducts";
+    return viewproducts;
   }
 
   @PostMapping("/productcategory")
@@ -169,16 +190,14 @@ public class ProductController {
 
   @GetMapping("/product")
   public String product(@RequestParam(name = "productId") Long productId, Model model) {
-    Product product = productService.getById(productId);
-    model.addAttribute(product);
-    return "product";
+    model.addAttribute(productService.getById(productId));
+    return product;
   }
 
   @GetMapping("/viewproduct")
   public String viewproduct(@RequestParam(name = "productId") Long productId, Model model) {
-    Product product = productService.getById(productId);
-    model.addAttribute("product", product);
-    return "viewproduct";
+    model.addAttribute("product", productService.getById(productId));
+    return viewproduct;
   }
 
   @PostMapping("/editproductresult")
@@ -206,17 +225,17 @@ public class ProductController {
       } else if (!Pattern.compile("[0-9 ]{1,}[,.]{0,1}[0-9]{0,2}").matcher(price).find()) {
         model.addAttribute("error", "Vous devez rentrer un prix en euro !");
       } else {
-        Product product = productService.getById(id);
+        Product editProduct = productService.getById(id);
         ProductCategory productCategoryRef = productCategoryService.getById(productCategory);
-        product.setName(name);
-        product.setDescription(description);
-        product.setPrice(price);
-        product.setType(typePrice);
-        product.setCategory(productCategoryRef);
-        productService.save(product);
+        editProduct.setName(name);
+        editProduct.setDescription(description);
+        editProduct.setPrice(price);
+        editProduct.setType(typePrice);
+        editProduct.setCategory(productCategoryRef);
+        productService.save(editProduct);
       }
-      return "profile";
+      return profile;
     }
-    return "error";
+    return error;
   }
 }

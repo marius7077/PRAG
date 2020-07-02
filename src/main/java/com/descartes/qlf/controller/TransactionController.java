@@ -5,6 +5,7 @@ import com.descartes.qlf.model.Transaction;
 import com.descartes.qlf.service.CustomerService;
 import com.descartes.qlf.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,15 @@ public class TransactionController {
   @Autowired private TransactionService transactionService;
 
   @Autowired private CustomerService customerService;
+
+  @Value("${controller.index}")
+  private String index;
+
+  @Value("${controller.login}")
+  private String login;
+
+  @Value("${controller.billing}")
+  private String billing;
 
   @PostMapping("/billingconfirm")
   public String billing(
@@ -54,7 +64,7 @@ public class TransactionController {
           break;
         default:
           model.addAttribute("error", "Paiment invalide. Veuillez-contacter les administrateurs.");
-          return "billing";
+          return billing;
       }
       transactionService.save(
           new Transaction(
@@ -63,10 +73,10 @@ public class TransactionController {
       customerService.save(customer);
       // faire la vérif de validité
       // régler probleme affichage menu
-      return "index";
+      return index;
     } else {
       model.addAttribute("error", "Vous n'êtes pas connectés");
-      return "login";
+      return login;
     }
   }
 }
