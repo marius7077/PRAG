@@ -57,7 +57,7 @@ public class TransactionController {
           price = 14.99;
           break;
         case "3":
-          price = 39.99;
+          price = 42.99;
           break;
         case "12":
           price = 149.99;
